@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.28307.1401
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADObjectCreatorUI", "CADObjectCreatorUI\CADObjectCreatorUI.csproj", "{53E5C1D7-32C6-4D88-B3C7-D4D7CA8DE5DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADObjectCreator", "CADObjectCreator\CADObjectCreator.csproj", "{CFD3CAE5-DC57-4108-9922-B8F91B6A3D64}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{B3CDC5F2-E385-4D29-8DE7-0BD6E27453AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADObjectCreatorParameters", "CADObjectCreatorParameters\CADObjectCreatorParameters.csproj", "{0A7951B7-D0F5-455E-BF3F-79191C99768A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADObjectCreatorBuilder", "CADObjectCreatorBuilder\CADObjectCreatorBuilder.csproj", "{7E8546BA-2A78-4B17-8C38-85C6B5860911}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +21,18 @@ Global
 		{53E5C1D7-32C6-4D88-B3C7-D4D7CA8DE5DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53E5C1D7-32C6-4D88-B3C7-D4D7CA8DE5DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53E5C1D7-32C6-4D88-B3C7-D4D7CA8DE5DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CFD3CAE5-DC57-4108-9922-B8F91B6A3D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFD3CAE5-DC57-4108-9922-B8F91B6A3D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CFD3CAE5-DC57-4108-9922-B8F91B6A3D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CFD3CAE5-DC57-4108-9922-B8F91B6A3D64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B3CDC5F2-E385-4D29-8DE7-0BD6E27453AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B3CDC5F2-E385-4D29-8DE7-0BD6E27453AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3CDC5F2-E385-4D29-8DE7-0BD6E27453AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3CDC5F2-E385-4D29-8DE7-0BD6E27453AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A7951B7-D0F5-455E-BF3F-79191C99768A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A7951B7-D0F5-455E-BF3F-79191C99768A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A7951B7-D0F5-455E-BF3F-79191C99768A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A7951B7-D0F5-455E-BF3F-79191C99768A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E8546BA-2A78-4B17-8C38-85C6B5860911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E8546BA-2A78-4B17-8C38-85C6B5860911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E8546BA-2A78-4B17-8C38-85C6B5860911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E8546BA-2A78-4B17-8C38-85C6B5860911}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

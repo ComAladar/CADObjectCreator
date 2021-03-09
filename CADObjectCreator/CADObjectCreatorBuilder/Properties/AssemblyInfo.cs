@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CADObjectCreator")]
+[assembly: AssemblyTitle("CADObjectCreatorBuilder")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CADObjectCreator")]
+[assembly: AssemblyProduct("CADObjectCreatorBuilder")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("cfd3cae5-dc57-4108-9922-b8f91b6a3d64")]
+[assembly: Guid("7e8546ba-2a78-4b17-8c38-85c6b5860911")]
 
 // Version information for an assembly consists of the following four values:
 //

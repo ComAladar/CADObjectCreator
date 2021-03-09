@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADObjectCreator
+namespace CADObjectCreatorBuilder
 {
     public class Class1
     {
