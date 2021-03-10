@@ -21,6 +21,10 @@ namespace CADObjectCreatorParameters
             }
             set
             {
+                if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Имя не может быть null или пустым!");
+                }
                 _name = value;
             }
         }
@@ -34,7 +38,13 @@ namespace CADObjectCreatorParameters
             }
             set
             {
-                _min = value;
+                //Минимум не равен максимум && Максимум не меньше минимума
+                var comparerResult = Comparer<T>.Default.Compare(_max,value );
+                if (comparerResult < 0)
+                {
+                    throw new ArgumentException();
+                }
+                else _min = value;
             }
         }
 
@@ -46,7 +56,13 @@ namespace CADObjectCreatorParameters
             }
             set
             {
-                _max = value;
+                //Максимум не равне минимуму && Минимум не больше максимума
+                var comparerResult = Comparer<T>.Default.Compare(_min, value);
+                if (comparerResult > 0)
+                {
+                    throw new ArgumentException();
+                }
+                else _max = value;
             }
         }
 
@@ -58,12 +74,25 @@ namespace CADObjectCreatorParameters
             }
             set
             {
+                var ComparerResultMin = Comparer<T>.Default.Compare(_min, value);
+                if (ComparerResultMin > 0)
+                {
+                    throw new ArgumentException();
+                }
+
+                var ComparerResultMax = Comparer<T>.Default.Compare(_max, value);
+                if (ComparerResultMax < 0)
+                {
+                    throw new ArgumentException();
+                }
                 _value = value;
             }
         }
 
         public ParameterBase(string name, T min, T max, T value)
         {
+            _min = min;
+            _max = max;
             Name = name;
             Min = min;
             Max = max;
