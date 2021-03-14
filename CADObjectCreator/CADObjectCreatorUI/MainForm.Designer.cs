@@ -70,6 +70,8 @@
             this.ShelfLengthTextBox.Size = new System.Drawing.Size(100, 20);
             this.ShelfLengthTextBox.TabIndex = 0;
             this.ShelfLengthTextBox.Text = "420";
+            this.ShelfLengthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxOnlyDouble);
+            this.ShelfLengthTextBox.Leave += new System.EventHandler(this.TextBoxLeaveVerify);
             // 
             // ShelfHeightTextBox
             // 
@@ -78,6 +80,7 @@
             this.ShelfHeightTextBox.Size = new System.Drawing.Size(100, 20);
             this.ShelfHeightTextBox.TabIndex = 1;
             this.ShelfHeightTextBox.Text = "20";
+            this.ShelfHeightTextBox.Leave += new System.EventHandler(this.TextBoxLeaveVerify);
             // 
             // ShelfBindingHeightTextBox
             // 
@@ -86,6 +89,7 @@
             this.ShelfBindingHeightTextBox.Size = new System.Drawing.Size(100, 20);
             this.ShelfBindingHeightTextBox.TabIndex = 2;
             this.ShelfBindingHeightTextBox.Text = "160";
+            this.ShelfBindingHeightTextBox.Leave += new System.EventHandler(this.TextBoxLeaveVerify);
             // 
             // ShelfWidthTextBox
             // 
@@ -94,6 +98,7 @@
             this.ShelfWidthTextBox.Size = new System.Drawing.Size(100, 20);
             this.ShelfWidthTextBox.TabIndex = 3;
             this.ShelfWidthTextBox.Text = "190";
+            this.ShelfWidthTextBox.Leave += new System.EventHandler(this.TextBoxLeaveVerify);
             // 
             // ShelfLegsHeightTextBox
             // 
@@ -102,6 +107,7 @@
             this.ShelfLegsHeightTextBox.Size = new System.Drawing.Size(100, 20);
             this.ShelfLegsHeightTextBox.TabIndex = 4;
             this.ShelfLegsHeightTextBox.Text = "40";
+            this.ShelfLegsHeightTextBox.Leave += new System.EventHandler(this.TextBoxLeaveVerify);
             // 
             // ConstructButton
             // 

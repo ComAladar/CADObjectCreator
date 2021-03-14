@@ -77,13 +77,13 @@ namespace CADObjectCreatorParameters
                 var ComparerResultMin = Comparer<T>.Default.Compare(_min, value);
                 if (ComparerResultMin > 0)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Введенное значение должно быть больше чем "+ _min);
                 }
 
                 var ComparerResultMax = Comparer<T>.Default.Compare(_max, value);
                 if (ComparerResultMax < 0)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Введенное значение должно быть меньше чем " +_max);
                 }
                 _value = value;
             }

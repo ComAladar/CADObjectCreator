@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CADObjectCreatorParameters;
@@ -14,6 +16,7 @@ namespace CADObjectCreatorUI
     public partial class MainForm : Form
     {
         private Parameters Parameters = new Parameters();
+        private readonly Dictionary<TextBox, Action<ParametersList, string>> _textBoxDictionary;
 
         private void LabelTextFillUp()
         {
@@ -52,17 +55,60 @@ namespace CADObjectCreatorUI
             }
             catch(ArgumentException exception)
             {
-                MessageBox.Show(exception.Message.ToString());
+                MessageBox.Show(exception.Message);
             }
         }
 
- 
+        private void TextBoxSetColor()
+        {
+            ShelfLengthTextBox.BackColor = Color.White;
+            ShelfWidthTextBox.BackColor = Color.White;
+            ShelfHeightTextBox.BackColor = Color.White;
+            ShelfLegsHeightTextBox.BackColor = Color.White;
+            ShelfBindingHeightTextBox.BackColor = Color.White;
+        }
 
+        private string DoubleTypeCheck(string value)
+        {
+            var tempValue = string.Empty;
+            var match = Regex.Match(value, @"[0-9]+\,[0-9]+");
+            if (match.Success)
+            {
+                value = match.Value;
+            }
+            return value;
+        }
+
+        
         public MainForm()
         {
             InitializeComponent();
             LabelTextFillUp();
             TextBoxFillUp();
+            _textBoxDictionary = new Dictionary<TextBox, Action<ParametersList, string>>()
+            {
+                {
+                    ShelfLengthTextBox,
+                    (ParametersList tempList, string text) => {tempList["ShelfLength"] = Double.Parse(text);}
+                },
+                {
+                    ShelfWidthTextBox,
+                    (ParametersList tempList, string text) => {tempList["ShelfWidth"] = Double.Parse(text);}
+                },
+                {
+                    ShelfHeightTextBox,
+                    (ParametersList tempList, string text) => {tempList["ShelfHeight"] = Double.Parse(text);}
+                },
+                {
+                    ShelfLegsHeightTextBox,
+                    (ParametersList tempList, string text) => {tempList["ShelfLegsHeight"] = Double.Parse(text);}
+                },
+                {
+                    ShelfBindingHeightTextBox,
+                    (ParametersList tempList, string text) => {tempList["ShelfBindingHeight"] = Double.Parse(text);}
+                }
+            };
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -77,6 +123,7 @@ namespace CADObjectCreatorUI
             ShelfHeightTextBox.Text = Parameters.ParametersList["ShelfHeight",false].ToString();
             ShelfLegsHeightTextBox.Text = Parameters.ParametersList["ShelfLegsHeight",false].ToString();
             ShelfBindingHeightTextBox.Text = Parameters.ParametersList["ShelfBindingHeight",false].ToString();
+            TextBoxSetColor();
         }
 
         private void SetMaxButton_Click(object sender, EventArgs e)
@@ -86,12 +133,41 @@ namespace CADObjectCreatorUI
             ShelfHeightTextBox.Text = Parameters.ParametersList["ShelfHeight",true].ToString();
             ShelfLegsHeightTextBox.Text = Parameters.ParametersList["ShelfLegsHeight",true].ToString();
             ShelfBindingHeightTextBox.Text = Parameters.ParametersList["ShelfBindingHeight",true].ToString();
+            TextBoxSetColor();
         }
 
         private void ConstructButton_Click(object sender, EventArgs e)
         {
             VerifyParameters();
+        }
 
+        private void TextBoxLeaveVerify(object sender, EventArgs e)
+        {
+            var currentTextBox = (TextBox)sender;
+            currentTextBox.Text=DoubleTypeCheck(currentTextBox.Text);
+            var currentAction = _textBoxDictionary[currentTextBox];
+            if (currentTextBox.Text != String.Empty)
+            {
+                try
+                {
+                    currentAction.Invoke(Parameters.ParametersList, currentTextBox.Text);
+                    currentTextBox.BackColor = Color.White;
+                }
+                catch (ArgumentException exception)
+                {
+                    currentTextBox.BackColor = Color.DarkRed;
+                    MessageBox.Show(exception.Message);
+                }
+            }
+        }
+
+        private void TextBoxOnlyDouble(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if (!Char.IsDigit(number) && number != 8 && number !=',') // цифры и клавиша BackSpace
+            {
+                e.Handled = true;
+            }
         }
     }
 }
