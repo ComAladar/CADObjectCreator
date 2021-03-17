@@ -80,6 +80,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CADObjectCreatorBuilder\CADObjectCreatorBuilder.csproj">
+      <Project>{7e8546ba-2a78-4b17-8c38-85c6b5860911}</Project>
+      <Name>CADObjectCreatorBuilder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CADObjectCreatorParameters\CADObjectCreatorParameters.csproj">
       <Project>{0a7951b7-d0f5-455e-bf3f-79191c99768a}</Project>
       <Name>CADObjectCreatorParameters</Name>

@@ -78,8 +78,9 @@
             this.ShelfHeightTextBox.Location = new System.Drawing.Point(380, 45);
             this.ShelfHeightTextBox.Name = "ShelfHeightTextBox";
             this.ShelfHeightTextBox.Size = new System.Drawing.Size(100, 20);
-            this.ShelfHeightTextBox.TabIndex = 1;
+            this.ShelfHeightTextBox.TabIndex = 2;
             this.ShelfHeightTextBox.Text = "20";
+            this.ShelfHeightTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxOnlyDouble);
             this.ShelfHeightTextBox.Leave += new System.EventHandler(this.TextBoxLeaveVerify);
             // 
             // ShelfBindingHeightTextBox
@@ -87,8 +88,9 @@
             this.ShelfBindingHeightTextBox.Location = new System.Drawing.Point(147, 35);
             this.ShelfBindingHeightTextBox.Name = "ShelfBindingHeightTextBox";
             this.ShelfBindingHeightTextBox.Size = new System.Drawing.Size(100, 20);
-            this.ShelfBindingHeightTextBox.TabIndex = 2;
+            this.ShelfBindingHeightTextBox.TabIndex = 4;
             this.ShelfBindingHeightTextBox.Text = "160";
+            this.ShelfBindingHeightTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxOnlyDouble);
             this.ShelfBindingHeightTextBox.Leave += new System.EventHandler(this.TextBoxLeaveVerify);
             // 
             // ShelfWidthTextBox
@@ -96,8 +98,9 @@
             this.ShelfWidthTextBox.Location = new System.Drawing.Point(200, 45);
             this.ShelfWidthTextBox.Name = "ShelfWidthTextBox";
             this.ShelfWidthTextBox.Size = new System.Drawing.Size(100, 20);
-            this.ShelfWidthTextBox.TabIndex = 3;
+            this.ShelfWidthTextBox.TabIndex = 1;
             this.ShelfWidthTextBox.Text = "190";
+            this.ShelfWidthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxOnlyDouble);
             this.ShelfWidthTextBox.Leave += new System.EventHandler(this.TextBoxLeaveVerify);
             // 
             // ShelfLegsHeightTextBox
@@ -105,8 +108,9 @@
             this.ShelfLegsHeightTextBox.Location = new System.Drawing.Point(6, 35);
             this.ShelfLegsHeightTextBox.Name = "ShelfLegsHeightTextBox";
             this.ShelfLegsHeightTextBox.Size = new System.Drawing.Size(100, 20);
-            this.ShelfLegsHeightTextBox.TabIndex = 4;
+            this.ShelfLegsHeightTextBox.TabIndex = 3;
             this.ShelfLegsHeightTextBox.Text = "40";
+            this.ShelfLegsHeightTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxOnlyDouble);
             this.ShelfLegsHeightTextBox.Leave += new System.EventHandler(this.TextBoxLeaveVerify);
             // 
             // ConstructButton
@@ -116,7 +120,7 @@
             this.ConstructButton.Location = new System.Drawing.Point(12, 239);
             this.ConstructButton.Name = "ConstructButton";
             this.ConstructButton.Size = new System.Drawing.Size(546, 45);
-            this.ConstructButton.TabIndex = 5;
+            this.ConstructButton.TabIndex = 7;
             this.ConstructButton.Text = "Построить";
             this.ConstructButton.UseVisualStyleBackColor = true;
             this.ConstructButton.Click += new System.EventHandler(this.ConstructButton_Click);
@@ -126,7 +130,7 @@
             this.SetMinButton.Location = new System.Drawing.Point(187, 19);
             this.SetMinButton.Name = "SetMinButton";
             this.SetMinButton.Size = new System.Drawing.Size(79, 33);
-            this.SetMinButton.TabIndex = 6;
+            this.SetMinButton.TabIndex = 5;
             this.SetMinButton.Text = "Min";
             this.SetMinButton.UseVisualStyleBackColor = true;
             this.SetMinButton.Click += new System.EventHandler(this.SetMinButton_Click);
@@ -136,7 +140,7 @@
             this.SetMaxButton.Location = new System.Drawing.Point(187, 61);
             this.SetMaxButton.Name = "SetMaxButton";
             this.SetMaxButton.Size = new System.Drawing.Size(79, 33);
-            this.SetMaxButton.TabIndex = 7;
+            this.SetMaxButton.TabIndex = 6;
             this.SetMaxButton.Text = "Max";
             this.SetMaxButton.UseVisualStyleBackColor = true;
             this.SetMaxButton.Click += new System.EventHandler(this.SetMaxButton_Click);

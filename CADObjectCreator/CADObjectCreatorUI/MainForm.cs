@@ -10,12 +10,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CADObjectCreatorParameters;
+using CADObjectCreatorBuilder;
 
 namespace CADObjectCreatorUI
 {
     public partial class MainForm : Form
     {
         private Parameters Parameters = new Parameters();
+        private Kompas3DBuilder KompasBuilder = new Kompas3DBuilder();
         private readonly Dictionary<TextBox, Action<ParametersList, string>> _textBoxDictionary;
 
         private void LabelTextFillUp()
@@ -55,7 +57,7 @@ namespace CADObjectCreatorUI
             }
             catch(ArgumentException exception)
             {
-                MessageBox.Show(exception.Message);
+                MessageBox.Show("Проверьте введенные параметры!","Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
             }
         }
 
@@ -70,7 +72,6 @@ namespace CADObjectCreatorUI
 
         private string DoubleTypeCheck(string value)
         {
-            var tempValue = string.Empty;
             var match = Regex.Match(value, @"[0-9]+\,[0-9]+");
             if (match.Success)
             {
@@ -139,6 +140,7 @@ namespace CADObjectCreatorUI
         private void ConstructButton_Click(object sender, EventArgs e)
         {
             VerifyParameters();
+            KompasBuilder.BuildObject(Parameters);
         }
 
         private void TextBoxLeaveVerify(object sender, EventArgs e)
