@@ -24,6 +24,7 @@ namespace CADObjectCreatorBuilder
 
         private void BuildMainBody(Parameters buildParameters)
         {
+            #region Создание Эскизов и выдавливание
             //ПЕРВАЯ ЧАСТЬ 
             ksEntity currentEntity = (ksEntity) _ksPart.GetDefaultEntity((short) Obj3dType.o3d_planeXOY);
             ksDocument2D document2D;
@@ -155,7 +156,8 @@ namespace CADObjectCreatorBuilder
 
             ExctrusionSketch(buildParameters.StaticParameters.BindingHeight, Sketch7, true);
             //КОНЕЦ СЕДЬМОЙ ЧАСТИ
-
+            #endregion
+            #region Создание Отверстий для обуви
             //ПЕРВОЕ ОТВЕРСТИЕ
             ksEntity innerEntity = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
             ksPlaneOffsetDefinition innerEntityDefinition = (ksPlaneOffsetDefinition)innerEntity.GetDefinition();
@@ -175,8 +177,6 @@ namespace CADObjectCreatorBuilder
 
             CutSketch(buildParameters.StaticParameters.ShelfBootsHeight, Sketch8, true);
 
-            //ПЕРВОЕ ОТВЕРСТИЕ
-
             //ВТОРОЕ ОТВЕРСТИЕ
             ksEntity innerEntity1 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
             ksPlaneOffsetDefinition innerEntityDefinition1 = (ksPlaneOffsetDefinition)innerEntity1.GetDefinition();
@@ -195,8 +195,6 @@ namespace CADObjectCreatorBuilder
             Sketch9Def.EndEdit();
 
             CutSketch(buildParameters.StaticParameters.ShelfBootsHeight, Sketch9,true);
-            
-            //ВТОРОЕ ОТВЕРСТИЕ
 
             //ТРЕТЬЕ ОТВЕРСТИЕ
             ksEntity innerEntity2 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
@@ -216,16 +214,13 @@ namespace CADObjectCreatorBuilder
             Sketch10Def.EndEdit();
 
             CutSketch(buildParameters.StaticParameters.ShelfBootsHeight, Sketch10, true);
-
-            //ТРЕТЬЕ ОТВЕРСТИЕ
-
-            //СОЗДАНИЕ УКЛОНОВ
+            #endregion
+            #region Создание Уклонов
             CreateIncline(buildParameters, 0);
             CreateIncline(buildParameters, 1);
             CreateIncline(buildParameters, 2);
-            //СОЗДАНИЕ УКЛОНОВ
-
-            //СОЗДАНИЕ СКРУГЛЕНИЙ
+            #endregion
+            #region Создание Скруглений
             var ShelfLength = buildParameters.ParametersList["ShelfLength"];
             var ShelfWidth = buildParameters.ParametersList["ShelfWidth"];
             var BindingHeight = buildParameters.ParametersList["ShelfBindingHeight"];
@@ -238,15 +233,10 @@ namespace CADObjectCreatorBuilder
             CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), 0);
             
             CreateFillet(buildParameters, 0, 0, LegsHeight);
-            
             CreateFillet(buildParameters, ShelfLength/2, ShelfWidth/2, LegsHeight+ShelfHeight);
-            
             CreateFillet(buildParameters, ShelfLength/2 -2, ShelfWidth/2 -2, LegsHeight+ShelfHeight+BindingHeight);
-
             CreateFillet(buildParameters, ShelfLength/2, ShelfWidth/2, LegsHeight + ShelfHeight + BindingHeight+ShelfHeight);
-
             CreateFillet(buildParameters, ShelfLength/2 -2, ShelfWidth/2 -2, LegsHeight + ShelfHeight + BindingHeight + ShelfHeight+BindingHeight);
-
             CreateFillet(buildParameters, ShelfLength/2, ShelfWidth/2, LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight+ShelfHeight);
 
 
@@ -254,10 +244,9 @@ namespace CADObjectCreatorBuilder
             CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), ((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
             CreateFillet(buildParameters, ((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
             CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
-
-            //СОЗДАНИЕ СКРУГЛЕНИЙ
+            #endregion
         }
-
+        #region Методы
         private void BuildRectangleSketch(Parameters buildParameters,ksDocument2D document)
         {
             document.ksLineSeg(buildParameters.ParametersList["ShelfLength"]/2, buildParameters.ParametersList["ShelfWidth"]/2, -buildParameters.ParametersList["ShelfLength"] / 2, buildParameters.ParametersList["ShelfWidth"] / 2,1);
@@ -380,29 +369,22 @@ namespace CADObjectCreatorBuilder
 
         private void CreateFillet(Parameters buildParameters,double x,double y,double z)
         {
-            // Получение интерфейса объекта скругление
             ksEntity entityFillet =
                 (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_fillet);
-            // Получаем интерфейс параметров объекта скругление
             ksFilletDefinition filletDefinition =
                 (ksFilletDefinition)entityFillet.GetDefinition();
-            // Радиус скругления 
             filletDefinition.radius = buildParameters.StaticParameters.FilletRadius;
-            // Не продолжать по касательным ребрам
             filletDefinition.tangent = true;
-            // Получаем массив граней объекта
             ksEntityCollection entityCollectionPart =
                 (ksEntityCollection)_ksPart.EntityCollection((short)Obj3dType.o3d_face);
-            // Получаем массив скругляемых граней
             ksEntityCollection entityCollectionFillet =
                 (ksEntityCollection)filletDefinition.array();
             entityCollectionFillet.Clear();
-            // Заполняем массив скругляемых объектов
             entityCollectionPart.SelectByPoint(x, -y, z);
             entityCollectionFillet.Add(entityCollectionPart.First());
-            // Создаем скругление
             entityFillet.Create();
         }
+        #endregion
 
     }
 }
