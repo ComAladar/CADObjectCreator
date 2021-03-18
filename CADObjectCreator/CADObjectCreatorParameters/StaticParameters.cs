@@ -11,5 +11,6 @@ namespace CADObjectCreatorParameters
         public int ShelfLegsRadius { get; private set; } = 20;
         public int ShelfBindingRadius { get; private set; } = 10;
         public int ShelfSlopeRadius { get; private set; } = 5;
+        public double FilletRadius { get; private set; } = 0.5;
     }
 }
