@@ -15,22 +15,14 @@ namespace CADObjectCreatorBuilder
     {
         private KompasObject _kompas;
         private ksDocument3D _document;
-
-        public KompasObject KompassObj
-        {
-            get
-            {
-                return _kompas;
-            }
-            set
-            {
-                _kompas = value;
-            }
-        }
+        private ksPart _ksPart;
 
         private void StartKompas()
         {
-
+            /*
+            string progId = "KOMPAS.Application.5";
+            _kompas = (KompasObject)Marshal.GetActiveObject(progId);
+            */
             if (_kompas == null)
             {
                 Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
@@ -50,6 +42,7 @@ namespace CADObjectCreatorBuilder
                     _document = (ksDocument3D)_kompas.Document3D();
                         _document.Create(false, true);
                         _document = (ksDocument3D)_kompas.ActiveDocument3D();
+                        _ksPart = (ksPart)_document.GetPart((short)Part_Type.pTop_Part);
                 }
                 else
                 {
@@ -62,10 +55,29 @@ namespace CADObjectCreatorBuilder
             }
         }
 
-        public void StartUp()
+        private void StartUp()
         {
             StartKompas();
             CreateDocument();
+        }
+
+        public Kompas3DConnector(ref KompasObject TempKompas,out ksPart TempPart)
+        {
+            if (TempKompas != null)
+            {
+                _kompas = TempKompas;
+            }
+            try
+            {
+                StartUp();
+            }
+            catch (Exception e)
+            {
+                _kompas = null;
+                StartUp();
+            }
+            TempKompas = _kompas;
+            TempPart = _ksPart;
         }
     }
 }
