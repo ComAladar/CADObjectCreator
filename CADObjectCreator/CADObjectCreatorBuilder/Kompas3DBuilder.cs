@@ -153,7 +153,7 @@ namespace CADObjectCreatorBuilder
             BuildBindingSketch(buildParameters, document2D);
             Sketch7Def.EndEdit();
 
-            ExctrusionSketch(10, Sketch7, true);
+            ExctrusionSketch(buildParameters.StaticParameters.BindingHeight, Sketch7, true);
             //КОНЕЦ СЕДЬМОЙ ЧАСТИ
 
             //ПЕРВОЕ ОТВЕРСТИЕ
@@ -173,7 +173,7 @@ namespace CADObjectCreatorBuilder
             BuildInnerParts(buildParameters, document2D);
             Sketch8Def.EndEdit();
 
-            CutSketch(10, Sketch8, true);
+            CutSketch(buildParameters.StaticParameters.ShelfBootsHeight, Sketch8, true);
 
             //ПЕРВОЕ ОТВЕРСТИЕ
 
@@ -194,7 +194,7 @@ namespace CADObjectCreatorBuilder
             BuildInnerParts(buildParameters, document2D);
             Sketch9Def.EndEdit();
 
-            CutSketch(10,Sketch9,true);
+            CutSketch(buildParameters.StaticParameters.ShelfBootsHeight, Sketch9,true);
             
             //ВТОРОЕ ОТВЕРСТИЕ
 
@@ -215,7 +215,7 @@ namespace CADObjectCreatorBuilder
             BuildInnerParts(buildParameters, document2D);
             Sketch10Def.EndEdit();
 
-            CutSketch(10, Sketch10, true);
+            CutSketch(buildParameters.StaticParameters.ShelfBootsHeight, Sketch10, true);
 
             //ТРЕТЬЕ ОТВЕРСТИЕ
 
@@ -232,10 +232,10 @@ namespace CADObjectCreatorBuilder
             var LegsHeight = buildParameters.ParametersList["ShelfLegsHeight"];
             var ShelfHeight = buildParameters.ParametersList["ShelfHeight"];
 
-            CreateFillet(buildParameters,(ShelfLength/2)-21.5,(ShelfWidth/2)-21.5,0);
-            CreateFillet(buildParameters, -((ShelfLength / 2) - 21.5), ((ShelfWidth / 2) - 21.5), 0);
-            CreateFillet(buildParameters, ((ShelfLength / 2) - 21.5), -((ShelfWidth / 2) - 21.5), 0);
-            CreateFillet(buildParameters, -((ShelfLength / 2) - 21.5), -((ShelfWidth / 2) - 21.5), 0);
+            CreateFillet(buildParameters,(ShelfLength/2)- buildParameters.StaticParameters.RadiusMargin, (ShelfWidth/2)- buildParameters.StaticParameters.RadiusMargin, 0);
+            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), ((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), 0);
+            CreateFillet(buildParameters, ((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), 0);
+            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), 0);
             
             CreateFillet(buildParameters, 0, 0, LegsHeight);
             
@@ -243,17 +243,17 @@ namespace CADObjectCreatorBuilder
             
             CreateFillet(buildParameters, ShelfLength/2 -2, ShelfWidth/2 -2, LegsHeight+ShelfHeight+BindingHeight);
 
-            CreateFillet(buildParameters, ShelfLength/2, ShelfWidth/2, LegsHeight + ShelfHeight + BindingHeight+ShelfHeight);//
+            CreateFillet(buildParameters, ShelfLength/2, ShelfWidth/2, LegsHeight + ShelfHeight + BindingHeight+ShelfHeight);
 
             CreateFillet(buildParameters, ShelfLength/2 -2, ShelfWidth/2 -2, LegsHeight + ShelfHeight + BindingHeight + ShelfHeight+BindingHeight);
 
             CreateFillet(buildParameters, ShelfLength/2, ShelfWidth/2, LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight+ShelfHeight);
 
 
-            CreateFillet(buildParameters, (ShelfLength / 2) - 21.5, (ShelfWidth / 2) - 21.5, LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
-            CreateFillet(buildParameters, -((ShelfLength / 2) - 21.5), ((ShelfWidth / 2) - 21.5), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
-            CreateFillet(buildParameters, ((ShelfLength / 2) - 21.5), -((ShelfWidth / 2) - 21.5), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
-            CreateFillet(buildParameters, -((ShelfLength / 2) - 21.5), -((ShelfWidth / 2) - 21.5), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
+            CreateFillet(buildParameters, (ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin, (ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin, LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
+            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), ((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
+            CreateFillet(buildParameters, ((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
+            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
 
             //СОЗДАНИЕ СКРУГЛЕНИЙ
         }
@@ -268,18 +268,18 @@ namespace CADObjectCreatorBuilder
 
         private void BuildLegsSketch(Parameters buildParameters, ksDocument2D document)
         {
-            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - 21.5, (buildParameters.ParametersList["ShelfWidth"] / 2) - 21.5, buildParameters.StaticParameters.ShelfLegsRadius, 1);
-            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - 21.5), (buildParameters.ParametersList["ShelfWidth"] / 2) - 21.5, buildParameters.StaticParameters.ShelfLegsRadius, 1);
-            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - 21.5, -((buildParameters.ParametersList["ShelfWidth"] / 2) - 21.5), buildParameters.StaticParameters.ShelfLegsRadius, 1);
-            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - 21.5), -((buildParameters.ParametersList["ShelfWidth"] / 2) - 21.5), buildParameters.StaticParameters.ShelfLegsRadius, 1);
+            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin, (buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin, buildParameters.StaticParameters.ShelfLegsRadius, 1);
+            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin), (buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin, buildParameters.StaticParameters.ShelfLegsRadius, 1);
+            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin, -((buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin), buildParameters.StaticParameters.ShelfLegsRadius, 1);
+            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin), -((buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin), buildParameters.StaticParameters.ShelfLegsRadius, 1);
         }
 
         private void BuildBindingSketch(Parameters buildParameters, ksDocument2D document)
         {
-            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - 21.5, (buildParameters.ParametersList["ShelfWidth"] / 2) - 21.5, buildParameters.StaticParameters.ShelfBindingRadius, 1);
-            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - 21.5), (buildParameters.ParametersList["ShelfWidth"] / 2) - 21.5, buildParameters.StaticParameters.ShelfBindingRadius, 1);
-            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - 21.5, -((buildParameters.ParametersList["ShelfWidth"] / 2) - 21.5), buildParameters.StaticParameters.ShelfBindingRadius, 1);
-            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - 21.5), -((buildParameters.ParametersList["ShelfWidth"] / 2) - 21.5), buildParameters.StaticParameters.ShelfBindingRadius, 1);
+            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin, (buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin, buildParameters.StaticParameters.ShelfBindingRadius, 1);
+            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin), (buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin, buildParameters.StaticParameters.ShelfBindingRadius, 1);
+            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin, -((buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin), buildParameters.StaticParameters.ShelfBindingRadius, 1);
+            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin), -((buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin), buildParameters.StaticParameters.ShelfBindingRadius, 1);
         }
 
         private void BuildInnerParts(Parameters buildParameters, ksDocument2D document)
@@ -358,19 +358,19 @@ namespace CADObjectCreatorBuilder
             var ShelfBinding = buildParameters.ParametersList["ShelfBindingHeight"];
             if (n == 0)
             {
-                var height = ShelfLegs+ShelfHeight-10;
+                var height = ShelfLegs+ShelfHeight-buildParameters.StaticParameters.ShelfBootsHeight;
                 collect.SelectByPoint(0, 0, height);
             }
 
             if (n == 1)
             {
-                var height = ShelfLegs+ShelfHeight+ShelfBinding+ShelfHeight-10;
+                var height = ShelfLegs+ShelfHeight+ShelfBinding+ShelfHeight- buildParameters.StaticParameters.ShelfBootsHeight;
                 collect.SelectByPoint(0, 0, height);
             }
 
             if (n == 2)
             {
-                var height = ShelfLegs+ShelfHeight+ShelfBinding+ShelfHeight+ShelfBinding+ShelfHeight-10;
+                var height = ShelfLegs+ShelfHeight+ShelfBinding+ShelfHeight+ShelfBinding+ShelfHeight- buildParameters.StaticParameters.ShelfBootsHeight;
                 collect.SelectByPoint(0, 0, height);
             }
             entColInc.Add(collect.GetByIndex(0));
