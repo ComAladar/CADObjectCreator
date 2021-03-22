@@ -15,10 +15,11 @@ namespace CADObjectCreatorBuilder
     {
         private ksPart _ksPart;
         private KompasObject _kompas;
+        private ksDocument3D _document3D;
 
         public void BuildObject(Parameters BuildParameters)
         {
-            Kompas3DConnector KompasConnector = new Kompas3DConnector(ref _kompas,out _ksPart);
+            Kompas3DConnector KompasConnector = new Kompas3DConnector(ref _kompas,ref _document3D,out _ksPart);
             BuildMainBody(BuildParameters);
         }
 
@@ -38,7 +39,7 @@ namespace CADObjectCreatorBuilder
             BuildLegsSketch(buildParameters,document2D);
             Sketch1Def.EndEdit();
 
-            ExctrusionSketch(buildParameters.ParametersList["ShelfLegsHeight"],Sketch1,true);
+            ExctrusionSketch(buildParameters["ShelfLegsHeight"],Sketch1,true);
             //КОНЕЦ ПЕРВОЙ ЧАСТИ
 
             //ВТОРАЯ ЧАСТЬ* 
@@ -46,7 +47,7 @@ namespace CADObjectCreatorBuilder
             ksPlaneOffsetDefinition newEntityDefinition = (ksPlaneOffsetDefinition) newEntity.GetDefinition();
             newEntityDefinition.SetPlane(currentEntity);
             newEntityDefinition.direction = false;
-            newEntityDefinition.offset = -buildParameters.ParametersList["ShelfLegsHeight"];
+            newEntityDefinition.offset = -buildParameters["ShelfLegsHeight"];
             newEntity.Create();
 
             ksEntity Sketch2 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
@@ -58,7 +59,7 @@ namespace CADObjectCreatorBuilder
             BuildRectangleSketch(buildParameters,document2D);
             Sketch2Def.EndEdit();
 
-            ExctrusionSketch(buildParameters.ParametersList["ShelfHeight"],Sketch2,true);
+            ExctrusionSketch(buildParameters["ShelfHeight"],Sketch2,true);
             //КОНЕЦ ВТОРОЙ ЧАСТИ
 
             //ТРЕТЬЯ ЧАСТЬ 
@@ -66,7 +67,7 @@ namespace CADObjectCreatorBuilder
             ksPlaneOffsetDefinition newEntityDefinition1 = (ksPlaneOffsetDefinition)newEntity1.GetDefinition();
             newEntityDefinition1.SetPlane(newEntity);
             newEntityDefinition1.direction = false;
-            newEntityDefinition1.offset = -buildParameters.ParametersList["ShelfBindingHeight"]-buildParameters.ParametersList["ShelfHeight"];
+            newEntityDefinition1.offset = -buildParameters["ShelfBindingHeight"]-buildParameters["ShelfHeight"];
             newEntity1.Create();
 
             ksEntity Sketch3 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
@@ -78,7 +79,7 @@ namespace CADObjectCreatorBuilder
             BuildBindingSketch(buildParameters, document2D);
             Sketch3Def.EndEdit();
 
-            ExctrusionSketch(buildParameters.ParametersList["ShelfBindingHeight"], Sketch3, false);
+            ExctrusionSketch(buildParameters["ShelfBindingHeight"], Sketch3, false);
             //КОНЕЦ ТРЕТЬЕЙ ЧАСТИ
 
             //ЧЕТВЕРТАЯ ЧАСТЬ* 
@@ -96,7 +97,7 @@ namespace CADObjectCreatorBuilder
             BuildRectangleSketch(buildParameters, document2D);
             Sketch4Def.EndEdit();
 
-            ExctrusionSketch(buildParameters.ParametersList["ShelfHeight"],Sketch4,true);
+            ExctrusionSketch(buildParameters["ShelfHeight"],Sketch4,true);
             //КОНЕЦ ЧЕТВЕРТОЙ ЧАСТИ
 
             //ПЯТАЯ ЧАСТЬ 
@@ -104,7 +105,7 @@ namespace CADObjectCreatorBuilder
             ksPlaneOffsetDefinition newEntityDefinition3 = (ksPlaneOffsetDefinition)newEntity3.GetDefinition();
             newEntityDefinition3.SetPlane(newEntity2);
             newEntityDefinition3.direction = false;
-            newEntityDefinition3.offset = -buildParameters.ParametersList["ShelfBindingHeight"]-buildParameters.ParametersList["ShelfHeight"];
+            newEntityDefinition3.offset = -buildParameters["ShelfBindingHeight"]-buildParameters["ShelfHeight"];
             newEntity3.Create();
 
             ksEntity Sketch5 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
@@ -116,7 +117,7 @@ namespace CADObjectCreatorBuilder
             BuildBindingSketch(buildParameters, document2D);
             Sketch5Def.EndEdit();
 
-            ExctrusionSketch(buildParameters.ParametersList["ShelfBindingHeight"], Sketch5, false);
+            ExctrusionSketch(buildParameters["ShelfBindingHeight"], Sketch5, false);
             //КОНЕЦ ПЯТОЙ ЧАСТИ
 
             //ШЕСТАЯ ЧАСТЬ*
@@ -134,7 +135,7 @@ namespace CADObjectCreatorBuilder
             BuildRectangleSketch(buildParameters, document2D);
             Sketch6Def.EndEdit();
 
-            ExctrusionSketch(buildParameters.ParametersList["ShelfHeight"], Sketch6, true);
+            ExctrusionSketch(buildParameters["ShelfHeight"], Sketch6, true);
             //КОНЕЦ ШЕСТАЯ ЧАСТЬ
 
             //СЕДЬМАЯ ЧАСТЬ
@@ -142,7 +143,7 @@ namespace CADObjectCreatorBuilder
             ksPlaneOffsetDefinition newEntityDefinition5 = (ksPlaneOffsetDefinition)newEntity5.GetDefinition();
             newEntityDefinition5.SetPlane(newEntity4);
             newEntityDefinition5.direction = false;
-            newEntityDefinition5.offset = -buildParameters.ParametersList["ShelfHeight"];
+            newEntityDefinition5.offset = -buildParameters["ShelfHeight"];
             newEntity5.Create();
 
             ksEntity Sketch7 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
@@ -154,7 +155,7 @@ namespace CADObjectCreatorBuilder
             BuildBindingSketch(buildParameters, document2D);
             Sketch7Def.EndEdit();
 
-            ExctrusionSketch(buildParameters.StaticParameters.BindingHeight, Sketch7, true);
+            ExctrusionSketch(buildParameters.ShelfBindingHeight, Sketch7, true);
             //КОНЕЦ СЕДЬМОЙ ЧАСТИ
             #endregion
             #region Создание Отверстий для обуви
@@ -163,7 +164,7 @@ namespace CADObjectCreatorBuilder
             ksPlaneOffsetDefinition innerEntityDefinition = (ksPlaneOffsetDefinition)innerEntity.GetDefinition();
             innerEntityDefinition.SetPlane(newEntity);
             innerEntityDefinition.direction = false;
-            innerEntityDefinition.offset = -buildParameters.ParametersList["ShelfHeight"];
+            innerEntityDefinition.offset = -buildParameters["ShelfHeight"];
             innerEntity.Create();
 
             ksEntity Sketch8 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
@@ -175,14 +176,14 @@ namespace CADObjectCreatorBuilder
             BuildInnerParts(buildParameters, document2D);
             Sketch8Def.EndEdit();
 
-            CutSketch(buildParameters.StaticParameters.ShelfBootsHeight, Sketch8, true);
+            CutSketch(buildParameters.ShelfBootsPlaceHeight, Sketch8, true);
 
             //ВТОРОЕ ОТВЕРСТИЕ
             ksEntity innerEntity1 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
             ksPlaneOffsetDefinition innerEntityDefinition1 = (ksPlaneOffsetDefinition)innerEntity1.GetDefinition();
             innerEntityDefinition1.SetPlane(newEntity1);
             innerEntityDefinition1.direction = false;
-            innerEntityDefinition1.offset = -buildParameters.ParametersList["ShelfHeight"];
+            innerEntityDefinition1.offset = -buildParameters["ShelfHeight"];
             innerEntity1.Create();
 
             ksEntity Sketch9 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
@@ -194,14 +195,14 @@ namespace CADObjectCreatorBuilder
             BuildInnerParts(buildParameters, document2D);
             Sketch9Def.EndEdit();
 
-            CutSketch(buildParameters.StaticParameters.ShelfBootsHeight, Sketch9,true);
+            CutSketch(buildParameters.ShelfBootsPlaceHeight, Sketch9,true);
 
             //ТРЕТЬЕ ОТВЕРСТИЕ
             ksEntity innerEntity2 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
             ksPlaneOffsetDefinition innerEntityDefinition2 = (ksPlaneOffsetDefinition)innerEntity2.GetDefinition();
             innerEntityDefinition2.SetPlane(newEntity4);
             innerEntityDefinition2.direction = false;
-            innerEntityDefinition2.offset = -buildParameters.ParametersList["ShelfHeight"];
+            innerEntityDefinition2.offset = -buildParameters["ShelfHeight"];
             innerEntity2.Create();
 
             ksEntity Sketch10 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
@@ -213,7 +214,7 @@ namespace CADObjectCreatorBuilder
             BuildInnerParts(buildParameters, document2D);
             Sketch10Def.EndEdit();
 
-            CutSketch(buildParameters.StaticParameters.ShelfBootsHeight, Sketch10, true);
+            CutSketch(buildParameters.ShelfBootsPlaceHeight, Sketch10, true);
             #endregion
             #region Создание Уклонов
             CreateIncline(buildParameters, 0);
@@ -221,16 +222,16 @@ namespace CADObjectCreatorBuilder
             CreateIncline(buildParameters, 2);
             #endregion
             #region Создание Скруглений
-            var ShelfLength = buildParameters.ParametersList["ShelfLength"];
-            var ShelfWidth = buildParameters.ParametersList["ShelfWidth"];
-            var BindingHeight = buildParameters.ParametersList["ShelfBindingHeight"];
-            var LegsHeight = buildParameters.ParametersList["ShelfLegsHeight"];
-            var ShelfHeight = buildParameters.ParametersList["ShelfHeight"];
+            var ShelfLength = buildParameters["ShelfLength"];
+            var ShelfWidth = buildParameters["ShelfWidth"];
+            var BindingHeight = buildParameters["ShelfBindingHeight"];
+            var LegsHeight = buildParameters["ShelfLegsHeight"];
+            var ShelfHeight = buildParameters["ShelfHeight"];
 
-            CreateFillet(buildParameters,(ShelfLength/2)- buildParameters.StaticParameters.RadiusMargin, (ShelfWidth/2)- buildParameters.StaticParameters.RadiusMargin, 0);
-            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), ((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), 0);
-            CreateFillet(buildParameters, ((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), 0);
-            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), 0);
+            CreateFillet(buildParameters,(ShelfLength/2)- buildParameters.RadiusMargin, (ShelfWidth/2)- buildParameters.RadiusMargin, 0);
+            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.RadiusMargin), ((ShelfWidth / 2) - buildParameters.RadiusMargin), 0);
+            CreateFillet(buildParameters, ((ShelfLength / 2) - buildParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.RadiusMargin), 0);
+            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.RadiusMargin), 0);
             
             CreateFillet(buildParameters, 0, 0, LegsHeight);
             CreateFillet(buildParameters, ShelfLength/2, ShelfWidth/2, LegsHeight+ShelfHeight);
@@ -240,43 +241,43 @@ namespace CADObjectCreatorBuilder
             CreateFillet(buildParameters, ShelfLength/2, ShelfWidth/2, LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight+ShelfHeight);
 
 
-            CreateFillet(buildParameters, (ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin, (ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin, LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
-            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), ((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
-            CreateFillet(buildParameters, ((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
-            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.StaticParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.StaticParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
+            CreateFillet(buildParameters, (ShelfLength / 2) - buildParameters.RadiusMargin, (ShelfWidth / 2) - buildParameters.RadiusMargin, LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
+            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.RadiusMargin), ((ShelfWidth / 2) - buildParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
+            CreateFillet(buildParameters, ((ShelfLength / 2) - buildParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
+            CreateFillet(buildParameters, -((ShelfLength / 2) - buildParameters.RadiusMargin), -((ShelfWidth / 2) - buildParameters.RadiusMargin), LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight+10);
             #endregion
         }
         #region Методы
         private void BuildRectangleSketch(Parameters buildParameters,ksDocument2D document)
         {
-            document.ksLineSeg(buildParameters.ParametersList["ShelfLength"]/2, buildParameters.ParametersList["ShelfWidth"]/2, -buildParameters.ParametersList["ShelfLength"] / 2, buildParameters.ParametersList["ShelfWidth"] / 2,1);
-            document.ksLineSeg(buildParameters.ParametersList["ShelfLength"] / 2, buildParameters.ParametersList["ShelfWidth"] / 2, buildParameters.ParametersList["ShelfLength"] / 2, -buildParameters.ParametersList["ShelfWidth"] / 2, 1);
-            document.ksLineSeg(buildParameters.ParametersList["ShelfLength"] / 2, -buildParameters.ParametersList["ShelfWidth"] / 2, -buildParameters.ParametersList["ShelfLength"] / 2, -buildParameters.ParametersList["ShelfWidth"] / 2, 1);
-            document.ksLineSeg(-buildParameters.ParametersList["ShelfLength"] / 2, -buildParameters.ParametersList["ShelfWidth"] / 2, -buildParameters.ParametersList["ShelfLength"] / 2, buildParameters.ParametersList["ShelfWidth"] / 2, 1);
+            document.ksLineSeg(buildParameters["ShelfLength"]/2, buildParameters["ShelfWidth"]/2, -buildParameters["ShelfLength"] / 2, buildParameters["ShelfWidth"] / 2,1);
+            document.ksLineSeg(buildParameters["ShelfLength"] / 2, buildParameters["ShelfWidth"] / 2, buildParameters["ShelfLength"] / 2, -buildParameters["ShelfWidth"] / 2, 1);
+            document.ksLineSeg(buildParameters["ShelfLength"] / 2, -buildParameters["ShelfWidth"] / 2, -buildParameters["ShelfLength"] / 2, -buildParameters["ShelfWidth"] / 2, 1);
+            document.ksLineSeg(-buildParameters["ShelfLength"] / 2, -buildParameters["ShelfWidth"] / 2, -buildParameters["ShelfLength"] / 2, buildParameters["ShelfWidth"] / 2, 1);
         }
 
         private void BuildLegsSketch(Parameters buildParameters, ksDocument2D document)
         {
-            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin, (buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin, buildParameters.StaticParameters.ShelfLegsRadius, 1);
-            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin), (buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin, buildParameters.StaticParameters.ShelfLegsRadius, 1);
-            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin, -((buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin), buildParameters.StaticParameters.ShelfLegsRadius, 1);
-            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin), -((buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin), buildParameters.StaticParameters.ShelfLegsRadius, 1);
+            document.ksCircle((buildParameters["ShelfLength"] / 2) - buildParameters.RadiusMargin, (buildParameters["ShelfWidth"] / 2) - buildParameters.RadiusMargin, buildParameters.ShelfLegsRadius, 1);
+            document.ksCircle(-((buildParameters["ShelfLength"] / 2) - buildParameters.RadiusMargin), (buildParameters["ShelfWidth"] / 2) - buildParameters.RadiusMargin, buildParameters.ShelfLegsRadius, 1);
+            document.ksCircle((buildParameters["ShelfLength"] / 2) - buildParameters.RadiusMargin, -((buildParameters["ShelfWidth"] / 2) - buildParameters.RadiusMargin), buildParameters.ShelfLegsRadius, 1);
+            document.ksCircle(-((buildParameters["ShelfLength"] / 2) - buildParameters.RadiusMargin), -((buildParameters["ShelfWidth"] / 2) - buildParameters.RadiusMargin), buildParameters.ShelfLegsRadius, 1);
         }
 
         private void BuildBindingSketch(Parameters buildParameters, ksDocument2D document)
         {
-            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin, (buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin, buildParameters.StaticParameters.ShelfBindingRadius, 1);
-            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin), (buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin, buildParameters.StaticParameters.ShelfBindingRadius, 1);
-            document.ksCircle((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin, -((buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin), buildParameters.StaticParameters.ShelfBindingRadius, 1);
-            document.ksCircle(-((buildParameters.ParametersList["ShelfLength"] / 2) - buildParameters.StaticParameters.RadiusMargin), -((buildParameters.ParametersList["ShelfWidth"] / 2) - buildParameters.StaticParameters.RadiusMargin), buildParameters.StaticParameters.ShelfBindingRadius, 1);
+            document.ksCircle((buildParameters["ShelfLength"] / 2) - buildParameters.RadiusMargin, (buildParameters["ShelfWidth"] / 2) - buildParameters.RadiusMargin, buildParameters.ShelfBindingRadius, 1);
+            document.ksCircle(-((buildParameters["ShelfLength"] / 2) - buildParameters.RadiusMargin), (buildParameters["ShelfWidth"] / 2) - buildParameters.RadiusMargin, buildParameters.ShelfBindingRadius, 1);
+            document.ksCircle((buildParameters["ShelfLength"] / 2) - buildParameters.RadiusMargin, -((buildParameters["ShelfWidth"] / 2) - buildParameters.RadiusMargin), buildParameters.ShelfBindingRadius, 1);
+            document.ksCircle(-((buildParameters["ShelfLength"] / 2) - buildParameters.RadiusMargin), -((buildParameters["ShelfWidth"] / 2) - buildParameters.RadiusMargin), buildParameters.ShelfBindingRadius, 1);
         }
 
         private void BuildInnerParts(Parameters buildParameters, ksDocument2D document)
         {
-            document.ksLineSeg(buildParameters.DependentParameters.ShelfBootsPlaceLength / 2, buildParameters.DependentParameters.ShelfBootsPlaceWidth / 2, -buildParameters.DependentParameters.ShelfBootsPlaceLength / 2, buildParameters.DependentParameters.ShelfBootsPlaceWidth / 2, 1);
-            document.ksLineSeg(buildParameters.DependentParameters.ShelfBootsPlaceLength / 2, buildParameters.DependentParameters.ShelfBootsPlaceWidth / 2, buildParameters.DependentParameters.ShelfBootsPlaceLength / 2, -buildParameters.DependentParameters.ShelfBootsPlaceWidth / 2, 1);
-            document.ksLineSeg(buildParameters.DependentParameters.ShelfBootsPlaceLength / 2, -buildParameters.DependentParameters.ShelfBootsPlaceWidth / 2, -buildParameters.DependentParameters.ShelfBootsPlaceLength / 2, -buildParameters.DependentParameters.ShelfBootsPlaceWidth / 2, 1);
-            document.ksLineSeg(-buildParameters.DependentParameters.ShelfBootsPlaceLength / 2, -buildParameters.DependentParameters.ShelfBootsPlaceWidth / 2, -buildParameters.DependentParameters.ShelfBootsPlaceLength / 2, buildParameters.DependentParameters.ShelfBootsPlaceWidth / 2, 1);
+            document.ksLineSeg(buildParameters.ShelfBootsPlaceLength / 2, buildParameters.ShelfBootsPlaceWidth / 2, -buildParameters.ShelfBootsPlaceLength / 2, buildParameters.ShelfBootsPlaceWidth / 2, 1);
+            document.ksLineSeg(buildParameters.ShelfBootsPlaceLength / 2, buildParameters.ShelfBootsPlaceWidth / 2, buildParameters.ShelfBootsPlaceLength / 2, -buildParameters.ShelfBootsPlaceWidth / 2, 1);
+            document.ksLineSeg(buildParameters.ShelfBootsPlaceLength / 2, -buildParameters.ShelfBootsPlaceWidth / 2, -buildParameters.ShelfBootsPlaceLength / 2, -buildParameters.ShelfBootsPlaceWidth / 2, 1);
+            document.ksLineSeg(-buildParameters.ShelfBootsPlaceLength / 2, -buildParameters.ShelfBootsPlaceWidth / 2, -buildParameters.ShelfBootsPlaceLength / 2, buildParameters.ShelfBootsPlaceWidth / 2, 1);
         }
 
         private void ExctrusionSketch(double depth, ksEntity Sketch,bool direction)
@@ -338,28 +339,28 @@ namespace CADObjectCreatorBuilder
             ksInclineDefinition incDef = (ksInclineDefinition)entInc.GetDefinition();
             ksEntityCollection collect = (ksEntityCollection)_ksPart.EntityCollection((short)Obj3dType.o3d_face);
             incDef.direction = true;
-            incDef.angle = buildParameters.StaticParameters.ShelfSlopeRadius; 
+            incDef.angle = buildParameters.ShelfSlopeRadius; 
             ksEntity currentEntity = (ksEntity)_ksPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
             incDef.SetPlane(currentEntity); 
             ksEntityCollection entColInc = (ksEntityCollection)incDef.FaceArray();
-            var ShelfLegs = buildParameters.ParametersList["ShelfLegsHeight"];
-            var ShelfHeight = buildParameters.ParametersList["ShelfHeight"];
-            var ShelfBinding = buildParameters.ParametersList["ShelfBindingHeight"];
+            var ShelfLegs = buildParameters["ShelfLegsHeight"];
+            var ShelfHeight = buildParameters["ShelfHeight"];
+            var ShelfBinding = buildParameters["ShelfBindingHeight"];
             if (n == 0)
             {
-                var height = ShelfLegs+ShelfHeight-buildParameters.StaticParameters.ShelfBootsHeight;
+                var height = ShelfLegs+ShelfHeight-buildParameters.ShelfBootsPlaceHeight;
                 collect.SelectByPoint(0, 0, height);
             }
 
             if (n == 1)
             {
-                var height = ShelfLegs+ShelfHeight+ShelfBinding+ShelfHeight- buildParameters.StaticParameters.ShelfBootsHeight;
+                var height = ShelfLegs+ShelfHeight+ShelfBinding+ShelfHeight- buildParameters.ShelfBootsPlaceHeight;
                 collect.SelectByPoint(0, 0, height);
             }
 
             if (n == 2)
             {
-                var height = ShelfLegs+ShelfHeight+ShelfBinding+ShelfHeight+ShelfBinding+ShelfHeight- buildParameters.StaticParameters.ShelfBootsHeight;
+                var height = ShelfLegs+ShelfHeight+ShelfBinding+ShelfHeight+ShelfBinding+ShelfHeight- buildParameters.ShelfBootsPlaceHeight;
                 collect.SelectByPoint(0, 0, height);
             }
             entColInc.Add(collect.GetByIndex(0));
@@ -373,7 +374,7 @@ namespace CADObjectCreatorBuilder
                 (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_fillet);
             ksFilletDefinition filletDefinition =
                 (ksFilletDefinition)entityFillet.GetDefinition();
-            filletDefinition.radius = buildParameters.StaticParameters.FilletRadius;
+            filletDefinition.radius = buildParameters.FilletRadius;
             filletDefinition.tangent = true;
             ksEntityCollection entityCollectionPart =
                 (ksEntityCollection)_ksPart.EntityCollection((short)Obj3dType.o3d_face);

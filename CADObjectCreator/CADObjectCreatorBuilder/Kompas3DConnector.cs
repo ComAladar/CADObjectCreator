@@ -13,11 +13,8 @@ namespace CADObjectCreatorBuilder
 {
     public class Kompas3DConnector
     {
-        private KompasObject _kompas;
-        private ksDocument3D _document;
-        private ksPart _ksPart;
 
-        private void StartKompas()
+        private void StartKompas(ref KompasObject _kompas)
         {
             /*
             string progId = "KOMPAS.Application.5";
@@ -33,7 +30,7 @@ namespace CADObjectCreatorBuilder
             
         }
 
-        private void CreateDocument()
+        private void CreateDocument(ref KompasObject _kompas,ref ksDocument3D _document,out ksPart _ksPart)
         {
             try
             {
@@ -55,29 +52,24 @@ namespace CADObjectCreatorBuilder
             }
         }
 
-        private void StartUp()
+        private void StartUp(ref KompasObject _kompas,ref ksDocument3D _document, out ksPart _ksPart)
         {
-            StartKompas();
-            CreateDocument();
+            StartKompas(ref _kompas);
+            CreateDocument(ref _kompas,ref _document,out _ksPart);
         }
 
-        public Kompas3DConnector(ref KompasObject TempKompas,out ksPart TempPart)
+        public Kompas3DConnector(ref KompasObject TempKompas,ref ksDocument3D TempDocument,out ksPart TempPart)
         {
-            if (TempKompas != null)
-            {
-                _kompas = TempKompas;
-            }
             try
             {
-                StartUp();
+                StartUp(ref TempKompas, ref TempDocument, out TempPart);
             }
-            catch (Exception e)
+            catch
             {
-                _kompas = null;
-                StartUp();
+                TempKompas = null;
+                StartUp(ref TempKompas, ref TempDocument, out TempPart);
             }
-            TempKompas = _kompas;
-            TempPart = _ksPart;
         }
-    }
+        
+        }
 }

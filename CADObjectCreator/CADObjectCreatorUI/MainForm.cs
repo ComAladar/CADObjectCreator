@@ -16,44 +16,44 @@ namespace CADObjectCreatorUI
 {
     public partial class MainForm : Form
     {
-        private Parameters Parameters = new Parameters();
-        private Kompas3DBuilder KompasBuilder = new Kompas3DBuilder();
-        private readonly Dictionary<TextBox, Action<ParametersList, string>> _textBoxDictionary;
+        private Parameters _parameters = new Parameters();
+        private Kompas3DBuilder _kompasBuilder = new Kompas3DBuilder();
+        private readonly Dictionary<TextBox, Action<Parameters, string>> _textBoxDictionary;
 
         private void LabelTextFillUp()
         {
-            ShelfMinLength.Text = "Минимальная длина: " + Parameters.ParametersList["ShelfLength", false] + " мм";
-            ShelfMaxLength.Text = "Максимальная длина: " + Parameters.ParametersList["ShelfLength", true] + " мм";
-            ShelfMinWidth.Text = "Минимальная ширина: " + Parameters.ParametersList["ShelfWidth", false] + " мм";
-            ShelfMaxWidth.Text = "Максимальная ширина: " + Parameters.ParametersList["ShelfWidth", true] + " мм";
-            ShelfMinHeight.Text = "Минимальная высота: " + Parameters.ParametersList["ShelfHeight", false] + " мм";
-            ShelfMaxHeight.Text = "Максимальная высота: " + Parameters.ParametersList["ShelfHeight", true] + " мм";
-            ShelfLegsMinHeight.Text ="Минимальная: " + Parameters.ParametersList["ShelfLegsHeight",false] + " мм";
-            ShelfLegsMaxHeight.Text ="Максимальная: " + Parameters.ParametersList["ShelfLegsHeight",true] + " мм";
-            ShelfBindingMinHeight.Text ="Минимальная: " + Parameters.ParametersList["ShelfBindingHeight",false] + " мм";
-            ShelfBindingMaxHeight.Text ="Максимальная: " + Parameters.ParametersList["ShelfBindingHeight", true] + " мм";
+            ShelfMinLength.Text = "Минимальная: " + _parameters["ShelfLength", false] + " мм";
+            ShelfMaxLength.Text = "Максимальная: " + _parameters["ShelfLength", true] + " мм";
+            ShelfMinWidth.Text = "Минимальная: " + _parameters["ShelfWidth", false] + " мм";
+            ShelfMaxWidth.Text = "Максимальная: " + _parameters["ShelfWidth", true] + " мм";
+            ShelfMinHeight.Text = "Минимальная: " + _parameters["ShelfHeight", false] + " мм";
+            ShelfMaxHeight.Text = "Максимальная: " + _parameters["ShelfHeight", true] + " мм";
+            ShelfLegsMinHeight.Text ="Минимальная: " + _parameters["ShelfLegsHeight",false] + " мм";
+            ShelfLegsMaxHeight.Text ="Максимальная: " + _parameters["ShelfLegsHeight",true] + " мм";
+            ShelfBindingMinHeight.Text ="Минимальная: " + _parameters["ShelfBindingHeight",false] + " мм";
+            ShelfBindingMaxHeight.Text ="Максимальная: " + _parameters["ShelfBindingHeight", true] + " мм";
         }
 
         private void TextBoxFillUp()
         {
-            ShelfLengthTextBox.Text =Parameters.ParametersList["ShelfLength"].ToString();
-            ShelfWidthTextBox.Text =Parameters.ParametersList["ShelfWidth"].ToString();
-            ShelfHeightTextBox.Text =Parameters.ParametersList["ShelfHeight"].ToString();
-            ShelfLegsHeightTextBox.Text = Parameters.ParametersList["ShelfLegsHeight"].ToString();
-            ShelfBindingHeightTextBox.Text =Parameters.ParametersList["ShelfBindingHeight"].ToString();
+            ShelfLengthTextBox.Text = _parameters["ShelfLength"].ToString();
+            ShelfWidthTextBox.Text = _parameters["ShelfWidth"].ToString();
+            ShelfHeightTextBox.Text = _parameters["ShelfHeight"].ToString();
+            ShelfLegsHeightTextBox.Text = _parameters["ShelfLegsHeight"].ToString();
+            ShelfBindingHeightTextBox.Text = _parameters["ShelfBindingHeight"].ToString();
         }
 
         private void VerifyParameters()
         {
             try
             {
-                Parameters.ParametersList["ShelfLength"] = Double.Parse(ShelfLengthTextBox.Text);
-                Parameters.ParametersList["ShelfWidth"] = Double.Parse(ShelfWidthTextBox.Text);
-                Parameters.ParametersList["ShelfHeight"] = Double.Parse(ShelfHeightTextBox.Text);
-                Parameters.ParametersList["ShelfLegsHeight"] = Double.Parse(ShelfLegsHeightTextBox.Text);
-                Parameters.ParametersList["ShelfBindingHeight"] = Double.Parse(ShelfBindingHeightTextBox.Text);
-                Parameters.DependentParameters.ShelfBootsPlaceLength = Parameters.ParametersList["ShelfLength"];
-                Parameters.DependentParameters.ShelfBootsPlaceWidth = Parameters.ParametersList["ShelfWidth"];
+                _parameters["ShelfLength"] = Double.Parse(ShelfLengthTextBox.Text);
+                _parameters["ShelfWidth"] = Double.Parse(ShelfWidthTextBox.Text);
+                _parameters["ShelfHeight"] = Double.Parse(ShelfHeightTextBox.Text);
+                _parameters["ShelfLegsHeight"] = Double.Parse(ShelfLegsHeightTextBox.Text);
+                _parameters["ShelfBindingHeight"] = Double.Parse(ShelfBindingHeightTextBox.Text);
+                _parameters.ShelfBootsPlaceLength = _parameters["ShelfLength"];
+                _parameters.ShelfBootsPlaceWidth = _parameters["ShelfWidth"];
             }
             catch(ArgumentException exception)
             {
@@ -86,27 +86,27 @@ namespace CADObjectCreatorUI
             InitializeComponent();
             LabelTextFillUp();
             TextBoxFillUp();
-            _textBoxDictionary = new Dictionary<TextBox, Action<ParametersList, string>>()
+            _textBoxDictionary = new Dictionary<TextBox, Action<Parameters, string>>()
             {
                 {
                     ShelfLengthTextBox,
-                    (ParametersList tempList, string text) => {tempList["ShelfLength"] = Double.Parse(text);}
+                    (tempList, text) => {tempList["ShelfLength"] = Double.Parse(text);}
                 },
                 {
                     ShelfWidthTextBox,
-                    (ParametersList tempList, string text) => {tempList["ShelfWidth"] = Double.Parse(text);}
+                    (tempList, text) => {tempList["ShelfWidth"] = Double.Parse(text);}
                 },
                 {
                     ShelfHeightTextBox,
-                    (ParametersList tempList, string text) => {tempList["ShelfHeight"] = Double.Parse(text);}
+                    (tempList, text) => {tempList["ShelfHeight"] = Double.Parse(text);}
                 },
                 {
                     ShelfLegsHeightTextBox,
-                    (ParametersList tempList, string text) => {tempList["ShelfLegsHeight"] = Double.Parse(text);}
+                    (tempList, text) => {tempList["ShelfLegsHeight"] = Double.Parse(text);}
                 },
                 {
                     ShelfBindingHeightTextBox,
-                    (ParametersList tempList, string text) => {tempList["ShelfBindingHeight"] = Double.Parse(text);}
+                    (tempList, text) => {tempList["ShelfBindingHeight"] = Double.Parse(text);}
                 }
             };
 
@@ -119,28 +119,28 @@ namespace CADObjectCreatorUI
 
         private void SetMinButton_Click(object sender, EventArgs e)
         {
-            ShelfLengthTextBox.Text = Parameters.ParametersList["ShelfLength",false].ToString();
-            ShelfWidthTextBox.Text = Parameters.ParametersList["ShelfWidth",false].ToString();
-            ShelfHeightTextBox.Text = Parameters.ParametersList["ShelfHeight",false].ToString();
-            ShelfLegsHeightTextBox.Text = Parameters.ParametersList["ShelfLegsHeight",false].ToString();
-            ShelfBindingHeightTextBox.Text = Parameters.ParametersList["ShelfBindingHeight",false].ToString();
+            ShelfLengthTextBox.Text = _parameters["ShelfLength",false].ToString();
+            ShelfWidthTextBox.Text = _parameters["ShelfWidth",false].ToString();
+            ShelfHeightTextBox.Text = _parameters["ShelfHeight",false].ToString();
+            ShelfLegsHeightTextBox.Text = _parameters["ShelfLegsHeight",false].ToString();
+            ShelfBindingHeightTextBox.Text = _parameters["ShelfBindingHeight",false].ToString();
             TextBoxSetColor();
         }
 
         private void SetMaxButton_Click(object sender, EventArgs e)
         {
-            ShelfLengthTextBox.Text = Parameters.ParametersList["ShelfLength",true].ToString();
-            ShelfWidthTextBox.Text = Parameters.ParametersList["ShelfWidth",true].ToString();
-            ShelfHeightTextBox.Text = Parameters.ParametersList["ShelfHeight",true].ToString();
-            ShelfLegsHeightTextBox.Text = Parameters.ParametersList["ShelfLegsHeight",true].ToString();
-            ShelfBindingHeightTextBox.Text = Parameters.ParametersList["ShelfBindingHeight",true].ToString();
+            ShelfLengthTextBox.Text = _parameters["ShelfLength",true].ToString();
+            ShelfWidthTextBox.Text = _parameters["ShelfWidth",true].ToString();
+            ShelfHeightTextBox.Text = _parameters["ShelfHeight",true].ToString();
+            ShelfLegsHeightTextBox.Text = _parameters["ShelfLegsHeight",true].ToString();
+            ShelfBindingHeightTextBox.Text = _parameters["ShelfBindingHeight",true].ToString();
             TextBoxSetColor();
         }
 
         private void ConstructButton_Click(object sender, EventArgs e)
         {
             VerifyParameters();
-            KompasBuilder.BuildObject(Parameters);
+            _kompasBuilder.BuildObject(_parameters);
         }
 
         private void TextBoxLeaveVerify(object sender, EventArgs e)
@@ -152,7 +152,7 @@ namespace CADObjectCreatorUI
             {
                 try
                 {
-                    currentAction.Invoke(Parameters.ParametersList, currentTextBox.Text);
+                    currentAction.Invoke(_parameters, currentTextBox.Text);
                     currentTextBox.BackColor = Color.White;
                 }
                 catch (ArgumentException exception)

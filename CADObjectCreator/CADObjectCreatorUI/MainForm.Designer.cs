@@ -65,7 +65,7 @@
             // 
             this.ShelfLengthTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.ShelfLengthTextBox.Location = new System.Drawing.Point(20, 45);
+            this.ShelfLengthTextBox.Location = new System.Drawing.Point(9, 32);
             this.ShelfLengthTextBox.Name = "ShelfLengthTextBox";
             this.ShelfLengthTextBox.Size = new System.Drawing.Size(100, 20);
             this.ShelfLengthTextBox.TabIndex = 0;
@@ -75,7 +75,7 @@
             // 
             // ShelfHeightTextBox
             // 
-            this.ShelfHeightTextBox.Location = new System.Drawing.Point(380, 45);
+            this.ShelfHeightTextBox.Location = new System.Drawing.Point(9, 203);
             this.ShelfHeightTextBox.Name = "ShelfHeightTextBox";
             this.ShelfHeightTextBox.Size = new System.Drawing.Size(100, 20);
             this.ShelfHeightTextBox.TabIndex = 2;
@@ -85,7 +85,7 @@
             // 
             // ShelfBindingHeightTextBox
             // 
-            this.ShelfBindingHeightTextBox.Location = new System.Drawing.Point(147, 35);
+            this.ShelfBindingHeightTextBox.Location = new System.Drawing.Point(9, 117);
             this.ShelfBindingHeightTextBox.Name = "ShelfBindingHeightTextBox";
             this.ShelfBindingHeightTextBox.Size = new System.Drawing.Size(100, 20);
             this.ShelfBindingHeightTextBox.TabIndex = 4;
@@ -95,7 +95,7 @@
             // 
             // ShelfWidthTextBox
             // 
-            this.ShelfWidthTextBox.Location = new System.Drawing.Point(200, 45);
+            this.ShelfWidthTextBox.Location = new System.Drawing.Point(9, 117);
             this.ShelfWidthTextBox.Name = "ShelfWidthTextBox";
             this.ShelfWidthTextBox.Size = new System.Drawing.Size(100, 20);
             this.ShelfWidthTextBox.TabIndex = 1;
@@ -105,7 +105,7 @@
             // 
             // ShelfLegsHeightTextBox
             // 
-            this.ShelfLegsHeightTextBox.Location = new System.Drawing.Point(6, 35);
+            this.ShelfLegsHeightTextBox.Location = new System.Drawing.Point(9, 32);
             this.ShelfLegsHeightTextBox.Name = "ShelfLegsHeightTextBox";
             this.ShelfLegsHeightTextBox.Size = new System.Drawing.Size(100, 20);
             this.ShelfLegsHeightTextBox.TabIndex = 3;
@@ -115,11 +115,13 @@
             // 
             // ConstructButton
             // 
-            this.ConstructButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.ConstructButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ConstructButton.Location = new System.Drawing.Point(12, 239);
+            this.ConstructButton.Location = new System.Drawing.Point(406, 267);
+            this.ConstructButton.MinimumSize = new System.Drawing.Size(230, 45);
             this.ConstructButton.Name = "ConstructButton";
-            this.ConstructButton.Size = new System.Drawing.Size(546, 45);
+            this.ConstructButton.Size = new System.Drawing.Size(230, 45);
             this.ConstructButton.TabIndex = 7;
             this.ConstructButton.Text = "Построить";
             this.ConstructButton.UseVisualStyleBackColor = true;
@@ -127,21 +129,21 @@
             // 
             // SetMinButton
             // 
-            this.SetMinButton.Location = new System.Drawing.Point(187, 19);
+            this.SetMinButton.Location = new System.Drawing.Point(9, 39);
             this.SetMinButton.Name = "SetMinButton";
-            this.SetMinButton.Size = new System.Drawing.Size(79, 33);
+            this.SetMinButton.Size = new System.Drawing.Size(215, 33);
             this.SetMinButton.TabIndex = 5;
-            this.SetMinButton.Text = "Min";
+            this.SetMinButton.Text = "Выставить минимумы";
             this.SetMinButton.UseVisualStyleBackColor = true;
             this.SetMinButton.Click += new System.EventHandler(this.SetMinButton_Click);
             // 
             // SetMaxButton
             // 
-            this.SetMaxButton.Location = new System.Drawing.Point(187, 61);
+            this.SetMaxButton.Location = new System.Drawing.Point(9, 94);
             this.SetMaxButton.Name = "SetMaxButton";
-            this.SetMaxButton.Size = new System.Drawing.Size(79, 33);
+            this.SetMaxButton.Size = new System.Drawing.Size(215, 33);
             this.SetMaxButton.TabIndex = 6;
-            this.SetMaxButton.Text = "Max";
+            this.SetMaxButton.Text = "Выставить максимумы";
             this.SetMaxButton.UseVisualStyleBackColor = true;
             this.SetMaxButton.Click += new System.EventHandler(this.SetMaxButton_Click);
             // 
@@ -163,8 +165,9 @@
             this.groupBox1.Controls.Add(this.ShelfHeightTextBox);
             this.groupBox1.Controls.Add(this.ShelfWidthTextBox);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.MinimumSize = new System.Drawing.Size(176, 300);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 115);
+            this.groupBox1.Size = new System.Drawing.Size(176, 300);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Характеристики полок";
@@ -172,38 +175,38 @@
             // ShelfMaxHeight
             // 
             this.ShelfMaxHeight.AutoSize = true;
-            this.ShelfMaxHeight.Location = new System.Drawing.Point(377, 91);
+            this.ShelfMaxHeight.Location = new System.Drawing.Point(6, 249);
             this.ShelfMaxHeight.Name = "ShelfMaxHeight";
-            this.ShelfMaxHeight.Size = new System.Drawing.Size(161, 13);
+            this.ShelfMaxHeight.Size = new System.Drawing.Size(121, 13);
             this.ShelfMaxHeight.TabIndex = 12;
-            this.ShelfMaxHeight.Text = "Максимальная высота: 40 мм";
+            this.ShelfMaxHeight.Text = "Максимальная: 40 мм";
             // 
             // ShelfMinHeight
             // 
             this.ShelfMinHeight.AutoSize = true;
-            this.ShelfMinHeight.Location = new System.Drawing.Point(377, 68);
+            this.ShelfMinHeight.Location = new System.Drawing.Point(6, 226);
             this.ShelfMinHeight.Name = "ShelfMinHeight";
-            this.ShelfMinHeight.Size = new System.Drawing.Size(155, 13);
+            this.ShelfMinHeight.Size = new System.Drawing.Size(115, 13);
             this.ShelfMinHeight.TabIndex = 11;
-            this.ShelfMinHeight.Text = "Минимальная высота: 20 мм";
+            this.ShelfMinHeight.Text = "Минимальная: 20 мм";
             // 
             // ShelfMaxWidth
             // 
             this.ShelfMaxWidth.AutoSize = true;
-            this.ShelfMaxWidth.Location = new System.Drawing.Point(197, 91);
+            this.ShelfMaxWidth.Location = new System.Drawing.Point(6, 163);
             this.ShelfMaxWidth.Name = "ShelfMaxWidth";
-            this.ShelfMaxWidth.Size = new System.Drawing.Size(168, 13);
+            this.ShelfMaxWidth.Size = new System.Drawing.Size(127, 13);
             this.ShelfMaxWidth.TabIndex = 10;
-            this.ShelfMaxWidth.Text = "Максимальная ширина: 220 мм";
+            this.ShelfMaxWidth.Text = "Максимальная: 220 мм";
             // 
             // ShelfMinWidth
             // 
             this.ShelfMinWidth.AutoSize = true;
-            this.ShelfMinWidth.Location = new System.Drawing.Point(197, 68);
+            this.ShelfMinWidth.Location = new System.Drawing.Point(6, 140);
             this.ShelfMinWidth.Name = "ShelfMinWidth";
-            this.ShelfMinWidth.Size = new System.Drawing.Size(162, 13);
+            this.ShelfMinWidth.Size = new System.Drawing.Size(121, 13);
             this.ShelfMinWidth.TabIndex = 9;
-            this.ShelfMinWidth.Text = "Минимальная ширина: 190 мм";
+            this.ShelfMinWidth.Text = "Минимальная: 190 мм";
             // 
             // ShelfMaxLength
             // 
@@ -211,11 +214,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ShelfMaxLength.AutoSize = true;
-            this.ShelfMaxLength.Location = new System.Drawing.Point(17, 91);
+            this.ShelfMaxLength.Location = new System.Drawing.Point(6, 78);
             this.ShelfMaxLength.Name = "ShelfMaxLength";
-            this.ShelfMaxLength.Size = new System.Drawing.Size(160, 13);
+            this.ShelfMaxLength.Size = new System.Drawing.Size(127, 13);
             this.ShelfMaxLength.TabIndex = 8;
-            this.ShelfMaxLength.Text = "Максимальная длина: 480 мм";
+            this.ShelfMaxLength.Text = "Максимальная: 480 мм";
             // 
             // ShelfMinLength
             // 
@@ -223,16 +226,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ShelfMinLength.AutoSize = true;
-            this.ShelfMinLength.Location = new System.Drawing.Point(17, 68);
+            this.ShelfMinLength.Location = new System.Drawing.Point(6, 55);
             this.ShelfMinLength.Name = "ShelfMinLength";
-            this.ShelfMinLength.Size = new System.Drawing.Size(154, 13);
+            this.ShelfMinLength.Size = new System.Drawing.Size(121, 13);
             this.ShelfMinLength.TabIndex = 7;
-            this.ShelfMinLength.Text = "Минимальная длина: 420 мм";
+            this.ShelfMinLength.Text = "Минимальная: 420 мм";
             // 
             // ShelfHeight
             // 
             this.ShelfHeight.AutoSize = true;
-            this.ShelfHeight.Location = new System.Drawing.Point(377, 29);
+            this.ShelfHeight.Location = new System.Drawing.Point(6, 187);
             this.ShelfHeight.Name = "ShelfHeight";
             this.ShelfHeight.Size = new System.Drawing.Size(78, 13);
             this.ShelfHeight.TabIndex = 6;
@@ -241,7 +244,7 @@
             // ShelfWidth
             // 
             this.ShelfWidth.AutoSize = true;
-            this.ShelfWidth.Location = new System.Drawing.Point(197, 29);
+            this.ShelfWidth.Location = new System.Drawing.Point(6, 101);
             this.ShelfWidth.Name = "ShelfWidth";
             this.ShelfWidth.Size = new System.Drawing.Size(79, 13);
             this.ShelfWidth.TabIndex = 5;
@@ -253,7 +256,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ShelfLength.AutoSize = true;
-            this.ShelfLength.Location = new System.Drawing.Point(17, 29);
+            this.ShelfLength.Location = new System.Drawing.Point(6, 16);
             this.ShelfLength.Name = "ShelfLength";
             this.ShelfLength.Size = new System.Drawing.Size(73, 13);
             this.ShelfLength.TabIndex = 4;
@@ -272,9 +275,9 @@
             this.groupBox2.Controls.Add(this.ShelfLegsHeight);
             this.groupBox2.Controls.Add(this.ShelfLegsHeightTextBox);
             this.groupBox2.Controls.Add(this.ShelfBindingHeightTextBox);
-            this.groupBox2.Location = new System.Drawing.Point(12, 137);
+            this.groupBox2.Location = new System.Drawing.Point(194, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(268, 96);
+            this.groupBox2.Size = new System.Drawing.Size(206, 300);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Характеристики ножек и креплений";
@@ -282,7 +285,7 @@
             // ShelfBindingMaxHeight
             // 
             this.ShelfBindingMaxHeight.AutoSize = true;
-            this.ShelfBindingMaxHeight.Location = new System.Drawing.Point(144, 78);
+            this.ShelfBindingMaxHeight.Location = new System.Drawing.Point(6, 160);
             this.ShelfBindingMaxHeight.Name = "ShelfBindingMaxHeight";
             this.ShelfBindingMaxHeight.Size = new System.Drawing.Size(127, 13);
             this.ShelfBindingMaxHeight.TabIndex = 13;
@@ -291,7 +294,7 @@
             // ShelfBindingMinHeight
             // 
             this.ShelfBindingMinHeight.AutoSize = true;
-            this.ShelfBindingMinHeight.Location = new System.Drawing.Point(144, 58);
+            this.ShelfBindingMinHeight.Location = new System.Drawing.Point(6, 140);
             this.ShelfBindingMinHeight.Name = "ShelfBindingMinHeight";
             this.ShelfBindingMinHeight.Size = new System.Drawing.Size(121, 13);
             this.ShelfBindingMinHeight.TabIndex = 13;
@@ -300,7 +303,7 @@
             // ShelfLegsMaxHeight
             // 
             this.ShelfLegsMaxHeight.AutoSize = true;
-            this.ShelfLegsMaxHeight.Location = new System.Drawing.Point(6, 78);
+            this.ShelfLegsMaxHeight.Location = new System.Drawing.Point(6, 75);
             this.ShelfLegsMaxHeight.Name = "ShelfLegsMaxHeight";
             this.ShelfLegsMaxHeight.Size = new System.Drawing.Size(121, 13);
             this.ShelfLegsMaxHeight.TabIndex = 13;
@@ -309,7 +312,7 @@
             // ShelfLegsMinHeight
             // 
             this.ShelfLegsMinHeight.AutoSize = true;
-            this.ShelfLegsMinHeight.Location = new System.Drawing.Point(6, 58);
+            this.ShelfLegsMinHeight.Location = new System.Drawing.Point(6, 55);
             this.ShelfLegsMinHeight.Name = "ShelfLegsMinHeight";
             this.ShelfLegsMinHeight.Size = new System.Drawing.Size(115, 13);
             this.ShelfLegsMinHeight.TabIndex = 13;
@@ -318,7 +321,7 @@
             // ShelfBindingHeight
             // 
             this.ShelfBindingHeight.AutoSize = true;
-            this.ShelfBindingHeight.Location = new System.Drawing.Point(144, 19);
+            this.ShelfBindingHeight.Location = new System.Drawing.Point(6, 101);
             this.ShelfBindingHeight.Name = "ShelfBindingHeight";
             this.ShelfBindingHeight.Size = new System.Drawing.Size(102, 13);
             this.ShelfBindingHeight.TabIndex = 14;
@@ -327,7 +330,7 @@
             // ShelfLegsHeight
             // 
             this.ShelfLegsHeight.AutoSize = true;
-            this.ShelfLegsHeight.Location = new System.Drawing.Point(6, 19);
+            this.ShelfLegsHeight.Location = new System.Drawing.Point(6, 16);
             this.ShelfLegsHeight.Name = "ShelfLegsHeight";
             this.ShelfLegsHeight.Size = new System.Drawing.Size(80, 13);
             this.ShelfLegsHeight.TabIndex = 13;
@@ -342,9 +345,9 @@
             this.groupBox3.Controls.Add(this.MinSizeLabel);
             this.groupBox3.Controls.Add(this.SetMinButton);
             this.groupBox3.Controls.Add(this.SetMaxButton);
-            this.groupBox3.Location = new System.Drawing.Point(290, 137);
+            this.groupBox3.Location = new System.Drawing.Point(406, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(268, 96);
+            this.groupBox3.Size = new System.Drawing.Size(230, 137);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Сброс размеров";
@@ -352,7 +355,7 @@
             // MaxSizeLabel
             // 
             this.MaxSizeLabel.AutoSize = true;
-            this.MaxSizeLabel.Location = new System.Drawing.Point(6, 71);
+            this.MaxSizeLabel.Location = new System.Drawing.Point(50, 78);
             this.MaxSizeLabel.Name = "MaxSizeLabel";
             this.MaxSizeLabel.Size = new System.Drawing.Size(135, 13);
             this.MaxSizeLabel.TabIndex = 9;
@@ -361,7 +364,7 @@
             // MinSizeLabel
             // 
             this.MinSizeLabel.AutoSize = true;
-            this.MinSizeLabel.Location = new System.Drawing.Point(6, 29);
+            this.MinSizeLabel.Location = new System.Drawing.Point(50, 23);
             this.MinSizeLabel.Name = "MinSizeLabel";
             this.MinSizeLabel.Size = new System.Drawing.Size(129, 13);
             this.MinSizeLabel.TabIndex = 8;
@@ -371,17 +374,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(570, 301);
+            this.ClientSize = new System.Drawing.Size(644, 317);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ConstructButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximumSize = new System.Drawing.Size(586, 340);
-            this.MinimumSize = new System.Drawing.Size(586, 340);
             this.Name = "MainForm";
             this.ShowIcon = false;
-            this.Text = "Создание Этажерки";
+            this.Text = "Построение этажерки";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -406,8 +407,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label MinSizeLabel;
-        private System.Windows.Forms.Label MaxSizeLabel;
         private System.Windows.Forms.Label ShelfMaxHeight;
         private System.Windows.Forms.Label ShelfMinHeight;
         private System.Windows.Forms.Label ShelfMaxWidth;
@@ -423,6 +422,8 @@
         private System.Windows.Forms.Label ShelfLegsMinHeight;
         private System.Windows.Forms.Label ShelfBindingHeight;
         private System.Windows.Forms.Label ShelfLegsHeight;
+        private System.Windows.Forms.Label MaxSizeLabel;
+        private System.Windows.Forms.Label MinSizeLabel;
     }
 }
 

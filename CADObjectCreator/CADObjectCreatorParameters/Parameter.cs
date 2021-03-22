@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CADObjectCreatorParameters
 {
-    public class ParameterBase<T> where  T: struct
+    public class Parameter<T> where  T: struct
     {
         private T _min;
         private T _max;
@@ -89,7 +89,7 @@ namespace CADObjectCreatorParameters
             }
         }
 
-        public ParameterBase(string name, T min, T max, T value)
+        public Parameter(string name, T min, T max, T value)
         {
             _min = min;
             _max = max;

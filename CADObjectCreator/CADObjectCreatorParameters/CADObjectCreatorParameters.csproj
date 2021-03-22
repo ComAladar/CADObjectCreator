@@ -41,12 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependentParameters.cs" />
-    <Compile Include="ParameterBase.cs" />
+    <Compile Include="Parameter.cs" />
     <Compile Include="Parameters.cs" />
-    <Compile Include="ParametersList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StaticParameters.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
