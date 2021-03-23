@@ -19,7 +19,7 @@ namespace CADObjectCreatorBuilder
 
         public void BuildObject(Parameters BuildParameters)
         {
-            Kompas3DConnector KompasConnector = new Kompas3DConnector(ref _kompas,ref _document3D,out _ksPart);
+            Kompas3DConnector KompasConnector = new Kompas3DConnector(ref _kompas, ref _document3D,out _ksPart);
             BuildMainBody(BuildParameters);
         }
 

@@ -14,7 +14,7 @@ namespace CADObjectCreatorBuilder
     public class Kompas3DConnector
     {
 
-        private void StartKompas(ref KompasObject _kompas)
+        private KompasObject StartKompas(KompasObject _kompas)
         {
             /*
             string progId = "KOMPAS.Application.5";
@@ -27,10 +27,11 @@ namespace CADObjectCreatorBuilder
             }
             _kompas.Visible = true;
             _kompas.ActivateControllerAPI();
-            
+            return _kompas;
+
         }
 
-        private void CreateDocument(ref KompasObject _kompas,ref ksDocument3D _document,out ksPart _ksPart)
+        private ksDocument3D CreateDocument(KompasObject _kompas,ksDocument3D _document)
         {
             try
             {
@@ -39,7 +40,7 @@ namespace CADObjectCreatorBuilder
                     _document = (ksDocument3D)_kompas.Document3D();
                         _document.Create(false, true);
                         _document = (ksDocument3D)_kompas.ActiveDocument3D();
-                        _ksPart = (ksPart)_document.GetPart((short)Part_Type.pTop_Part);
+                        return _document;
                 }
                 else
                 {
@@ -52,22 +53,23 @@ namespace CADObjectCreatorBuilder
             }
         }
 
-        private void StartUp(ref KompasObject _kompas,ref ksDocument3D _document, out ksPart _ksPart)
+        private void StartUp(ref KompasObject _kompas, ksDocument3D _document,out ksPart _ksPart)
         {
-            StartKompas(ref _kompas);
-            CreateDocument(ref _kompas,ref _document,out _ksPart);
+            _kompas=StartKompas(_kompas);
+            _document=CreateDocument(_kompas,_document);
+            _ksPart = (ksPart)_document.GetPart((short)Part_Type.pTop_Part);
         }
 
         public Kompas3DConnector(ref KompasObject TempKompas,ref ksDocument3D TempDocument,out ksPart TempPart)
         {
             try
             {
-                StartUp(ref TempKompas, ref TempDocument, out TempPart);
+                StartUp(ref TempKompas,TempDocument,out TempPart);
             }
             catch
             {
                 TempKompas = null;
-                StartUp(ref TempKompas, ref TempDocument, out TempPart);
+                StartUp(ref TempKompas,TempDocument,out TempPart);
             }
         }
         
