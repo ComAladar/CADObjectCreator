@@ -22,16 +22,16 @@ namespace CADObjectCreatorUI
 
         private void LabelTextFillUp()
         {
-            ShelfMinLength.Text = "Минимальная: " + _parameters["ShelfLength", false] + " мм";
-            ShelfMaxLength.Text = "Максимальная: " + _parameters["ShelfLength", true] + " мм";
-            ShelfMinWidth.Text = "Минимальная: " + _parameters["ShelfWidth", false] + " мм";
-            ShelfMaxWidth.Text = "Максимальная: " + _parameters["ShelfWidth", true] + " мм";
-            ShelfMinHeight.Text = "Минимальная: " + _parameters["ShelfHeight", false] + " мм";
-            ShelfMaxHeight.Text = "Максимальная: " + _parameters["ShelfHeight", true] + " мм";
-            ShelfLegsMinHeight.Text ="Минимальная: " + _parameters["ShelfLegsHeight",false] + " мм";
-            ShelfLegsMaxHeight.Text ="Максимальная: " + _parameters["ShelfLegsHeight",true] + " мм";
-            ShelfBindingMinHeight.Text ="Минимальная: " + _parameters["ShelfBindingHeight",false] + " мм";
-            ShelfBindingMaxHeight.Text ="Максимальная: " + _parameters["ShelfBindingHeight", true] + " мм";
+            ShelfMinLength.Text = "Минимальная: " + _parameters.GetMinParameter("ShelfLength") + " мм";
+            ShelfMaxLength.Text = "Максимальная: " + _parameters.GetMaxParameter("ShelfLength") + " мм";
+            ShelfMinWidth.Text = "Минимальная: " + _parameters.GetMinParameter("ShelfWidth") + " мм";
+            ShelfMaxWidth.Text = "Максимальная: " + _parameters.GetMaxParameter("ShelfWidth") + " мм";
+            ShelfMinHeight.Text = "Минимальная: " + _parameters.GetMinParameter("ShelfHeight") + " мм";
+            ShelfMaxHeight.Text = "Максимальная: " + _parameters.GetMaxParameter("ShelfHeight") + " мм";
+            ShelfLegsMinHeight.Text ="Минимальная: " + _parameters.GetMinParameter("ShelfLegsHeight") + " мм";
+            ShelfLegsMaxHeight.Text ="Максимальная: " + _parameters.GetMaxParameter("ShelfLegsHeight") + " мм";
+            ShelfBindingMinHeight.Text ="Минимальная: " + _parameters.GetMinParameter("ShelfBindingHeight") + " мм";
+            ShelfBindingMaxHeight.Text ="Максимальная: " + _parameters.GetMaxParameter("ShelfBindingHeight") + " мм";
         }
 
         private void TextBoxFillUp()
@@ -119,21 +119,21 @@ namespace CADObjectCreatorUI
 
         private void SetMinButton_Click(object sender, EventArgs e)
         {
-            ShelfLengthTextBox.Text = _parameters["ShelfLength",false].ToString();
-            ShelfWidthTextBox.Text = _parameters["ShelfWidth",false].ToString();
-            ShelfHeightTextBox.Text = _parameters["ShelfHeight",false].ToString();
-            ShelfLegsHeightTextBox.Text = _parameters["ShelfLegsHeight",false].ToString();
-            ShelfBindingHeightTextBox.Text = _parameters["ShelfBindingHeight",false].ToString();
+            ShelfLengthTextBox.Text = _parameters.GetMinParameter("ShelfLength").ToString();
+            ShelfWidthTextBox.Text = _parameters.GetMinParameter("ShelfWidth").ToString();
+            ShelfHeightTextBox.Text = _parameters.GetMinParameter("ShelfHeight").ToString();
+            ShelfLegsHeightTextBox.Text = _parameters.GetMinParameter("ShelfLegsHeight").ToString();
+            ShelfBindingHeightTextBox.Text = _parameters.GetMinParameter("ShelfBindingHeight").ToString();
             TextBoxSetColor();
         }
 
         private void SetMaxButton_Click(object sender, EventArgs e)
         {
-            ShelfLengthTextBox.Text = _parameters["ShelfLength",true].ToString();
-            ShelfWidthTextBox.Text = _parameters["ShelfWidth",true].ToString();
-            ShelfHeightTextBox.Text = _parameters["ShelfHeight",true].ToString();
-            ShelfLegsHeightTextBox.Text = _parameters["ShelfLegsHeight",true].ToString();
-            ShelfBindingHeightTextBox.Text = _parameters["ShelfBindingHeight",true].ToString();
+            ShelfLengthTextBox.Text = _parameters.GetMaxParameter("ShelfLength").ToString();
+            ShelfWidthTextBox.Text = _parameters.GetMaxParameter("ShelfWidth").ToString();
+            ShelfHeightTextBox.Text = _parameters.GetMaxParameter("ShelfHeight").ToString();
+            ShelfLegsHeightTextBox.Text = _parameters.GetMaxParameter("ShelfLegsHeight").ToString();
+            ShelfBindingHeightTextBox.Text = _parameters.GetMaxParameter("ShelfBindingHeight").ToString();
             TextBoxSetColor();
         }
 

@@ -10,7 +10,7 @@ namespace CADObjectCreatorParameters
     {
         private double _shelfBootsPlaceLength;
         private double _shelfBootsPlaceWidth;
-        private List<Parameter<double>> _parametersBase = new List<Parameter<double>>()
+        private List<Parameter<double>> _parameters = new List<Parameter<double>>()
         {
             new Parameter<double>("ShelfLength",420,480,420),
             new Parameter<double>("ShelfWidth",190,220,190),
@@ -56,37 +56,22 @@ namespace CADObjectCreatorParameters
         {
             get
             {
-                return _parametersBase.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Value;
+                return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Value;
             }
             set
             {
-                _parametersBase.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Value = value;
+                _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Value = value;
             }
         }
 
-        /// <summary>
-        /// Возвращает максимум при true или минимум при false;
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="amount"></param>
-        /// <returns></returns>
-        public double this[string index, bool variable]
+        public double GetMaxParameter(string index)
         {
-            get
-            {
-                if (variable == true)
-                {
-                    return _parametersBase.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Max;
-                }
-                else
-                {
-                    return _parametersBase.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Min;
-                }
-            }
-            set
-            {
-                _parametersBase.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Value = value;
-            }
+            return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Max;
+        }
+
+        public double GetMinParameter(string index)
+        {
+            return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Min;
         }
 
     }
