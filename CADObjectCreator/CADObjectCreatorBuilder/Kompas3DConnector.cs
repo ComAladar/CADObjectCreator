@@ -16,6 +16,7 @@ namespace CADObjectCreatorBuilder
     /// </summary>
     public class Kompas3DConnector
     {
+         //TODO: RSDN
         /// <summary>
         /// Метод запускает и возвращает активный экземпляр Компас3D.
         /// </summary>
@@ -23,6 +24,7 @@ namespace CADObjectCreatorBuilder
         /// <returns></returns>
         private KompasObject StartKompas(KompasObject _kompas)
         {
+            //TODO:
             /*
             string progId = "KOMPAS.Application.5";
             _kompas = (KompasObject)Marshal.GetActiveObject(progId);
@@ -38,6 +40,7 @@ namespace CADObjectCreatorBuilder
 
         }
 
+         //TODO: RSDN
         /// <summary>
         /// Метод создает и возвращает новый документ детали в Компас3D.
         /// </summary>
@@ -67,6 +70,7 @@ namespace CADObjectCreatorBuilder
             }
         }
 
+         //TODO: RSDN
         /// <summary>
         /// Метод запускает Компас3D и создает документ детали. Возвращает ссылку на деталь в документе.
         /// </summary>

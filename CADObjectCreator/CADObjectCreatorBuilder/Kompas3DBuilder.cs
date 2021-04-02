@@ -31,12 +31,14 @@ namespace CADObjectCreatorBuilder
         /// </summary>
         private ksDocument3D _document3D;
 
+         //TODO: RSDN
         /// <summary>
         /// Метод запускающий компас и строящий деталь.
         /// </summary>
         /// <param name="BuildParameters"></param>
         public void BuildObject(Parameters BuildParameters)
         {
+             //TODO: RSDN
             Kompas3DConnector KompasConnector = new Kompas3DConnector(ref _kompas, ref _document3D,out _ksPart);
             BuildMainBody(BuildParameters);
         }
@@ -47,6 +49,7 @@ namespace CADObjectCreatorBuilder
         /// <param name="buildParameters"></param>
         private void BuildMainBody(Parameters buildParameters)
         {
+            //TODO: Убрать дублирование
             #region Создание эскизов и выдавливаний
             ksEntity currentEntity = (ksEntity) _ksPart.GetDefaultEntity((short) Obj3dType.o3d_planeXOY);
             ksDocument2D document2D;
@@ -316,8 +319,10 @@ namespace CADObjectCreatorBuilder
         /// <param name="document"></param>
         private void BuildInnerParts(Parameters buildParameters, ksDocument2D document)
         {
-            document.ksLineSeg(buildParameters.ShelfBootsPlaceLength / 2, buildParameters.ShelfBootsPlaceWidth / 2,
-                -buildParameters.ShelfBootsPlaceLength / 2, buildParameters.ShelfBootsPlaceWidth / 2, 1);
+            document.ksLineSeg(buildParameters.ShelfBootsPlaceLength / 2, 
+                buildParameters.ShelfBootsPlaceWidth / 2,
+                -buildParameters.ShelfBootsPlaceLength / 2, 
+                buildParameters.ShelfBootsPlaceWidth / 2, 1);
             document.ksLineSeg(buildParameters.ShelfBootsPlaceLength / 2, buildParameters.ShelfBootsPlaceWidth / 2,
                 buildParameters.ShelfBootsPlaceLength / 2, -buildParameters.ShelfBootsPlaceWidth / 2, 1);
             document.ksLineSeg(buildParameters.ShelfBootsPlaceLength / 2, -buildParameters.ShelfBootsPlaceWidth / 2,

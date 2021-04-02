@@ -14,6 +14,7 @@ using CADObjectCreatorBuilder;
 
 namespace CADObjectCreatorUI
 {
+    //TODO: XML комментарии?
     public partial class MainForm : Form
     {
         private Parameters _parameters = new Parameters();
@@ -22,6 +23,7 @@ namespace CADObjectCreatorUI
 
         private void LabelTextFillUp()
         {
+            //TODO: Переделать через словари и foreach
             ShelfMinLength.Text = "Минимальная: " + _parameters.GetMinParameter("ShelfLength") + " мм";
             ShelfMaxLength.Text = "Максимальная: " + _parameters.GetMaxParameter("ShelfLength") + " мм";
             ShelfMinWidth.Text = "Минимальная: " + _parameters.GetMinParameter("ShelfWidth") + " мм";
@@ -36,6 +38,7 @@ namespace CADObjectCreatorUI
 
         private void TextBoxFillUp()
         {
+            //TODO: Переделать через словари и foreach
             ShelfLengthTextBox.Text = _parameters["ShelfLength"].ToString();
             ShelfWidthTextBox.Text = _parameters["ShelfWidth"].ToString();
             ShelfHeightTextBox.Text = _parameters["ShelfHeight"].ToString();
@@ -47,6 +50,7 @@ namespace CADObjectCreatorUI
         {
             try
             {
+                //TODO: Переделать через словари и foreach
                 _parameters["ShelfLength"] = Double.Parse(ShelfLengthTextBox.Text);
                 _parameters["ShelfWidth"] = Double.Parse(ShelfWidthTextBox.Text);
                 _parameters["ShelfHeight"] = Double.Parse(ShelfHeightTextBox.Text);
@@ -114,11 +118,12 @@ namespace CADObjectCreatorUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            //TODO:
         }
 
         private void SetMinButton_Click(object sender, EventArgs e)
         {
+            //TODO: Переделать через словари и foreach
             ShelfLengthTextBox.Text = _parameters.GetMinParameter("ShelfLength").ToString();
             ShelfWidthTextBox.Text = _parameters.GetMinParameter("ShelfWidth").ToString();
             ShelfHeightTextBox.Text = _parameters.GetMinParameter("ShelfHeight").ToString();
@@ -129,6 +134,7 @@ namespace CADObjectCreatorUI
 
         private void SetMaxButton_Click(object sender, EventArgs e)
         {
+            //TODO: Переделать через словари и foreach
             ShelfLengthTextBox.Text = _parameters.GetMaxParameter("ShelfLength").ToString();
             ShelfWidthTextBox.Text = _parameters.GetMaxParameter("ShelfWidth").ToString();
             ShelfHeightTextBox.Text = _parameters.GetMaxParameter("ShelfHeight").ToString();

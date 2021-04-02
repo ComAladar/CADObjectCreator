@@ -109,12 +109,13 @@ namespace CADObjectCreatorParameters
             }
             set
             {
+                 //TODO: RSDN
                 var ComparerResultMin = Comparer<T>.Default.Compare(_min, value);
                 if (ComparerResultMin > 0)
                 {
                     throw new ArgumentException("Введенное значение должно быть больше чем "+ _min);
                 }
-
+                 //TODO: RSDN
                 var ComparerResultMax = Comparer<T>.Default.Compare(_max, value);
                 if (ComparerResultMax < 0)
                 {
@@ -133,6 +134,7 @@ namespace CADObjectCreatorParameters
         /// <param name="value"></param>
         public Parameter(string name, T min, T max, T value)
         {
+            //TODO: проверку сразу вместо присваивания
             _min = min;
             _max = max;
             Name = name;

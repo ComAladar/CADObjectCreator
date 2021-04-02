@@ -15,7 +15,7 @@ namespace CADObjectCreatorUnitTests
             return parameters;
         }
 
-        [Test]
+        [TestCase(TestName = "Blablabla")]
         public void ShelfLegsRadius_GetCorrectValue_ReturnCorrectValue()
         {
             //Setup

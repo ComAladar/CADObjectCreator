@@ -33,6 +33,7 @@ namespace CADObjectCreatorParameters
             new Parameter<double>("ShelfBindingHeight",160,180,160)
         };
 
+        //TODO: В публичные константы
         /// <summary>
         /// Возвращает радиус ножек этажерки.
         /// </summary>
@@ -105,6 +106,7 @@ namespace CADObjectCreatorParameters
         /// <returns></returns>
         public double this[string index]
         {
+            //TODO: enumeration
             get
             {
                 return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Value;
@@ -122,6 +124,7 @@ namespace CADObjectCreatorParameters
         /// <returns></returns>
         public double GetMaxParameter(string index)
         {
+            //TODO: enumeration
             return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Max;
         }
 
@@ -132,8 +135,8 @@ namespace CADObjectCreatorParameters
         /// <returns></returns>
         public double GetMinParameter(string index)
         {
+            //TODO: enumeration
             return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Min;
         }
-
     }
 }
