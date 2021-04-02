@@ -11,9 +11,16 @@ using Kompas6Constants3D;
 
 namespace CADObjectCreatorBuilder
 {
+    /// <summary>
+    /// Класс отвечающий за запуск и работу с Компас3D.
+    /// </summary>
     public class Kompas3DConnector
     {
-
+        /// <summary>
+        /// Метод запускает и возвращает активный экземпляр Компас3D.
+        /// </summary>
+        /// <param name="_kompas"></param>
+        /// <returns></returns>
         private KompasObject StartKompas(KompasObject _kompas)
         {
             /*
@@ -31,6 +38,13 @@ namespace CADObjectCreatorBuilder
 
         }
 
+        /// <summary>
+        /// Метод создает и возвращает новый документ детали в Компас3D.
+        /// </summary>
+        /// <param name="_kompas"></param>
+        /// <param name="_document"></param>
+        /// <exception cref="NullReferenceException">Нет возможности создать документ без экземпляра Компас3D.</exception>
+        /// <returns></returns>
         private ksDocument3D CreateDocument(KompasObject _kompas,ksDocument3D _document)
         {
             try
@@ -53,6 +67,12 @@ namespace CADObjectCreatorBuilder
             }
         }
 
+        /// <summary>
+        /// Метод запускает Компас3D и создает документ детали. Возвращает ссылку на деталь в документе.
+        /// </summary>
+        /// <param name="_kompas"></param>
+        /// <param name="_document"></param>
+        /// <param name="_ksPart"></param>
         private void StartUp(ref KompasObject _kompas, ksDocument3D _document,out ksPart _ksPart)
         {
             _kompas=StartKompas(_kompas);
@@ -60,6 +80,12 @@ namespace CADObjectCreatorBuilder
             _ksPart = (ksPart)_document.GetPart((short)Part_Type.pTop_Part);
         }
 
+        /// <summary>
+        /// Конструктор класса Kompas3DConnector.
+        /// </summary>
+        /// <param name="TempKompas"></param>
+        /// <param name="TempDocument"></param>
+        /// <param name="TempPart"></param>
         public Kompas3DConnector(ref KompasObject TempKompas,ref ksDocument3D TempDocument,out ksPart TempPart)
         {
             try

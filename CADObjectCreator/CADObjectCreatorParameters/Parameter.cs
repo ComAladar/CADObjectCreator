@@ -6,13 +6,33 @@ using System.Threading.Tasks;
 
 namespace CADObjectCreatorParameters
 {
+    /// <summary>
+    /// Универсальный класс для задачи параметров.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Parameter<T> where  T: struct
     {
+        /// <summary>
+        /// Поле минимального значения параметра.
+        /// </summary>
         private T _min;
+        /// <summary>
+        /// Поле максимального значения параметра.
+        /// </summary>
         private T _max;
+        /// <summary>
+        /// Поле значения параметра.
+        /// </summary>
         private T _value;
+        /// <summary>
+        /// Поле наименования параметра.
+        /// </summary>
         private string _name;
 
+        /// <summary>
+        /// Возвращает и задает название параметра.
+        /// </summary>
+        /// <exception cref="ArgumentException">Не может быть null или пустым.</exception>
         public string Name
         {
             get
@@ -29,6 +49,10 @@ namespace CADObjectCreatorParameters
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает минимальное значение параметра.
+        /// </summary>
+        /// <exception cref="ArgumentException">Не может быть больше чем максимум параметра.</exception>
         public T Min
         {
             get
@@ -48,6 +72,10 @@ namespace CADObjectCreatorParameters
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает максимальное значение параметра.
+        /// </summary>
+        ///  <exception cref="ArgumentException">Не может быть меньше чем минимум параметра.</exception>
         public T Max
         {
             get
@@ -66,6 +94,10 @@ namespace CADObjectCreatorParameters
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает значение параметра.
+        /// </summary>
+        /// <exception cref="ArgumentException">Не может быть больше чем максимум и не может быть меньше чем минимум.</exception>
         public T Value
         {
             get
@@ -89,6 +121,13 @@ namespace CADObjectCreatorParameters
             }
         }
 
+        /// <summary>
+        /// Конструктор класса Parameter с заданием названия, минимума, максимума и значения параметра.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="value"></param>
         public Parameter(string name, T min, T max, T value)
         {
             _min = min;
@@ -98,14 +137,5 @@ namespace CADObjectCreatorParameters
             Max = max;
             Value = value;
         }
-
-
-
-
-
-
-
-
-
     }
 }

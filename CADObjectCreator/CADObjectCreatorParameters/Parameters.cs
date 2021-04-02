@@ -6,10 +6,22 @@ using System.Threading.Tasks;
 
 namespace CADObjectCreatorParameters
 {
+    /// <summary>
+    /// Класс параметров. Хранит все параметры.
+    /// </summary>
     public class Parameters
     {
+        /// <summary>
+        /// Поле длины отделения для обуви.
+        /// </summary>
         private double _shelfBootsPlaceLength;
+        /// <summary>
+        /// Поле ширины отделения для обуви.
+        /// </summary>
         private double _shelfBootsPlaceWidth;
+        /// <summary>
+        /// Список содержащий универсальные параметры этажерки.
+        /// </summary>
         private List<Parameter<double>> _parameters = new List<Parameter<double>>()
         {
             new Parameter<double>("ShelfLength",420,480,420),
@@ -19,14 +31,38 @@ namespace CADObjectCreatorParameters
             new Parameter<double>("ShelfBindingHeight",160,180,160)
         };
 
+        /// <summary>
+        /// Возвращает радиус ножек этажерки.
+        /// </summary>
         public int ShelfLegsRadius { get; private set; } = 20;
+        /// <summary>
+        /// Возвращает радиус креплений этажерки.
+        /// </summary>
         public int ShelfBindingRadius { get; private set; } = 10;
+        /// <summary>
+        /// Возвращает радиус уклона отделения для обуви этажерки.
+        /// </summary>
         public int ShelfSlopeRadius { get; private set; } = 5;
+        /// <summary>
+        /// Возвращает радиус скруглений сторон этажерки.
+        /// </summary>
         public double FilletRadius { get; private set; } = 0.5;
+        /// <summary>
+        /// Возвращает отступ для креплений и ножек этажерки.
+        /// </summary>
         public double RadiusMargin { get; private set; } = 21.5;
+        /// <summary>
+        /// Возвращает высоту отделения для обуви этажерки.
+        /// </summary>
         public int ShelfBootsPlaceHeight { get; private set; } = 10;
+        /// <summary>
+        /// Возвращает высоту креплений этажерки.
+        /// </summary>
         public int ShelfBindingHeight { get; private set; } = 10;
 
+        /// <summary>
+        /// Возвращает и задает зависимое значение длины отделения для обуви этажерки.
+        /// </summary>
         public double ShelfBootsPlaceLength
         {
             get
@@ -39,6 +75,9 @@ namespace CADObjectCreatorParameters
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает зависимое значение ширины отделения для обуви этажерки.
+        /// </summary>
         public double ShelfBootsPlaceWidth
         {
             get
@@ -51,7 +90,11 @@ namespace CADObjectCreatorParameters
             }
         }
 
-
+        /// <summary>
+        /// Возвращает и задает значение универсального параметра.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public double this[string index]
         {
             get
@@ -64,11 +107,21 @@ namespace CADObjectCreatorParameters
             }
         }
 
+        /// <summary>
+        /// Возвращает максимальное значение универсального параметра.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public double GetMaxParameter(string index)
         {
             return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Max;
         }
 
+        /// <summary>
+        /// Возвращает минимальное значение универсального параметра.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public double GetMinParameter(string index)
         {
             return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Min;
