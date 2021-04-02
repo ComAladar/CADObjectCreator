@@ -5,7 +5,7 @@ using CADObjectCreatorParameters;
 namespace CADObjectCreatorUnitTests
 {
     [TestFixture]
-    public class UnitTest1
+    public class ParametersTests
     {
         [Test]
         public void TestMethod1()

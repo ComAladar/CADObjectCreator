@@ -20,10 +20,12 @@ namespace CADObjectCreatorBuilder
         /// Поле данных о детали в компасе.
         /// </summary>
         private ksPart _ksPart;
+
         /// <summary>
         /// Поле хранящее экземпляр компаса.
         /// </summary>
         private KompasObject _kompas;
+
         /// <summary>
         /// Поле хранящее деталь в компасе.
         /// </summary>

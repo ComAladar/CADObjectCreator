@@ -16,14 +16,17 @@ namespace CADObjectCreatorParameters
         /// Поле минимального значения параметра.
         /// </summary>
         private T _min;
+
         /// <summary>
         /// Поле максимального значения параметра.
         /// </summary>
         private T _max;
+
         /// <summary>
         /// Поле значения параметра.
         /// </summary>
         private T _value;
+
         /// <summary>
         /// Поле наименования параметра.
         /// </summary>
@@ -68,7 +71,7 @@ namespace CADObjectCreatorParameters
                 {
                     throw new ArgumentException();
                 }
-                else _min = value;
+                _min = value;
             }
         }
 
@@ -90,7 +93,7 @@ namespace CADObjectCreatorParameters
                 {
                     throw new ArgumentException();
                 }
-                else _max = value;
+                _max = value;
             }
         }
 

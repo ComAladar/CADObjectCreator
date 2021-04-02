@@ -15,10 +15,12 @@ namespace CADObjectCreatorParameters
         /// Поле длины отделения для обуви.
         /// </summary>
         private double _shelfBootsPlaceLength;
+
         /// <summary>
         /// Поле ширины отделения для обуви.
         /// </summary>
         private double _shelfBootsPlaceWidth;
+
         /// <summary>
         /// Список содержащий универсальные параметры этажерки.
         /// </summary>
@@ -35,26 +37,32 @@ namespace CADObjectCreatorParameters
         /// Возвращает радиус ножек этажерки.
         /// </summary>
         public int ShelfLegsRadius { get; private set; } = 20;
+
         /// <summary>
         /// Возвращает радиус креплений этажерки.
         /// </summary>
         public int ShelfBindingRadius { get; private set; } = 10;
+
         /// <summary>
         /// Возвращает радиус уклона отделения для обуви этажерки.
         /// </summary>
         public int ShelfSlopeRadius { get; private set; } = 5;
+
         /// <summary>
         /// Возвращает радиус скруглений сторон этажерки.
         /// </summary>
         public double FilletRadius { get; private set; } = 0.5;
+
         /// <summary>
         /// Возвращает отступ для креплений и ножек этажерки.
         /// </summary>
         public double RadiusMargin { get; private set; } = 21.5;
+
         /// <summary>
         /// Возвращает высоту отделения для обуви этажерки.
         /// </summary>
         public int ShelfBootsPlaceHeight { get; private set; } = 10;
+
         /// <summary>
         /// Возвращает высоту креплений этажерки.
         /// </summary>
