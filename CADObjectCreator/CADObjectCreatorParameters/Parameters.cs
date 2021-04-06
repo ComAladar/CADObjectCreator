@@ -20,54 +20,56 @@ namespace CADObjectCreatorParameters
         /// Поле ширины отделения для обуви.
         /// </summary>
         private double _shelfBootsPlaceWidth;
+        
 
         /// <summary>
         /// Список содержащий универсальные параметры этажерки.
         /// </summary>
         private List<Parameter<double>> _parameters = new List<Parameter<double>>()
         {
-            new Parameter<double>("ShelfLength",420,480,420),
-            new Parameter<double>("ShelfWidth",190,220,190),
-            new Parameter<double>("ShelfHeight",20,40,20),
-            new Parameter<double>("ShelfLegsHeight",40,70,40),
-            new Parameter<double>("ShelfBindingHeight",160,180,160)
+            new Parameter<double>(ParametersName.ShelfLength.ToString(),420,480,420),
+            new Parameter<double>(ParametersName.ShelfWidth.ToString(),190,220,190),
+            new Parameter<double>(ParametersName.ShelfHeight.ToString(),20,40,20),
+            new Parameter<double>(ParametersName.ShelfLegsHeight.ToString(),40,70,40),
+            new Parameter<double>(ParametersName.ShelfBindingHeight.ToString(),160,180,160)
         };
+
 
         //TODO: В публичные константы
         /// <summary>
-        /// Возвращает радиус ножек этажерки.
+        /// Константа радиуса ножек этажерки.
         /// </summary>
-        public int ShelfLegsRadius { get; private set; } = 20;
+        public const int ShelfLegsRadius = 20;
 
         /// <summary>
-        /// Возвращает радиус креплений этажерки.
+        /// Константа радиуса креплений этажерки.
         /// </summary>
-        public int ShelfBindingRadius { get; private set; } = 10;
+        public const int ShelfBindingRadius = 10;
 
         /// <summary>
-        /// Возвращает радиус уклона отделения для обуви этажерки.
+        /// Константа радиуса уклона отделения для обуви этажерки.
         /// </summary>
-        public int ShelfSlopeRadius { get; private set; } = 5;
+        public const int ShelfSlopeRadius = 5;
 
         /// <summary>
-        /// Возвращает радиус скруглений сторон этажерки.
+        /// Константа радиуса скруглений сторон этажерки.
         /// </summary>
-        public double FilletRadius { get; private set; } = 0.5;
+        public const double FilletRadius = 0.5;
 
         /// <summary>
-        /// Возвращает отступ для креплений и ножек этажерки.
+        /// Константа отступа для креплений и ножек этажерки.
         /// </summary>
-        public double RadiusMargin { get; private set; } = 21.5;
+        public const double RadiusMargin = 21.5;
 
         /// <summary>
-        /// Возвращает высоту отделения для обуви этажерки.
+        /// Константа высоты отделения для обуви этажерки.
         /// </summary>
-        public int ShelfBootsPlaceHeight { get; private set; } = 10;
+        public const int ShelfBootsPlaceHeight = 10;
 
         /// <summary>
-        /// Возвращает высоту креплений этажерки.
+        /// Константа высоты креплений этажерки.
         /// </summary>
-        public int ShelfBindingHeight { get; private set; } = 10;
+        public const int ShelfBindingHeight = 10;
 
         /// <summary>
         /// Возвращает и задает зависимое значение длины отделения для обуви этажерки.
@@ -104,39 +106,21 @@ namespace CADObjectCreatorParameters
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public double this[string index]
+        public Parameter<double> this[ParametersName index]
         {
             //TODO: enumeration
             get
             {
-                return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Value;
+                return _parameters.Find((Parameter) 
+                    => Parameter.Name.Equals(index.ToString()));
             }
+            /*
             set
             {
-                _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Value = value;
+                _parameters.Find((Parameter) => Parameter.Name.Equals(index.ToString())).Value = value.Value;
             }
+            */
         }
 
-        /// <summary>
-        /// Возвращает максимальное значение универсального параметра.
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public double GetMaxParameter(string index)
-        {
-            //TODO: enumeration
-            return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Max;
-        }
-
-        /// <summary>
-        /// Возвращает минимальное значение универсального параметра.
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public double GetMinParameter(string index)
-        {
-            //TODO: enumeration
-            return _parameters.Find((ParameterBase) => ParameterBase.Name.Equals(index)).Min;
-        }
     }
 }

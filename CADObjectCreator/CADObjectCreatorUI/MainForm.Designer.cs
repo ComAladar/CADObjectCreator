@@ -385,7 +385,6 @@
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.Text = "Создание этажерки";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

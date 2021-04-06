@@ -46,7 +46,8 @@ namespace CADObjectCreatorParameters
             {
                 if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Имя не может быть null или пустым!");
+                    throw new ArgumentException(
+                        "Имя не может быть null или пустым!");
                 }
                 _name = value;
             }
@@ -110,14 +111,14 @@ namespace CADObjectCreatorParameters
             set
             {
                  //TODO: RSDN
-                var ComparerResultMin = Comparer<T>.Default.Compare(_min, value);
-                if (ComparerResultMin > 0)
+                var comparerResultMin = Comparer<T>.Default.Compare(_min, value);
+                if (comparerResultMin > 0)
                 {
                     throw new ArgumentException("Введенное значение должно быть больше чем "+ _min);
                 }
                  //TODO: RSDN
-                var ComparerResultMax = Comparer<T>.Default.Compare(_max, value);
-                if (ComparerResultMax < 0)
+                var comparerResultMax = Comparer<T>.Default.Compare(_max, value);
+                if (comparerResultMax < 0)
                 {
                     throw new ArgumentException("Введенное значение должно быть меньше чем " +_max);
                 }
@@ -137,9 +138,12 @@ namespace CADObjectCreatorParameters
             //TODO: проверку сразу вместо присваивания
             _min = min;
             _max = max;
+            var comparerResult = Comparer<T>.Default.Compare(_max, _min);
+            if (comparerResult < 0)
+            {
+                throw new ArgumentException("Заданный максимум меньше минимума.");
+            }
             Name = name;
-            Min = min;
-            Max = max;
             Value = value;
         }
     }

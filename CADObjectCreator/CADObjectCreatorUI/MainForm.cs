@@ -14,57 +14,77 @@ using CADObjectCreatorBuilder;
 
 namespace CADObjectCreatorUI
 {
-    //TODO: XML комментарии?
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Поле хранит экземпляр класса параметров.
+        /// </summary>
         private Parameters _parameters = new Parameters();
+
+        /// <summary>
+        /// Поле хранит экземпляр класса builder.
+        /// </summary>
         private Kompas3DBuilder _kompasBuilder = new Kompas3DBuilder();
+
+        /// <summary>
+        /// Поле хранит словарь для заполнения TextBox.
+        /// </summary>
         private readonly Dictionary<TextBox, Action<Parameters, string>> _textBoxDictionary;
 
-        private void LabelTextFillUp()
-        {
-            //TODO: Переделать через словари и foreach
-            ShelfMinLength.Text = "Минимальная: " + _parameters.GetMinParameter("ShelfLength") + " мм";
-            ShelfMaxLength.Text = "Максимальная: " + _parameters.GetMaxParameter("ShelfLength") + " мм";
-            ShelfMinWidth.Text = "Минимальная: " + _parameters.GetMinParameter("ShelfWidth") + " мм";
-            ShelfMaxWidth.Text = "Максимальная: " + _parameters.GetMaxParameter("ShelfWidth") + " мм";
-            ShelfMinHeight.Text = "Минимальная: " + _parameters.GetMinParameter("ShelfHeight") + " мм";
-            ShelfMaxHeight.Text = "Максимальная: " + _parameters.GetMaxParameter("ShelfHeight") + " мм";
-            ShelfLegsMinHeight.Text ="Минимальная: " + _parameters.GetMinParameter("ShelfLegsHeight") + " мм";
-            ShelfLegsMaxHeight.Text ="Максимальная: " + _parameters.GetMaxParameter("ShelfLegsHeight") + " мм";
-            ShelfBindingMinHeight.Text ="Минимальная: " + _parameters.GetMinParameter("ShelfBindingHeight") + " мм";
-            ShelfBindingMaxHeight.Text ="Максимальная: " + _parameters.GetMaxParameter("ShelfBindingHeight") + " мм";
-        }
+        /// <summary>
+        /// Поле хранит словарь для заполнения Label.
+        /// </summary>
+        private readonly Dictionary<Label, Action<Parameters, string>> _labelDictionary;
 
+        /// <summary>
+        /// Метод заполняет TextBox начальными параметрами этажерки.
+        /// </summary>
         private void TextBoxFillUp()
         {
-            //TODO: Переделать через словари и foreach
-            ShelfLengthTextBox.Text = _parameters["ShelfLength"].ToString();
-            ShelfWidthTextBox.Text = _parameters["ShelfWidth"].ToString();
-            ShelfHeightTextBox.Text = _parameters["ShelfHeight"].ToString();
-            ShelfLegsHeightTextBox.Text = _parameters["ShelfLegsHeight"].ToString();
-            ShelfBindingHeightTextBox.Text = _parameters["ShelfBindingHeight"].ToString();
+            ShelfLengthTextBox.Text = 
+                _parameters[ParametersName.ShelfLength].Value.ToString();
+            ShelfWidthTextBox.Text = 
+                _parameters[ParametersName.ShelfWidth].Value.ToString();
+            ShelfHeightTextBox.Text = 
+                _parameters[ParametersName.ShelfHeight].Value.ToString();
+            ShelfLegsHeightTextBox.Text = 
+                _parameters[ParametersName.ShelfLegsHeight].Value.ToString();
+            ShelfBindingHeightTextBox.Text = 
+                _parameters[ParametersName.ShelfBindingHeight].Value.ToString();
         }
 
+        /// <summary>
+        /// Метод проверяет и передает параметры для построения этажерки.
+        /// </summary>
         private void VerifyParameters()
         {
             try
             {
-                //TODO: Переделать через словари и foreach
-                _parameters["ShelfLength"] = Double.Parse(ShelfLengthTextBox.Text);
-                _parameters["ShelfWidth"] = Double.Parse(ShelfWidthTextBox.Text);
-                _parameters["ShelfHeight"] = Double.Parse(ShelfHeightTextBox.Text);
-                _parameters["ShelfLegsHeight"] = Double.Parse(ShelfLegsHeightTextBox.Text);
-                _parameters["ShelfBindingHeight"] = Double.Parse(ShelfBindingHeightTextBox.Text);
-                _parameters.ShelfBootsPlaceLength = _parameters["ShelfLength"];
-                _parameters.ShelfBootsPlaceWidth = _parameters["ShelfWidth"];
+                _parameters[ParametersName.ShelfLength].Value = 
+                    Double.Parse(ShelfLengthTextBox.Text);
+                _parameters[ParametersName.ShelfWidth].Value = 
+                    Double.Parse(ShelfWidthTextBox.Text);
+                _parameters[ParametersName.ShelfHeight].Value = 
+                    Double.Parse(ShelfHeightTextBox.Text);
+                _parameters[ParametersName.ShelfLegsHeight].Value = 
+                    Double.Parse(ShelfLegsHeightTextBox.Text);
+                _parameters[ParametersName.ShelfBindingHeight].Value = 
+                    Double.Parse(ShelfBindingHeightTextBox.Text);
+                _parameters.ShelfBootsPlaceLength = 
+                    _parameters[ParametersName.ShelfLength].Value;
+                _parameters.ShelfBootsPlaceWidth = 
+                    _parameters[ParametersName.ShelfWidth].Value;
             }
-            catch(ArgumentException exception)
+            catch(ArgumentException)
             {
-                MessageBox.Show("Проверьте введенные параметры!","Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                MessageBox.Show("Проверьте введенные параметры!",
+                    "Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
             }
         }
 
+        /// <summary>
+        /// Метод меняет цвет всех TextBox на белый.
+        /// </summary>
         private void TextBoxSetColor()
         {
             ShelfLengthTextBox.BackColor = Color.White;
@@ -74,6 +94,11 @@ namespace CADObjectCreatorUI
             ShelfBindingHeightTextBox.BackColor = Color.White;
         }
 
+        /// <summary>
+        /// Метод проверяет правильность ввода данных типа double.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private string DoubleTypeCheck(string value)
         {
             var match = Regex.Match(value, @"[0-9]+\,[0-9]+");
@@ -88,58 +113,177 @@ namespace CADObjectCreatorUI
         public MainForm()
         {
             InitializeComponent();
-            LabelTextFillUp();
             TextBoxFillUp();
             _textBoxDictionary = new Dictionary<TextBox, Action<Parameters, string>>()
             {
                 {
                     ShelfLengthTextBox,
-                    (tempList, text) => {tempList["ShelfLength"] = Double.Parse(text);}
+                    (tempList, text) =>
+                    {
+                        tempList[ParametersName.ShelfLength].Value = 
+                            Double.Parse(text);
+                    }
                 },
                 {
                     ShelfWidthTextBox,
-                    (tempList, text) => {tempList["ShelfWidth"] = Double.Parse(text);}
+                    (tempList, text) =>
+                    {
+                        tempList[ParametersName.ShelfWidth].Value = 
+                            Double.Parse(text);
+                    }
                 },
                 {
                     ShelfHeightTextBox,
-                    (tempList, text) => {tempList["ShelfHeight"] = Double.Parse(text);}
+                    (tempList, text) =>
+                    {
+                        tempList[ParametersName.ShelfHeight].Value = 
+                            Double.Parse(text);
+                    }
                 },
                 {
                     ShelfLegsHeightTextBox,
-                    (tempList, text) => {tempList["ShelfLegsHeight"] = Double.Parse(text);}
+                    (tempList, text) =>
+                    {
+                        tempList[ParametersName.ShelfLegsHeight].Value = 
+                            Double.Parse(text);
+                    }
                 },
                 {
                     ShelfBindingHeightTextBox,
-                    (tempList, text) => {tempList["ShelfBindingHeight"] = Double.Parse(text);}
+                    (tempList, text) =>
+                    {
+                        tempList[ParametersName.ShelfBindingHeight].Value = 
+                            Double.Parse(text);
+                    }
                 }
             };
 
+            _labelDictionary = new Dictionary<Label, Action<Parameters, string>>()
+            {
+                {
+                    ShelfMinLength,
+                    (tempList, text) =>
+                    {
+                        text = 
+                            "Минимальная: " + tempList[ParametersName.ShelfLength].Min + "мм";
+                    }
+                },
+                {
+                    ShelfMinWidth,
+                    (tempList, text) =>
+                    {
+                        text = 
+                            "Минимальная: " + tempList[ParametersName.ShelfWidth].Min + "мм";
+                    }
+                },
+                {
+                    ShelfMinHeight,
+                    (tempList, text) =>
+                    {
+                        text = 
+                            "Минимальная: " + tempList[ParametersName.ShelfHeight].Min + "мм";
+                    }
+                },
+                {
+                    ShelfLegsMinHeight,
+                    (tempList, text) =>
+                    {
+                        text = 
+                            "Минимальная: " + tempList[ParametersName.ShelfLegsHeight].Min + "мм";
+                    }
+                },
+                {
+                    ShelfBindingMinHeight,
+                    (tempList, text) =>
+                    {
+                        text = 
+                            "Минимальная: " + tempList[ParametersName.ShelfBindingHeight].Min + "мм";
+                    }
+                },
+                {
+                    ShelfMaxLength,
+                    (tempList, text) =>
+                    {
+                        text = 
+                            "Максимальная: " + tempList[ParametersName.ShelfLength].Max + "мм";
+                    }
+                },
+                {
+                    ShelfMaxWidth,
+                    (tempList, text) =>
+                    {
+                        text = 
+                            "Максимальная: " + tempList[ParametersName.ShelfWidth].Max + "мм";
+                    }
+                },
+                {
+                    ShelfMaxHeight,
+                    (tempList, text) =>
+                    {
+                        text = 
+                            "Максимальная: " + tempList[ParametersName.ShelfHeight].Max + "мм";
+                    }
+                },
+                {
+                    ShelfLegsMaxHeight,
+                    (tempList, text) =>
+                    {
+                        text = 
+                            "Максимальная: " + tempList[ParametersName.ShelfLegsHeight].Max + "мм";
+                    }
+                },
+                {
+                    ShelfBindingMaxHeight,
+                    (tempList, text) =>
+                    {
+                        text = 
+                            "Максимальная: " + tempList[ParametersName.ShelfBindingHeight].Max + "мм";
+                    }
+                }
+            };
+            foreach (Label tempLabel in this.Controls.OfType<Label>())
+            {
+                LabelTextFillUp(tempLabel);
+            }
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            //TODO:
-        }
-
+        /// <summary>
+        /// Метод задающий минимальный значения этажерки.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SetMinButton_Click(object sender, EventArgs e)
         {
-            //TODO: Переделать через словари и foreach
-            ShelfLengthTextBox.Text = _parameters.GetMinParameter("ShelfLength").ToString();
-            ShelfWidthTextBox.Text = _parameters.GetMinParameter("ShelfWidth").ToString();
-            ShelfHeightTextBox.Text = _parameters.GetMinParameter("ShelfHeight").ToString();
-            ShelfLegsHeightTextBox.Text = _parameters.GetMinParameter("ShelfLegsHeight").ToString();
-            ShelfBindingHeightTextBox.Text = _parameters.GetMinParameter("ShelfBindingHeight").ToString();
+            ShelfLengthTextBox.Text = 
+                _parameters[ParametersName.ShelfLength].Min.ToString();
+            ShelfWidthTextBox.Text = 
+                _parameters[ParametersName.ShelfWidth].Min.ToString();
+            ShelfHeightTextBox.Text = 
+                _parameters[ParametersName.ShelfHeight].Min.ToString();
+            ShelfLegsHeightTextBox.Text = 
+                _parameters[ParametersName.ShelfLegsHeight].Min.ToString();
+            ShelfBindingHeightTextBox.Text = 
+                _parameters[ParametersName.ShelfBindingHeight].Min.ToString();
             TextBoxSetColor();
         }
 
+        /// <summary>
+        /// Метод задающий максимальный значения этажерки.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SetMaxButton_Click(object sender, EventArgs e)
         {
-            //TODO: Переделать через словари и foreach
-            ShelfLengthTextBox.Text = _parameters.GetMaxParameter("ShelfLength").ToString();
-            ShelfWidthTextBox.Text = _parameters.GetMaxParameter("ShelfWidth").ToString();
-            ShelfHeightTextBox.Text = _parameters.GetMaxParameter("ShelfHeight").ToString();
-            ShelfLegsHeightTextBox.Text = _parameters.GetMaxParameter("ShelfLegsHeight").ToString();
-            ShelfBindingHeightTextBox.Text = _parameters.GetMaxParameter("ShelfBindingHeight").ToString();
+            ShelfLengthTextBox.Text = 
+                _parameters[ParametersName.ShelfLength].Max.ToString();
+            ShelfWidthTextBox.Text = 
+                _parameters[ParametersName.ShelfWidth].Max.ToString();
+            ShelfHeightTextBox.Text = 
+                _parameters[ParametersName.ShelfHeight].Max.ToString();
+            ShelfLegsHeightTextBox.Text = 
+                _parameters[ParametersName.ShelfLegsHeight].Max.ToString();
+            ShelfBindingHeightTextBox.Text = 
+                _parameters[ParametersName.ShelfBindingHeight].Max.ToString();
             TextBoxSetColor();
         }
 
@@ -149,10 +293,15 @@ namespace CADObjectCreatorUI
             _kompasBuilder.BuildObject(_parameters);
         }
 
+        /// <summary>
+        /// Метод проверки правильности ввода значений в TextBox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxLeaveVerify(object sender, EventArgs e)
         {
             var currentTextBox = (TextBox)sender;
-            currentTextBox.Text=DoubleTypeCheck(currentTextBox.Text);
+            currentTextBox.Text = DoubleTypeCheck(currentTextBox.Text);
             var currentAction = _textBoxDictionary[currentTextBox];
             if (currentTextBox.Text != String.Empty)
             {
@@ -169,10 +318,26 @@ namespace CADObjectCreatorUI
             }
         }
 
+        /// <summary>
+        /// Метод для заполнения всех Label с помощью словаря.
+        /// </summary>
+        /// <param name="tempLabel"></param>
+        private void LabelTextFillUp(Label tempLabel)
+        {
+            var currentAction = _labelDictionary[tempLabel];
+            currentAction.Invoke(_parameters,tempLabel.Text);
+        }
+
+        /// <summary>
+        /// Обработчик возможных символов в TextBox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxOnlyDouble(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if (!Char.IsDigit(number) && number != 8 && number !=',') // цифры и клавиша BackSpace
+            if (!Char.IsDigit(number) 
+                && number != 8 && number !=',') // цифры и клавиша BackSpace
             {
                 e.Handled = true;
             }

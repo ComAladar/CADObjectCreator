@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using NUnit.Framework;
 using CADObjectCreatorParameters;
 using NUnit.Framework.Constraints;
+using NUnit.Framework.Internal;
 
 namespace CADObjectCreatorUnitTests
 {
@@ -10,10 +13,9 @@ namespace CADObjectCreatorUnitTests
     {
         private Parameter<double> CreateParameter()
         {
-            var Parameter = new Parameter<double>("parameter", 100, 250, 160);
+            var Parameter = new Parameter<double>("Parameter", 100, 250, 160);
             return Parameter;
         }
-
 
         [Test]
         public void Name_GetCorrectValue_ReturnCorrectValue()
@@ -43,45 +45,20 @@ namespace CADObjectCreatorUnitTests
             Assert.AreEqual(expected,parameter.Name,"Сеттер не присваивает корректное значение.");
         }
 
-        [Test]
-        public void Name_SetThrowsArgumentException_WhiteSpaces()
+        [TestCase("",TestName ="WhiteSpace")]
+        [TestCase(null,TestName ="NullString")]
+        public void Name_SetThrowsArgumentException(string input)
         {
             //Setup
             var parameter = CreateParameter();
 
             //Act
-            string testName = " ";
 
             //Assert
-            Assert.Throws<ArgumentException>((() => { parameter.Name = testName; }),
+            Assert.Throws<ArgumentException>((() => { parameter.Name = input; }),
                 "У сеттера не происходит срабатывание ArgumentException при строке с белыми пробелами");
         }
 
-        [Test]
-        public void Name_SetThrowsArgumentException_NullString()
-        {
-            //Setup
-            var parameter = CreateParameter();
-
-            //Act
-            string testName = null;
-
-            //Assert
-            Assert.Throws<ArgumentException>((() => { parameter.Name = testName; }), "У сеттера не происходит срабатывание ArgumentException при строке null");
-        }
-
-        [Test]
-        public void Name_SetThrowsArgumentException_EmptyString()
-        {
-            //Setup
-            var parameter = CreateParameter();
-
-            //Act
-            string testName = "";
-
-            //Assert
-            Assert.Throws<ArgumentException>((() => { parameter.Name = testName; }), "У сеттера не происходит срабатывание ArgumentException при пустой строке");
-        }
 
         [Test]
         public void Min_GetCorrectValue_ReturnCorrectValue()
@@ -221,6 +198,14 @@ namespace CADObjectCreatorUnitTests
             //Assert
             Assert.Throws<ArgumentException>((() => { parameter.Value = testAmount; }),
                 "У сеттера не происходит срабатывание ArgumentException при значении больше максимума.");
+        }
+
+        [Test]
+        public void Parameter_ThrowsArgumentException_MaxIsLowerThanMin()
+        {
+            //Assert
+            Assert.Throws<ArgumentException>((() => { var Parameter = new Parameter<double>("Parameter,", 100, 50, 160); }),
+                "У конструктора не происходит срабатывание ArgumentException при максимуме меньше минимума.");
         }
 
     }
