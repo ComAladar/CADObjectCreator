@@ -25,7 +25,8 @@ namespace CADObjectCreatorUnitTests
             var actual = parameters.ShelfBootsPlaceLength;
 
             //Assert
-            Assert.AreEqual(parameters.ShelfBootsPlaceLength,actual,"Геттер не возвращает корректное значение.");
+            Assert.AreEqual(parameters.ShelfBootsPlaceLength,actual,
+                "Геттер не возвращает корректное значение.");
         }
 
         [Test]
@@ -40,7 +41,8 @@ namespace CADObjectCreatorUnitTests
             expected = expected * 0.7;
 
             //Assert
-            Assert.AreEqual(expected,parameters.ShelfBootsPlaceLength , "Сеттер не присваивает корректное значение.");
+            Assert.AreEqual(expected,parameters.ShelfBootsPlaceLength , 
+                "Сеттер не присваивает корректное значение.");
         }
 
         [Test]
@@ -53,7 +55,8 @@ namespace CADObjectCreatorUnitTests
             var actual = parameters.ShelfBootsPlaceWidth;
 
             //Assert
-            Assert.AreEqual(parameters.ShelfBootsPlaceWidth, actual, "Геттер не возвращает корректное значение.");
+            Assert.AreEqual(parameters.ShelfBootsPlaceWidth, actual, 
+                "Геттер не возвращает корректное значение.");
         }
 
         [Test]

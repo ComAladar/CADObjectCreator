@@ -34,8 +34,6 @@ namespace CADObjectCreatorParameters
             new Parameter<double>(ParametersName.ShelfBindingHeight.ToString(),160,180,160)
         };
 
-
-        //TODO: В публичные константы
         /// <summary>
         /// Константа радиуса ножек этажерки.
         /// </summary>
@@ -108,19 +106,11 @@ namespace CADObjectCreatorParameters
         /// <returns></returns>
         public Parameter<double> this[ParametersName index]
         {
-            //TODO: enumeration
             get
             {
-                return _parameters.Find((Parameter) 
-                    => Parameter.Name.Equals(index.ToString()));
+                return _parameters.Find(parameter
+                    => parameter.Name.Equals(index.ToString()));
             }
-            /*
-            set
-            {
-                _parameters.Find((Parameter) => Parameter.Name.Equals(index.ToString())).Value = value.Value;
-            }
-            */
         }
-
     }
 }

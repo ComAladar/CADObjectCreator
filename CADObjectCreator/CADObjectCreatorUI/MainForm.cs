@@ -34,7 +34,7 @@ namespace CADObjectCreatorUI
         /// <summary>
         /// Поле хранит словарь для заполнения Label.
         /// </summary>
-        private readonly Dictionary<Label, Action<Parameters, string>> _labelDictionary;
+        private readonly Dictionary<Label, Func<Parameters, string>> _labelDictionary;
 
         /// <summary>
         /// Метод заполняет TextBox начальными параметрами этажерки.
@@ -158,87 +158,51 @@ namespace CADObjectCreatorUI
                 }
             };
 
-            _labelDictionary = new Dictionary<Label, Action<Parameters, string>>()
+            _labelDictionary = new Dictionary<Label, Func<Parameters, string>>()
             {
                 {
                     ShelfMinLength,
-                    (tempList, text) =>
-                    {
-                        text = 
-                            "Минимальная: " + tempList[ParametersName.ShelfLength].Min + "мм";
-                    }
+                    (tempList) => "Минимальная: " + tempList[ParametersName.ShelfLength].Min + "мм"
                 },
                 {
                     ShelfMinWidth,
-                    (tempList, text) =>
+                    (tempList) =>
                     {
-                        text = 
-                            "Минимальная: " + tempList[ParametersName.ShelfWidth].Min + "мм";
+                        
+                        return    "Минимальная: " + tempList[ParametersName.ShelfWidth].Min + "мм";
                     }
                 },
                 {
                     ShelfMinHeight,
-                    (tempList, text) =>
-                    {
-                        text = 
-                            "Минимальная: " + tempList[ParametersName.ShelfHeight].Min + "мм";
-                    }
+                    (tempList) => "Минимальная: " + tempList[ParametersName.ShelfHeight].Min + "мм"
                 },
                 {
                     ShelfLegsMinHeight,
-                    (tempList, text) =>
-                    {
-                        text = 
-                            "Минимальная: " + tempList[ParametersName.ShelfLegsHeight].Min + "мм";
-                    }
+                    (tempList) => "Минимальная: " + tempList[ParametersName.ShelfLegsHeight].Min + "мм"
                 },
                 {
                     ShelfBindingMinHeight,
-                    (tempList, text) =>
-                    {
-                        text = 
-                            "Минимальная: " + tempList[ParametersName.ShelfBindingHeight].Min + "мм";
-                    }
+                    (tempList) => "Минимальная: " + tempList[ParametersName.ShelfBindingHeight].Min + "мм"
                 },
                 {
                     ShelfMaxLength,
-                    (tempList, text) =>
-                    {
-                        text = 
-                            "Максимальная: " + tempList[ParametersName.ShelfLength].Max + "мм";
-                    }
+                    (tempList) => "Максимальная: " + tempList[ParametersName.ShelfLength].Max + "мм"
                 },
                 {
                     ShelfMaxWidth,
-                    (tempList, text) =>
-                    {
-                        text = 
-                            "Максимальная: " + tempList[ParametersName.ShelfWidth].Max + "мм";
-                    }
+                    (tempList) => "Максимальная: " + tempList[ParametersName.ShelfWidth].Max + "мм"
                 },
                 {
                     ShelfMaxHeight,
-                    (tempList, text) =>
-                    {
-                        text = 
-                            "Максимальная: " + tempList[ParametersName.ShelfHeight].Max + "мм";
-                    }
+                    (tempList) => "Максимальная: " + tempList[ParametersName.ShelfHeight].Max + "мм"
                 },
                 {
                     ShelfLegsMaxHeight,
-                    (tempList, text) =>
-                    {
-                        text = 
-                            "Максимальная: " + tempList[ParametersName.ShelfLegsHeight].Max + "мм";
-                    }
+                    (tempList) => "Максимальная: " + tempList[ParametersName.ShelfLegsHeight].Max + "мм"
                 },
                 {
                     ShelfBindingMaxHeight,
-                    (tempList, text) =>
-                    {
-                        text = 
-                            "Максимальная: " + tempList[ParametersName.ShelfBindingHeight].Max + "мм";
-                    }
+                    (tempList) => "Максимальная: " + tempList[ParametersName.ShelfBindingHeight].Max + "мм"
                 }
             };
             foreach (Label tempLabel in this.Controls.OfType<Label>())
@@ -254,6 +218,17 @@ namespace CADObjectCreatorUI
         /// <param name="e"></param>
         private void SetMinButton_Click(object sender, EventArgs e)
         {
+            var dictionary = new Dictionary<TextBox, ParametersName>()
+            {
+                {ShelfLengthTextBox, ParametersName.ShelfLength},
+                {ShelfWidthTextBox, ParametersName.ShelfWidth}
+            };
+
+            foreach (var parametersName in dictionary)
+            {
+                parametersName.Key.Text = _parameters[parametersName.Value].Min.ToString();
+            }
+
             ShelfLengthTextBox.Text = 
                 _parameters[ParametersName.ShelfLength].Min.ToString();
             ShelfWidthTextBox.Text = 
@@ -325,7 +300,7 @@ namespace CADObjectCreatorUI
         private void LabelTextFillUp(Label tempLabel)
         {
             var currentAction = _labelDictionary[tempLabel];
-            currentAction.Invoke(_parameters,tempLabel.Text);
+            tempLabel.Text = currentAction.Invoke(_parameters);
         }
 
         /// <summary>
@@ -342,5 +317,4 @@ namespace CADObjectCreatorUI
                 e.Handled = true;
             }
         }
-    }
 }

@@ -16,7 +16,6 @@ namespace CADObjectCreatorBuilder
     /// </summary>
     public class Kompas3DConnector
     {
-         //TODO: RSDN
         /// <summary>
         /// Метод запускает и возвращает активный экземпляр Компас3D.
         /// </summary>
@@ -24,7 +23,6 @@ namespace CADObjectCreatorBuilder
         /// <returns></returns>
         private KompasObject StartKompas(KompasObject kompas)
         {
-            //TODO:
             if (kompas == null)
             {
                 Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
@@ -36,24 +34,22 @@ namespace CADObjectCreatorBuilder
 
         }
 
-         //TODO: RSDN
         /// <summary>
         /// Метод создает и возвращает новый документ детали в Компас3D.
         /// </summary>
         /// <param name="kompas"></param>
-        /// <param name="document"></param>
         /// <exception cref="NullReferenceException">Нет возможности создать документ без экземпляра Компас3D.</exception>
         /// <returns></returns>
-        private ksDocument3D CreateDocument(KompasObject kompas,ksDocument3D document)
+        private ksDocument3D CreateDocument(KompasObject kompas)
         {
             try
             {
                 if (kompas != null)
                 {
-                    document = (ksDocument3D)kompas.Document3D();
-                        document.Create(false, true);
-                        document = (ksDocument3D)kompas.ActiveDocument3D();
-                        return document;
+                    ksDocument3D document = (ksDocument3D)kompas.Document3D();
+                    document.Create(false, true);
+                    document = (ksDocument3D)kompas.ActiveDocument3D();
+                    return document;
                 }
                 else
                 {
@@ -73,10 +69,10 @@ namespace CADObjectCreatorBuilder
         /// <param name="kompas"></param>
         /// <param name="document"></param>
         /// <param name="ksPart"></param>
-        private void StartUp(ref KompasObject kompas, ksDocument3D document,out ksPart ksPart)
+        private void StartUp(ref KompasObject kompas, ksDocument3D document, out ksPart ksPart)
         {
-            kompas=StartKompas(kompas);
-            document=CreateDocument(kompas,document);
+            kompas = StartKompas(kompas);
+            document = CreateDocument(kompas);
             ksPart = (ksPart)document.GetPart((short)Part_Type.pTop_Part);
         }
 
@@ -89,6 +85,7 @@ namespace CADObjectCreatorBuilder
         public Kompas3DConnector(ref KompasObject tempKompas,ref ksDocument3D tempDocument,
             out ksPart tempPart)
         {
+            //TODO: Решить с ksDocument3D
             try
             {
                 StartUp(ref tempKompas,tempDocument,out tempPart);

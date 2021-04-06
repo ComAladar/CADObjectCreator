@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CADObjectCreatorParameters
 {
+    //TODO: XML комментарии?
     public enum ParametersName
     {
         ShelfLength,

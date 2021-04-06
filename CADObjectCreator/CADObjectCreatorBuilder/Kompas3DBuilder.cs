@@ -31,6 +31,7 @@ namespace CADObjectCreatorBuilder
         /// </summary>
         private ksDocument3D _document3D;
 
+         //TODO: RSDN
         /// <summary>
         /// Метод запускающий компас и строящий деталь.
         /// </summary>
@@ -56,6 +57,7 @@ namespace CADObjectCreatorBuilder
             BuildLegsModel(Sketch1Def,Sketch1,currentEntity,
                 document2D,buildParameters);
 
+            //TODO: Дубли
             double offsetDistance= 
                 -buildParameters[ParametersName.ShelfLegsHeight].Value;
             ksEntity newEntity = 
@@ -415,6 +417,7 @@ namespace CADObjectCreatorBuilder
         {
             sketchDef.SetPlane(entity);
             sketch.Create();
+            //TODO:
             document = (ksDocument2D)sketchDef.BeginEdit();
             BuildLegsSketch(buildParameters, document);
             sketchDef.EndEdit();
@@ -434,6 +437,7 @@ namespace CADObjectCreatorBuilder
         {
             sketchDef.SetPlane(entity);
             sketch.Create();
+            //TODO:
             document = (ksDocument2D)sketchDef.BeginEdit();
             BuildRectangleSketch(buildParameters, document);
             sketchDef.EndEdit();
@@ -453,6 +457,7 @@ namespace CADObjectCreatorBuilder
         {
             sketchDef.SetPlane(entity);
             sketch.Create();
+            //TODO:
             document = (ksDocument2D)sketchDef.BeginEdit();
             BuildInnerParts(buildParameters, document);
             sketchDef.EndEdit();
@@ -472,6 +477,7 @@ namespace CADObjectCreatorBuilder
         {
             sketchDef.SetPlane(entity);
             sketch.Create();
+            //TODO:
             document = (ksDocument2D)sketchDef.BeginEdit();
             BuildBindingSketch(buildParameters, document);
             sketchDef.EndEdit();
@@ -491,6 +497,7 @@ namespace CADObjectCreatorBuilder
         {
             sketchDef.SetPlane(entity);
             sketch.Create();
+            //TODO:
             document = (ksDocument2D)sketchDef.BeginEdit();
             BuildBindingSketch(buildParameters, document);
             sketchDef.EndEdit();
@@ -503,6 +510,7 @@ namespace CADObjectCreatorBuilder
         /// <param name="buildParameters"></param>
         private void BuildAllInclines(Parameters buildParameters)
         {
+             //TODO: RSDN
             var ShelfLegsHeight = buildParameters[ParametersName.ShelfLegsHeight].Value;
             var ShelfHeight = buildParameters[ParametersName.ShelfHeight].Value;
             var ShelfBindingHeight = buildParameters[ParametersName.ShelfBindingHeight].Value;
@@ -520,6 +528,7 @@ namespace CADObjectCreatorBuilder
         /// <param name="buildParameters"></param>
         private void BuildAllFillets(Parameters buildParameters)
         {
+             //TODO: RSDN
             var ShelfLength = buildParameters[ParametersName.ShelfLength].Value;
             var ShelfWidth = buildParameters[ParametersName.ShelfWidth].Value;
             var BindingHeight = buildParameters[ParametersName.ShelfBindingHeight].Value;
@@ -557,6 +566,7 @@ namespace CADObjectCreatorBuilder
                 ShelfWidth / 2,
                 LegsHeight + ShelfHeight + BindingHeight + ShelfHeight + BindingHeight + ShelfHeight);
 
+            //TODO: const 10
             CreateFillet(
                 (ShelfLength / 2) - Parameters.RadiusMargin,
                 (ShelfWidth / 2) - Parameters.RadiusMargin,
