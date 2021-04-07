@@ -38,7 +38,8 @@ namespace CADObjectCreatorBuilder
         /// Метод создает и возвращает новый документ детали в Компас3D.
         /// </summary>
         /// <param name="kompas"></param>
-        /// <exception cref="NullReferenceException">Нет возможности создать документ без экземпляра Компас3D.</exception>
+        /// <exception cref="NullReferenceException">
+        /// Нет возможности создать документ без экземпляра Компас3D.</exception>
         /// <returns></returns>
         private ksDocument3D CreateDocument(KompasObject kompas)
         {
@@ -67,12 +68,11 @@ namespace CADObjectCreatorBuilder
         /// Метод запускает Компас3D и создает документ детали. Возвращает ссылку на деталь в документе.
         /// </summary>
         /// <param name="kompas"></param>
-        /// <param name="document"></param>
         /// <param name="ksPart"></param>
-        private void StartUp(ref KompasObject kompas, ksDocument3D document, out ksPart ksPart)
+        private void StartUp(ref KompasObject kompas, out ksPart ksPart)
         {
             kompas = StartKompas(kompas);
-            document = CreateDocument(kompas);
+            ksDocument3D document = CreateDocument(kompas);
             ksPart = (ksPart)document.GetPart((short)Part_Type.pTop_Part);
         }
 
@@ -80,22 +80,20 @@ namespace CADObjectCreatorBuilder
         /// Конструктор класса Kompas3DConnector.
         /// </summary>
         /// <param name="tempKompas"></param>
-        /// <param name="tempDocument"></param>
         /// <param name="tempPart"></param>
-        public Kompas3DConnector(ref KompasObject tempKompas,ref ksDocument3D tempDocument,
-            out ksPart tempPart)
+        public Kompas3DConnector(ref KompasObject tempKompas, out ksPart tempPart)
         {
             //TODO: Решить с ksDocument3D
             try
             {
-                StartUp(ref tempKompas,tempDocument,out tempPart);
+                StartUp(ref tempKompas,out tempPart);
             }
             catch
             {
                 tempKompas = null;
-                StartUp(ref tempKompas,tempDocument,out tempPart);
+                StartUp(ref tempKompas,out tempPart);
             }
         }
         
-        }
+    }
 }

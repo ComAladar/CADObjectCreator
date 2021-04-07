@@ -101,7 +101,8 @@ namespace CADObjectCreatorParameters
         /// <summary>
         /// Возвращает и задает значение параметра.
         /// </summary>
-        /// <exception cref="ArgumentException">Не может быть больше чем максимум и не может быть меньше чем минимум.</exception>
+        /// <exception cref="ArgumentException">
+        /// Не может быть больше чем максимум и не может быть меньше чем минимум.</exception>
         public T Value
         {
             get
@@ -113,13 +114,15 @@ namespace CADObjectCreatorParameters
                 var comparerResultMin = Comparer<T>.Default.Compare(_min, value);
                 if (comparerResultMin > 0)
                 {
-                    throw new ArgumentException("Введенное значение должно быть больше чем "+ _min);
+                    throw new ArgumentException(
+                        "Введенное значение должно быть больше чем "+ _min);
                 }
 
                 var comparerResultMax = Comparer<T>.Default.Compare(_max, value);
                 if (comparerResultMax < 0)
                 {
-                    throw new ArgumentException("Введенное значение должно быть меньше чем " +_max);
+                    throw new ArgumentException(
+                        "Введенное значение должно быть меньше чем " +_max);
                 }
                 _value = value;
             }
