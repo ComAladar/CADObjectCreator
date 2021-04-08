@@ -34,17 +34,21 @@ namespace CADObjectCreatorBuilder
         /// Метод запускающий компас и строящий деталь.
         /// </summary>
         /// <param name="buildParameters"></param>
-        public void BuildObject(Parameters buildParameters)
+        /// <param name="leftHook"></param>
+        /// <param name="rightHook"></param>
+        public void BuildObject(Parameters buildParameters,bool leftHook,bool rightHook)
         {
             Kompas3DConnector kompasConnector = new Kompas3DConnector(ref _kompas, out _ksPart);
-            BuildMainBody(buildParameters);
+            BuildMainBody(buildParameters, leftHook, rightHook);
         }
 
         /// <summary>
         /// Метод построения этажерки.
         /// </summary>
         /// <param name="buildParameters"></param>
-        private void BuildMainBody(Parameters buildParameters)
+        /// <param name="leftHook"></param>
+        /// <param name="rightHook"></param>
+        private void BuildMainBody(Parameters buildParameters,bool leftHook, bool rightHook)
         {
             ksEntity currentEntity = 
                 (ksEntity) _ksPart.GetDefaultEntity((short) Obj3dType.o3d_planeXOY);
@@ -144,27 +148,21 @@ namespace CADObjectCreatorBuilder
             BuildAllInclines(buildParameters);
             BuildAllFillets(buildParameters);
 
+            if (rightHook == true || leftHook == true)
+            {
+                //СОЗДАНИЕ КРЮЧКО
+                ksEntity newEntity6 =
+                    (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeXOZ);
+                newEntity6.Create();
+                ksEntity Sketch11 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
 
-            //СОЗДАНИЕ КРЮЧКО
-            ksEntity newEntity6 =
-                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeXOZ);
-            newEntity6.Create();
-            ksEntity Sketch11 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
+                ksSketchDefinition sketchDef = Sketch11.GetDefinition();
+                sketchDef.SetPlane(newEntity6);
+                Sketch11.Create();
+                BuildHookModel(Sketch11, newEntity6, buildParameters,leftHook,rightHook);
+                BuildHookModel(Sketch11, newEntity6, buildParameters,leftHook,rightHook);
+            }
 
-            ksSketchDefinition sketchDef = Sketch11.GetDefinition();
-            sketchDef.SetPlane(newEntity6);
-            Sketch11.Create();
-            //СТРОИТЬ ТУТ
-            BuildHookModel(Sketch11,newEntity6,buildParameters);
-            //СТРОИТЬ ТУТ
-
-            sketchDef.EndEdit();
-            ExctrusionSketchNormal(10,Sketch11);
-
-
-
-
-            //СОЗДАНИЕ КРЮЧКА
         }
 
         /// <summary>
@@ -610,18 +608,38 @@ namespace CADObjectCreatorBuilder
                 shelfHeight + bindingHeight + shelfHeight + addRange);
         }
 
-        private void BuildHookModel(ksEntity sketch,ksEntity entity,Parameters buildParameters)
+        /// <summary>
+        /// Выполняет построение крючка.
+        /// </summary>
+        /// <param name="sketch"></param>
+        /// <param name="entity"></param>
+        /// <param name="buildParameters"></param>
+        /// <param name="leftHook"></param>
+        /// <param name="rightHook"></param>
+        private void BuildHookModel(ksEntity sketch,ksEntity entity,Parameters buildParameters,bool leftHook,bool rightHook)
         {
             ksSketchDefinition sketchDef = sketch.GetDefinition();
             sketchDef.SetPlane(entity);
             sketch.Create();
             ksDocument2D document = (ksDocument2D)sketchDef.BeginEdit();
-            BuildHookSketch(buildParameters,document);
+            if (leftHook == true)
+            {
+                BuildHookSketchLeft(buildParameters, document);
+            }
+            if (rightHook == true)
+            {
+                BuildHookSketchRight(buildParameters, document);
+            }
             sketchDef.EndEdit();
             ExctrusionSketchNormal(10, sketch);
         }
 
-        private void BuildHookSketch(Parameters buildParameters, ksDocument2D document)
+        /// <summary>
+        /// Выполняет построение левого эскиза крючка.
+        /// </summary>
+        /// <param name="buildParameters"></param>
+        /// <param name="document"></param>
+        private void BuildHookSketchLeft(Parameters buildParameters, ksDocument2D document)
         {
             double offsetDistance = buildParameters[ParametersName.ShelfLegsHeight].Value
                                     + buildParameters[ParametersName.ShelfHeight].Value
@@ -632,10 +650,9 @@ namespace CADObjectCreatorBuilder
 
             var shelfLengthDivided =
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount;
-            double hookLength = 10;
-            double hookWidth = 10;
+            double hookLength = buildParameters[ParametersName.ShelfHeight].Value / DivideAmount;
+            double hookWidth = 5;
 
-            //ПАРАЛЛЕЛЬНЫЕ
             document.ksLineSeg(
                 shelfLengthDivided,
                 -offsetDistance + hookLength,
@@ -648,21 +665,80 @@ namespace CADObjectCreatorBuilder
                 shelfLengthDivided + hookWidth,
                 -offsetDistance - hookLength, 1);
 
-            //ВЕРХНИЕ
             document.ksLineSeg(
                 shelfLengthDivided,
                 -offsetDistance - hookLength,
                 shelfLengthDivided + hookWidth,
                 -offsetDistance - hookLength, 1);
 
-            document.ksArcBy3Points(shelfLengthDivided,
-            -offsetDistance + hookLength, shelfLengthDivided + hookWidth / 2,
-                -offsetDistance + hookLength * 1.5, shelfLengthDivided + hookWidth * 2,
-                   -offsetDistance + hookLength, 1);
-
             document.ksArcBy3Points(shelfLengthDivided + hookWidth * 2,
                 -offsetDistance + hookLength, shelfLengthDivided + hookWidth * 1.15,
-                -offsetDistance + hookLength * 1.15, shelfLengthDivided + hookWidth,
+                -offsetDistance + hookLength * 1.35, shelfLengthDivided + hookWidth,
+                -offsetDistance + hookLength, 1);
+  
+            document.ksLineSeg(
+                shelfLengthDivided + hookWidth * 2,
+                -offsetDistance + hookLength,
+                shelfLengthDivided + hookWidth * 2 + 5,
+                -offsetDistance + hookLength, 1);
+
+            document.ksArcBy3Points(shelfLengthDivided,
+                -offsetDistance + hookLength, shelfLengthDivided + hookWidth,
+                -offsetDistance + hookLength * 2, shelfLengthDivided + hookWidth * 2 + 5,
+                -offsetDistance + hookLength, 1);
+        }
+
+        /// <summary>
+        /// Выполняет построение правого эскиза крючка.
+        /// </summary>
+        /// <param name="buildParameters"></param>
+        /// <param name="document"></param>
+        private void BuildHookSketchRight(Parameters buildParameters, ksDocument2D document)
+        {
+            double offsetDistance = buildParameters[ParametersName.ShelfLegsHeight].Value
+                                    + buildParameters[ParametersName.ShelfHeight].Value
+                                    + buildParameters[ParametersName.ShelfBindingHeight].Value
+                                    + buildParameters[ParametersName.ShelfHeight].Value
+                                    + buildParameters[ParametersName.ShelfBindingHeight].Value
+                                    + buildParameters[ParametersName.ShelfHeight].Value / DivideAmount;
+
+            var shelfLengthDivided =
+                buildParameters[ParametersName.ShelfLength].Value / DivideAmount;
+            double hookLength = buildParameters[ParametersName.ShelfHeight].Value / DivideAmount;
+            double hookWidth = 5;
+
+            document.ksLineSeg(
+                -shelfLengthDivided,
+                -offsetDistance + hookLength,
+                -shelfLengthDivided,
+                -offsetDistance - hookLength, 1);
+
+            document.ksLineSeg(
+                -(shelfLengthDivided + hookWidth),
+                -offsetDistance + hookLength,
+                -(shelfLengthDivided + hookWidth),
+                -offsetDistance - hookLength, 1);
+
+            document.ksLineSeg(
+                -shelfLengthDivided,
+                -offsetDistance - hookLength,
+                -(shelfLengthDivided + hookWidth),
+                -offsetDistance - hookLength, 1);
+
+            document.ksArcBy3Points(-(shelfLengthDivided + hookWidth * 2),
+                -offsetDistance + hookLength, -(shelfLengthDivided + hookWidth * 1.15),
+                -offsetDistance + hookLength * 1.35, -(shelfLengthDivided + hookWidth),
+                -offsetDistance + hookLength, 1);
+
+            document.ksLineSeg(
+                -(shelfLengthDivided + hookWidth * 2),
+                -offsetDistance + hookLength,
+                -(shelfLengthDivided + hookWidth * 2 + 5),
+                -offsetDistance + hookLength, 1);
+
+            document.ksArcBy3Points(-shelfLengthDivided,
+                -offsetDistance + hookLength, -(shelfLengthDivided + hookWidth),
+                -offsetDistance + hookLength * 2, -(shelfLengthDivided + hookWidth * 2 + 5),
                 -offsetDistance + hookLength, 1);
         }
     }

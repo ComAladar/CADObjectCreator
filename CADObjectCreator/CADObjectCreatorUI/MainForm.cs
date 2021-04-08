@@ -36,6 +36,7 @@ namespace CADObjectCreatorUI
         /// </summary>
         private bool _isParametersVefified;
 
+
         /// <summary>
         /// Метод заполняет TextBox начальными параметрами этажерки.
         /// </summary>
@@ -230,7 +231,7 @@ namespace CADObjectCreatorUI
             VerifyParameters();
             if (_isParametersVefified)
             {
-                _kompasBuilder.BuildObject(_parameters);
+                _kompasBuilder.BuildObject(_parameters,checkBoxLeft.Checked,checkBoxRight.Checked);
             }
         }
 
@@ -307,5 +308,6 @@ namespace CADObjectCreatorUI
                 e.Handled = true;
             }
         }
+
     }
 }
