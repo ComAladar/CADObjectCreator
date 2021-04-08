@@ -623,7 +623,6 @@ namespace CADObjectCreatorBuilder
 
         private void BuildHookSketch(Parameters buildParameters, ksDocument2D document)
         {
-
             double offsetDistance = buildParameters[ParametersName.ShelfLegsHeight].Value
                                     + buildParameters[ParametersName.ShelfHeight].Value
                                     + buildParameters[ParametersName.ShelfBindingHeight].Value
@@ -642,6 +641,7 @@ namespace CADObjectCreatorBuilder
                 -offsetDistance + hookLength,
                 shelfLengthDivided,
                 -offsetDistance - hookLength, 1);
+
             document.ksLineSeg(
                 shelfLengthDivided + hookWidth,
                 -offsetDistance + hookLength,
@@ -651,24 +651,9 @@ namespace CADObjectCreatorBuilder
             //ВЕРХНИЕ
             document.ksLineSeg(
                 shelfLengthDivided,
-                -offsetDistance + hookLength,
-                shelfLengthDivided + hookWidth,
-                -offsetDistance + hookLength, 1);
-
-            document.ksLineSeg(
-                shelfLengthDivided,
                 -offsetDistance - hookLength,
                 shelfLengthDivided + hookWidth,
                 -offsetDistance - hookLength, 1);
-
-            //document.ksArcBy3Points(shelfLengthDivided + hookWidth / 2,
-            //    -offsetDistance + hookLength / 2, shelfLengthDivided + hookWidth,
-            //    -offsetDistance + hookLength * 2, shelfLengthDivided + hookWidth * 2,
-            //       -offsetDistance + hookLength, 1);
-            //document.ksArcBy3Points(shelfLengthDivided + hookWidth * 2,
-            //    -offsetDistance + hookLength, shelfLengthDivided + hookWidth * 0.5,
-            //    -offsetDistance + hookLength * 1.5, shelfLengthDivided + hookWidth / 2,
-            //    -offsetDistance + hookLength / 2, 1);
 
             document.ksArcBy3Points(shelfLengthDivided,
             -offsetDistance + hookLength, shelfLengthDivided + hookWidth / 2,
@@ -677,7 +662,7 @@ namespace CADObjectCreatorBuilder
 
             document.ksArcBy3Points(shelfLengthDivided + hookWidth * 2,
                 -offsetDistance + hookLength, shelfLengthDivided + hookWidth * 1.15,
-                -offsetDistance + hookLength*1.15, shelfLengthDivided + hookWidth,
+                -offsetDistance + hookLength * 1.15, shelfLengthDivided + hookWidth,
                 -offsetDistance + hookLength, 1);
         }
     }
