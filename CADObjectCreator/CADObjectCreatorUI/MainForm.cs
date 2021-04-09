@@ -42,6 +42,7 @@ namespace CADObjectCreatorUI
         /// </summary>
         private void TextBoxFillUp()
         {
+            //TODO: Duplication
             var dictionary = new Dictionary<TextBox, ParametersName>()
             {
                 {ShelfLengthTextBox, ParametersName.ShelfLength},
@@ -185,6 +186,7 @@ namespace CADObjectCreatorUI
         /// <param name="e"></param>
         private void SetMinButton_Click(object sender, EventArgs e)
         {
+            //TODO: Duplication
             var dictionary = new Dictionary<TextBox, ParametersName>()
             {
                 {ShelfLengthTextBox, ParametersName.ShelfLength},
@@ -209,6 +211,7 @@ namespace CADObjectCreatorUI
         /// <param name="e"></param>
         private void SetMaxButton_Click(object sender, EventArgs e)
         {
+            //TODO: Duplication
             var dictionary = new Dictionary<TextBox, ParametersName>()
             {
                 {ShelfLengthTextBox, ParametersName.ShelfLength},
@@ -281,7 +284,9 @@ namespace CADObjectCreatorUI
 
             foreach (var parametersName in dictionary)
             {
-                parametersName.Key.Text = "Минимальная: " + _parameters[parametersName.Value].Min + " мм";
+                parametersName.Key.Text = "Минимальная: " 
+                                          + _parameters[parametersName.Value].Min 
+                                          + " мм";
             }
 
             dictionary = new Dictionary<Label, ParametersName>()

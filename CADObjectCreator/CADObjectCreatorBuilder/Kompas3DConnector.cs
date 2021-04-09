@@ -63,7 +63,6 @@ namespace CADObjectCreatorBuilder
             }
         }
 
-         //TODO: RSDN
         /// <summary>
         /// Метод запускает Компас3D и создает документ детали. Возвращает ссылку на деталь в документе.
         /// </summary>
@@ -83,7 +82,6 @@ namespace CADObjectCreatorBuilder
         /// <param name="tempPart"></param>
         public Kompas3DConnector(ref KompasObject tempKompas, out ksPart tempPart)
         {
-            //TODO: Решить с ksDocument3D
             try
             {
                 StartUp(ref tempKompas,out tempPart);
