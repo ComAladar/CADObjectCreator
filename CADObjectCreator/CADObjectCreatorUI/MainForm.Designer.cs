@@ -381,8 +381,9 @@
             this.groupBox4.Controls.Add(this.checkBoxRight);
             this.groupBox4.Controls.Add(this.checkBoxLeft);
             this.groupBox4.Location = new System.Drawing.Point(300, 155);
+            this.groupBox4.MinimumSize = new System.Drawing.Size(138, 118);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(138, 100);
+            this.groupBox4.Size = new System.Drawing.Size(138, 118);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Расположение крючков";

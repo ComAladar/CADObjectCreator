@@ -226,6 +226,11 @@ namespace CADObjectCreatorUI
             TextBoxSetColor();
         }
 
+        /// <summary>
+        /// Обработчик нажатия кнопки. Отвечает за построение детали.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ConstructButton_Click(object sender, EventArgs e)
         {
             VerifyParameters();

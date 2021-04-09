@@ -57,15 +57,15 @@ namespace CADObjectCreatorBuilder
             BuildLegsModel(Sketch1,currentEntity, buildParameters);
 
             //TODO: Дубли
-            double offsetDistance= -buildParameters[ParametersName.ShelfLegsHeight].Value; //Нужно
+            double offsetDistance= -buildParameters[ParametersName.ShelfLegsHeight].Value; 
             ksEntity newEntity = 
-                (ksEntity) _ksPart.NewEntity((short) Obj3dType.o3d_planeOffset); //Нужно
+                (ksEntity) _ksPart.NewEntity((short) Obj3dType.o3d_planeOffset); 
             ksPlaneOffsetDefinition newEntityDefinition = 
-                (ksPlaneOffsetDefinition) newEntity.GetDefinition(); // Возможно убрать но тогда надо будет передавать в метод ниже два ентити
+                (ksPlaneOffsetDefinition) newEntity.GetDefinition(); 
             PlaneOffsetParamsSet(offsetDistance, currentEntity, newEntityDefinition);
             newEntity.Create();
             ksEntity Sketch2 = 
-                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch); //Нужно
+                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch); 
             BuildShelfModel(Sketch2,newEntity, buildParameters);
 
             offsetDistance= 
@@ -150,7 +150,6 @@ namespace CADObjectCreatorBuilder
 
             if (rightHook == true || leftHook == true)
             {
-                //СОЗДАНИЕ КРЮЧКО
                 ksEntity newEntity6 =
                     (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeXOZ);
                 newEntity6.Create();
@@ -162,7 +161,6 @@ namespace CADObjectCreatorBuilder
                 BuildHookModel(Sketch11, newEntity6, buildParameters,leftHook,rightHook);
                 BuildHookModel(Sketch11, newEntity6, buildParameters,leftHook,rightHook);
             }
-
         }
 
         /// <summary>
@@ -539,8 +537,8 @@ namespace CADObjectCreatorBuilder
         private void BuildAllFillets(Parameters buildParameters)
         {
             //TODO: RSDN
-            int addRange = 10;
-            int subRange = 2;
+            int addAmount = 10;
+            int subAmount = 2;
             var shelfLengthDivided = 
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount;
             var shelfWidthDivided = 
@@ -567,16 +565,16 @@ namespace CADObjectCreatorBuilder
                 shelfWidthDivided, 
                 legsHeight + shelfHeight);
             CreateFillet(
-                shelfLengthDivided - subRange, 
-                shelfWidthDivided - subRange, 
+                shelfLengthDivided - subAmount, 
+                shelfWidthDivided - subAmount, 
                 legsHeight + shelfHeight + bindingHeight);
             CreateFillet(
                 shelfLengthDivided, 
                 shelfWidthDivided, 
                 legsHeight + shelfHeight + bindingHeight + shelfHeight);
             CreateFillet(
-                shelfLengthDivided - subRange, 
-                shelfWidthDivided - subRange,
+                shelfLengthDivided - subAmount, 
+                shelfWidthDivided - subAmount,
                 legsHeight + shelfHeight + bindingHeight + 
                 shelfHeight + bindingHeight);
             CreateFillet(
@@ -590,22 +588,22 @@ namespace CADObjectCreatorBuilder
                 (shelfLengthDivided) - Parameters.RadiusMargin,
                 (shelfWidthDivided) - Parameters.RadiusMargin,
                 legsHeight + shelfHeight + bindingHeight + 
-                shelfHeight + bindingHeight + shelfHeight + addRange);
+                shelfHeight + bindingHeight + shelfHeight + addAmount);
             CreateFillet(
                 -((shelfLengthDivided) - Parameters.RadiusMargin),
                 ((shelfWidthDivided) - Parameters.RadiusMargin),
                 legsHeight + shelfHeight + bindingHeight + 
-                shelfHeight + bindingHeight + shelfHeight + addRange);
+                shelfHeight + bindingHeight + shelfHeight + addAmount);
             CreateFillet(
                 ((shelfLengthDivided) - Parameters.RadiusMargin),
                 -((shelfWidthDivided) - Parameters.RadiusMargin),
                 legsHeight + shelfHeight + bindingHeight + 
-                shelfHeight + bindingHeight + shelfHeight + addRange);
+                shelfHeight + bindingHeight + shelfHeight + addAmount);
             CreateFillet(
                 -((shelfLengthDivided) - Parameters.RadiusMargin),
                 -((shelfWidthDivided) - Parameters.RadiusMargin),
                 legsHeight + shelfHeight + bindingHeight + 
-                shelfHeight + bindingHeight + shelfHeight + addRange);
+                shelfHeight + bindingHeight + shelfHeight + addAmount);
         }
 
         /// <summary>
@@ -616,7 +614,8 @@ namespace CADObjectCreatorBuilder
         /// <param name="buildParameters"></param>
         /// <param name="leftHook"></param>
         /// <param name="rightHook"></param>
-        private void BuildHookModel(ksEntity sketch,ksEntity entity,Parameters buildParameters,bool leftHook,bool rightHook)
+        private void BuildHookModel(ksEntity sketch,ksEntity entity,
+            Parameters buildParameters,bool leftHook,bool rightHook)
         {
             ksSketchDefinition sketchDef = sketch.GetDefinition();
             sketchDef.SetPlane(entity);
@@ -652,6 +651,7 @@ namespace CADObjectCreatorBuilder
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount;
             double hookLength = buildParameters[ParametersName.ShelfHeight].Value / DivideAmount;
             double hookWidth = 5;
+            var multiplyAmount = 2;
 
             document.ksLineSeg(
                 shelfLengthDivided,
@@ -671,20 +671,21 @@ namespace CADObjectCreatorBuilder
                 shelfLengthDivided + hookWidth,
                 -offsetDistance - hookLength, 1);
 
-            document.ksArcBy3Points(shelfLengthDivided + hookWidth * 2,
+            document.ksArcBy3Points(shelfLengthDivided + hookWidth * multiplyAmount,
                 -offsetDistance + hookLength, shelfLengthDivided + hookWidth * 1.15,
                 -offsetDistance + hookLength * 1.35, shelfLengthDivided + hookWidth,
                 -offsetDistance + hookLength, 1);
   
             document.ksLineSeg(
-                shelfLengthDivided + hookWidth * 2,
+                shelfLengthDivided + hookWidth * multiplyAmount,
                 -offsetDistance + hookLength,
-                shelfLengthDivided + hookWidth * 2 + 5,
+                shelfLengthDivided + hookWidth * multiplyAmount + 5,
                 -offsetDistance + hookLength, 1);
 
             document.ksArcBy3Points(shelfLengthDivided,
                 -offsetDistance + hookLength, shelfLengthDivided + hookWidth,
-                -offsetDistance + hookLength * 2, shelfLengthDivided + hookWidth * 2 + 5,
+                -offsetDistance + hookLength * multiplyAmount, 
+                shelfLengthDivided + hookWidth * multiplyAmount + 5,
                 -offsetDistance + hookLength, 1);
         }
 
@@ -706,6 +707,7 @@ namespace CADObjectCreatorBuilder
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount;
             double hookLength = buildParameters[ParametersName.ShelfHeight].Value / DivideAmount;
             double hookWidth = 5;
+            var multiplyAmount = 2;
 
             document.ksLineSeg(
                 -shelfLengthDivided,
@@ -725,20 +727,21 @@ namespace CADObjectCreatorBuilder
                 -(shelfLengthDivided + hookWidth),
                 -offsetDistance - hookLength, 1);
 
-            document.ksArcBy3Points(-(shelfLengthDivided + hookWidth * 2),
+            document.ksArcBy3Points(-(shelfLengthDivided + hookWidth * multiplyAmount),
                 -offsetDistance + hookLength, -(shelfLengthDivided + hookWidth * 1.15),
                 -offsetDistance + hookLength * 1.35, -(shelfLengthDivided + hookWidth),
                 -offsetDistance + hookLength, 1);
 
             document.ksLineSeg(
-                -(shelfLengthDivided + hookWidth * 2),
+                -(shelfLengthDivided + hookWidth * multiplyAmount),
                 -offsetDistance + hookLength,
-                -(shelfLengthDivided + hookWidth * 2 + 5),
+                -(shelfLengthDivided + hookWidth * multiplyAmount + 5),
                 -offsetDistance + hookLength, 1);
 
             document.ksArcBy3Points(-shelfLengthDivided,
                 -offsetDistance + hookLength, -(shelfLengthDivided + hookWidth),
-                -offsetDistance + hookLength * 2, -(shelfLengthDivided + hookWidth * 2 + 5),
+                -offsetDistance + hookLength * multiplyAmount, 
+                -(shelfLengthDivided + hookWidth * multiplyAmount + 5),
                 -offsetDistance + hookLength, 1);
         }
     }
