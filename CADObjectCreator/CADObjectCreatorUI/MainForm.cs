@@ -31,6 +31,9 @@ namespace CADObjectCreatorUI
         /// </summary>
         private readonly Dictionary<TextBox, Action<Parameters, string>> _textBoxDictionary;
 
+        private readonly Dictionary<TextBox, ParametersName> _textBoxDictionaryValues;
+
+
         /// <summary>
         /// Поле хранит удачность верификации параметров.
         /// </summary>
@@ -43,16 +46,7 @@ namespace CADObjectCreatorUI
         private void TextBoxFillUp()
         {
             //TODO: Duplication
-            var dictionary = new Dictionary<TextBox, ParametersName>()
-            {
-                {ShelfLengthTextBox, ParametersName.ShelfLength},
-                {ShelfWidthTextBox, ParametersName.ShelfWidth},
-                {ShelfHeightTextBox,ParametersName.ShelfHeight},
-                {ShelfLegsHeightTextBox,ParametersName.ShelfLegsHeight},
-                {ShelfBindingHeightTextBox,ParametersName.ShelfBindingHeight}
-            };
-
-            foreach (var parametersName in dictionary)
+            foreach (var parametersName in _textBoxDictionaryValues)
             {
                 parametersName.Key.Text = 
                     _parameters[parametersName.Value].Value.ToString();
@@ -66,16 +60,7 @@ namespace CADObjectCreatorUI
         {
             try
             {
-                var dictionary = new Dictionary<TextBox, ParametersName>()
-                {
-                    {ShelfLengthTextBox, ParametersName.ShelfLength},
-                    {ShelfWidthTextBox, ParametersName.ShelfWidth},
-                    {ShelfHeightTextBox,ParametersName.ShelfHeight},
-                    {ShelfLegsHeightTextBox,ParametersName.ShelfLegsHeight},
-                    {ShelfBindingHeightTextBox,ParametersName.ShelfBindingHeight}
-                };
-
-                foreach (var parametersName in dictionary)
+                foreach (var parametersName in _textBoxDictionaryValues)
                 {
                     _parameters[parametersName.Value].Value = 
                         Double.Parse(parametersName.Key.Text);
@@ -131,7 +116,6 @@ namespace CADObjectCreatorUI
         public MainForm()
         {
             InitializeComponent();
-            TextBoxFillUp();
             _textBoxDictionary = new Dictionary<TextBox, Action<Parameters, string>>()
             {
                 {
@@ -176,6 +160,16 @@ namespace CADObjectCreatorUI
                 }
             };
 
+            _textBoxDictionaryValues = new Dictionary<TextBox, ParametersName>()
+            {
+                {ShelfLengthTextBox, ParametersName.ShelfLength},
+                {ShelfWidthTextBox, ParametersName.ShelfWidth},
+                {ShelfHeightTextBox,ParametersName.ShelfHeight},
+                {ShelfLegsHeightTextBox,ParametersName.ShelfLegsHeight},
+                {ShelfBindingHeightTextBox,ParametersName.ShelfBindingHeight}
+            };
+
+            TextBoxFillUp();
             LabelMinMaxFillUp();
         }
 
@@ -187,16 +181,7 @@ namespace CADObjectCreatorUI
         private void SetMinButton_Click(object sender, EventArgs e)
         {
             //TODO: Duplication
-            var dictionary = new Dictionary<TextBox, ParametersName>()
-            {
-                {ShelfLengthTextBox, ParametersName.ShelfLength},
-                {ShelfWidthTextBox, ParametersName.ShelfWidth},
-                {ShelfHeightTextBox,ParametersName.ShelfHeight},
-                {ShelfLegsHeightTextBox,ParametersName.ShelfLegsHeight},
-                {ShelfBindingHeightTextBox,ParametersName.ShelfBindingHeight}
-            };
-
-            foreach (var parametersName in dictionary)
+            foreach (var parametersName in _textBoxDictionaryValues)
             {
                 parametersName.Key.Text = _parameters[parametersName.Value].Min.ToString();
             }
@@ -212,16 +197,7 @@ namespace CADObjectCreatorUI
         private void SetMaxButton_Click(object sender, EventArgs e)
         {
             //TODO: Duplication
-            var dictionary = new Dictionary<TextBox, ParametersName>()
-            {
-                {ShelfLengthTextBox, ParametersName.ShelfLength},
-                {ShelfWidthTextBox, ParametersName.ShelfWidth},
-                {ShelfHeightTextBox,ParametersName.ShelfHeight},
-                {ShelfLegsHeightTextBox,ParametersName.ShelfLegsHeight},
-                {ShelfBindingHeightTextBox,ParametersName.ShelfBindingHeight}
-            };
-
-            foreach (var parametersName in dictionary)
+            foreach (var parametersName in _textBoxDictionaryValues)
             {
                 parametersName.Key.Text = _parameters[parametersName.Value].Max.ToString();
             }
@@ -300,7 +276,9 @@ namespace CADObjectCreatorUI
 
             foreach (var parametersName in dictionary)
             {
-                parametersName.Key.Text = "Максимальная: " + _parameters[parametersName.Value].Max + " мм";
+                parametersName.Key.Text = "Максимальная: " 
+                                          + _parameters[parametersName.Value].Max 
+                                          + " мм";
             }
         }
 
