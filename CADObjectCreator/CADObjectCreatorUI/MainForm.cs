@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
@@ -215,7 +217,7 @@ namespace CADObjectCreatorUI
             VerifyParameters();
             if (_isParametersVefified)
             {
-                _kompasBuilder.BuildObject(_parameters,checkBoxLeft.Checked,checkBoxRight.Checked);
+                _kompasBuilder.BuildObject(_parameters, checkBoxLeft.Checked, checkBoxRight.Checked);
             }
         }
 

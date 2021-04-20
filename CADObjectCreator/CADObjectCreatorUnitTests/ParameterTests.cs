@@ -14,8 +14,8 @@ namespace CADObjectCreatorUnitTests
         private Parameter<double> CreateParameter()
         {
              //TODO: RSDN
-            var Parameter = new Parameter<double>("Parameter", 100, 250, 160);
-            return Parameter;
+            var parameter = new Parameter<double>("Parameter", 100, 250, 160);
+            return parameter;
         }
 
         [Test]
@@ -205,7 +205,7 @@ namespace CADObjectCreatorUnitTests
         public void Parameter_ThrowsArgumentException_MaxIsLowerThanMin()
         {
             //Assert
-            Assert.Throws<ArgumentException>((() => { var Parameter = new Parameter<double>("Parameter,", 100, 50, 160); }),
+            Assert.Throws<ArgumentException>((() => { var parameter = new Parameter<double>("Parameter,", 100, 50, 160); }),
                 "У конструктора не происходит срабатывание ArgumentException при максимуме меньше минимума.");
         }
 

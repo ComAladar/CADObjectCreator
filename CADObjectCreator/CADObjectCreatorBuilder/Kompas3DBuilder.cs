@@ -27,7 +27,30 @@ namespace CADObjectCreatorBuilder
         /// </summary>
         private KompasObject _kompas;
 
+        /// <summary>
+        /// Поле для хранения значения нахождения центров сторон.
+        /// </summary>
         private const int DivideAmount = 2;
+
+        /// <summary>
+        /// Поле для хранения размеров дуги крючков по x.
+        /// </summary>
+        private const double multiplyPoint2xAmount = 1.15;
+
+        /// <summary>
+        /// Поле для хранения размеров дуги крючков по y.
+        /// </summary>
+        private const double multiplyPoint2yAmount = 1.35;
+
+        /// <summary>
+        /// Поле для хранения отсутпа крючка.
+        /// </summary>
+        private const double addAmount = 5;
+
+        /// <summary>
+        /// Поле для хранения значения нахождения двойного отсупа крючка.
+        /// </summary>
+        private const double multiplyAmount = 2;
 
         /// <summary>
         /// Метод запускающий компас и строящий деталь.
@@ -56,13 +79,8 @@ namespace CADObjectCreatorBuilder
             BuildLegsModel(sketch1,currentEntity, buildParameters);
 
             //TODO: Дубли
-            double offsetDistance= -buildParameters[ParametersName.ShelfLegsHeight].Value; 
-            ksEntity newEntity = 
-                (ksEntity) _ksPart.NewEntity((short) Obj3dType.o3d_planeOffset); 
-            ksPlaneOffsetDefinition newEntityDefinition = 
-                (ksPlaneOffsetDefinition) newEntity.GetDefinition(); 
-            PlaneOffsetParamsSet(offsetDistance, currentEntity, newEntityDefinition);
-            newEntity.Create();
+            double offsetDistance= -buildParameters[ParametersName.ShelfLegsHeight].Value;
+            ksEntity newEntity = CreateEntity(offsetDistance, currentEntity);
             //TODO: RSDN
             ksEntity sketch2 = 
                 (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch); 
@@ -71,77 +89,37 @@ namespace CADObjectCreatorBuilder
             offsetDistance= 
                 -buildParameters[ParametersName.ShelfBindingHeight].Value 
                 - buildParameters[ParametersName.ShelfHeight].Value;
-            ksEntity newEntity1 = 
-                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
-            ksPlaneOffsetDefinition newEntityDefinition1 = 
-                (ksPlaneOffsetDefinition)newEntity1.GetDefinition();
-            PlaneOffsetParamsSet(offsetDistance, newEntity, newEntityDefinition1);
-            newEntity1.Create();
+            ksEntity newEntity1 = CreateEntity(offsetDistance, newEntity);
             ksEntity sketch3 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
             BuildBindingModelReverse(sketch3, newEntity1, buildParameters);
 
-            ksEntity newEntity2 = 
-                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
-            ksPlaneOffsetDefinition newEntityDefinition2 = 
-                (ksPlaneOffsetDefinition)newEntity2.GetDefinition();
-            newEntityDefinition2.SetPlane(newEntity1);
-            newEntity2.Create();
+            ksEntity newEntity2 = CreateEntity(0, newEntity1);
             ksEntity sketch4 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
             BuildShelfModel(sketch4, newEntity2, buildParameters);
 
-            ksEntity newEntity3 = 
-                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
-            ksPlaneOffsetDefinition newEntityDefinition3 = 
-                (ksPlaneOffsetDefinition)newEntity3.GetDefinition();
-            PlaneOffsetParamsSet(offsetDistance, newEntity2, newEntityDefinition3);
-            newEntity3.Create();
+            ksEntity newEntity3 = CreateEntity(offsetDistance, newEntity2);
             ksEntity sketch5 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
             BuildBindingModelReverse(sketch5, newEntity3, buildParameters);
 
-            ksEntity newEntity4 = 
-                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
-            ksPlaneOffsetDefinition newEntityDefinition4 = 
-                (ksPlaneOffsetDefinition)newEntity4.GetDefinition();
-            newEntityDefinition4.SetPlane(newEntity3);
-            newEntity4.Create();
+            ksEntity newEntity4 = CreateEntity(0, newEntity3);
             ksEntity sketch6 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
             BuildShelfModel(sketch6, newEntity4, buildParameters);
 
             offsetDistance = -buildParameters[ParametersName.ShelfHeight].Value;
-            ksEntity newEntity5 = 
-                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
-            ksPlaneOffsetDefinition newEntityDefinition5 = 
-                (ksPlaneOffsetDefinition)newEntity5.GetDefinition();
-            PlaneOffsetParamsSet(offsetDistance, newEntity4, newEntityDefinition5);
-            newEntity5.Create();
+            ksEntity newEntity5 = CreateEntity(offsetDistance, newEntity4);
             ksEntity sketch7 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
             BuildBindingModelNormal(sketch7,newEntity5, buildParameters);
 
             offsetDistance = -buildParameters[ParametersName.ShelfHeight].Value;
-            ksEntity innerEntity = 
-                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset); 
-            ksPlaneOffsetDefinition innerEntityDefinition = 
-                (ksPlaneOffsetDefinition)innerEntity.GetDefinition();
-            PlaneOffsetParamsSet(offsetDistance, newEntity, innerEntityDefinition);
-            innerEntity.Create();
+            ksEntity innerEntity = CreateEntity(offsetDistance, newEntity);
             ksEntity sketch8 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
             BuildInnerPartsModel(sketch8, innerEntity, buildParameters);
 
-            ksEntity innerEntity1 = 
-                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
-            ksPlaneOffsetDefinition innerEntityDefinition1 = 
-                (ksPlaneOffsetDefinition)innerEntity1.GetDefinition();
-            PlaneOffsetParamsSet(offsetDistance, newEntity1, innerEntityDefinition1);
-            innerEntity1.Create();
+            ksEntity innerEntity1 = CreateEntity(offsetDistance, newEntity1);
             ksEntity sketch9 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
             BuildInnerPartsModel(sketch9, innerEntity1, buildParameters);
 
-            ksEntity innerEntity2 = 
-                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
-            ksPlaneOffsetDefinition innerEntityDefinition2 = 
-                (ksPlaneOffsetDefinition)innerEntity2.GetDefinition();
-            PlaneOffsetParamsSet(offsetDistance, newEntity4, innerEntityDefinition2);
-            innerEntity2.Create();
+            ksEntity innerEntity2 = CreateEntity(offsetDistance, newEntity4);
             ksEntity sketch10 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
             BuildInnerPartsModel(sketch10, innerEntity2, buildParameters);
 
@@ -153,12 +131,12 @@ namespace CADObjectCreatorBuilder
                 ksEntity newEntity6 =
                     (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeXOZ);
                 newEntity6.Create();
-                ksEntity sketch11 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
 
+                ksEntity sketch11 = (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch);
                 ksSketchDefinition sketchDef = sketch11.GetDefinition();
                 sketchDef.SetPlane(newEntity6);
                 sketch11.Create();
-                BuildHookModel(sketch11, newEntity6, buildParameters,leftHook,rightHook);
+
                 BuildHookModel(sketch11, newEntity6, buildParameters,leftHook,rightHook);
             }
         }
@@ -167,7 +145,7 @@ namespace CADObjectCreatorBuilder
         /// Метод построения эскиза прямоугольника по координатам.
         /// </summary>
         /// <param name="buildParameters"></param>
-        /// <param name="document"></param>
+        /// <param name="sketchDef"></param>
         private void BuildRectangleSketch(Parameters buildParameters,ksSketchDefinition sketchDef)
         {
             ksDocument2D document = (ksDocument2D)sketchDef.BeginEdit();
@@ -415,8 +393,9 @@ namespace CADObjectCreatorBuilder
         /// <param name="entityDef"></param>
         /// <returns></returns>
         private ksPlaneOffsetDefinition PlaneOffsetParamsSet(double offset, ksEntity tempEntity,
-            ksPlaneOffsetDefinition entityDef)
+            ksEntity mainEntity)
         {
+            ksPlaneOffsetDefinition entityDef = (ksPlaneOffsetDefinition)mainEntity.GetDefinition();
             entityDef.SetPlane(tempEntity);
             entityDef.direction = false;
             entityDef.offset = offset;
@@ -431,10 +410,8 @@ namespace CADObjectCreatorBuilder
         /// <param name="buildParameters"></param>
         private void BuildLegsModel(ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
-            ksSketchDefinition sketchDef = sketch.GetDefinition();
-            sketchDef.SetPlane(entity);
-            sketch.Create();
-            //TODO: ДОКУМЕНТЫ
+            ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
+            //TODO:
             BuildLegsSketch(buildParameters, sketchDef);
             sketchDef.EndEdit();
             ExctrusionSketchNormal(buildParameters[ParametersName.ShelfLegsHeight].Value, sketch);
@@ -448,9 +425,7 @@ namespace CADObjectCreatorBuilder
         /// <param name="buildParameters"></param>
         private void BuildShelfModel(ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
-            ksSketchDefinition sketchDef = sketch.GetDefinition();
-            sketchDef.SetPlane(entity);
-            sketch.Create();
+            ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
 
             BuildRectangleSketch(buildParameters, sketchDef);
             sketchDef.EndEdit();
@@ -465,9 +440,7 @@ namespace CADObjectCreatorBuilder
         /// <param name="buildParameters"></param>
         private void BuildInnerPartsModel(ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
-            ksSketchDefinition sketchDef = sketch.GetDefinition();
-            sketchDef.SetPlane(entity);
-            sketch.Create();
+            ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
 
             BuildInnerParts(buildParameters, sketchDef);
             sketchDef.EndEdit();
@@ -482,9 +455,7 @@ namespace CADObjectCreatorBuilder
         /// <param name="buildParameters"></param>
         private void BuildBindingModelReverse(ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
-            ksSketchDefinition sketchDef = sketch.GetDefinition();
-            sketchDef.SetPlane(entity);
-            sketch.Create();
+            ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
 
             BuildBindingSketch(buildParameters, sketchDef);
             sketchDef.EndEdit();
@@ -499,9 +470,7 @@ namespace CADObjectCreatorBuilder
         /// <param name="buildParameters"></param>
         private void BuildBindingModelNormal( ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
-            ksSketchDefinition sketchDef = sketch.GetDefinition();
-            sketchDef.SetPlane(entity);
-            sketch.Create();
+            ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
 
             BuildBindingSketch(buildParameters, sketchDef);
             sketchDef.EndEdit();
@@ -535,7 +504,6 @@ namespace CADObjectCreatorBuilder
         /// <param name="buildParameters"></param>
         private void BuildAllFillets(Parameters buildParameters)
         {
-            
             const int subAmount = 2;
             //TODO: Duplication
             var shelfLengthDivided = 
@@ -621,7 +589,6 @@ namespace CADObjectCreatorBuilder
             ksSketchDefinition sketchDef = sketch.GetDefinition();
             sketchDef.SetPlane(entity);
             sketch.Create();
-            //TODO: ДОКУМЕНТЫ 2
             ksDocument2D document = (ksDocument2D)sketchDef.BeginEdit();
             if (leftHook)
             {
@@ -649,15 +616,10 @@ namespace CADObjectCreatorBuilder
                                     + buildParameters[ParametersName.ShelfHeight].Value
                                     + buildParameters[ParametersName.ShelfBindingHeight].Value
                                     + buildParameters[ParametersName.ShelfHeight].Value / DivideAmount;
-
             var shelfLengthDivided =
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount;
             double hookLength = buildParameters[ParametersName.ShelfHeight].Value / DivideAmount;
-            double hookWidth = 5;
-            var multiplyAmount = 2;
-            double multiplyPoint2xAmount = 1.15;
-            double multiplyPoint2yAmoint = 1.35;
-            double addAmount = 5;
+            const double hookWidth = 5;
             document.ksLineSeg(
                 shelfLengthDivided,
                 -offsetDistance + hookLength,
@@ -679,7 +641,7 @@ namespace CADObjectCreatorBuilder
             //TODO: magic...
             document.ksArcBy3Points(shelfLengthDivided + hookWidth * multiplyAmount,
                 -offsetDistance + hookLength, shelfLengthDivided + hookWidth * multiplyPoint2xAmount,
-                -offsetDistance + hookLength * multiplyPoint2yAmoint, shelfLengthDivided + hookWidth,
+                -offsetDistance + hookLength * multiplyPoint2yAmount, shelfLengthDivided + hookWidth,
                 -offsetDistance + hookLength, 1);
   
             document.ksLineSeg(
@@ -709,12 +671,10 @@ namespace CADObjectCreatorBuilder
                                       + buildParameters[ParametersName.ShelfHeight].Value
                                       + buildParameters[ParametersName.ShelfBindingHeight].Value
                                       + buildParameters[ParametersName.ShelfHeight].Value / DivideAmount);
-
             var shelfLengthDivided =
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount;
             double hookLength = buildParameters[ParametersName.ShelfHeight].Value / DivideAmount;
-            double hookWidth = 5;
-            double multiplyAmount = 2;
+            const double hookWidth = 5;
 
             document.ksLineSeg(
                 -shelfLengthDivided,
@@ -734,22 +694,53 @@ namespace CADObjectCreatorBuilder
                 -(shelfLengthDivided + hookWidth),
                 offsetDistance - hookLength, 1);
             //TODO: magic...
+
             document.ksArcBy3Points(-(shelfLengthDivided + hookWidth * multiplyAmount),
-                offsetDistance + hookLength, -(shelfLengthDivided + hookWidth * 1.15),
-                offsetDistance + hookLength * 1.35, -(shelfLengthDivided + hookWidth),
+                offsetDistance + hookLength, -(shelfLengthDivided + hookWidth * multiplyPoint2xAmount),
+                offsetDistance + hookLength * multiplyPoint2yAmount, -(shelfLengthDivided + hookWidth),
                 offsetDistance + hookLength, 1);
 
             document.ksLineSeg(
                 -(shelfLengthDivided + hookWidth * multiplyAmount),
                 offsetDistance + hookLength,
-                -(shelfLengthDivided + hookWidth * multiplyAmount + 5),
+                -(shelfLengthDivided + hookWidth * multiplyAmount + addAmount),
                 offsetDistance + hookLength, 1);
 
             document.ksArcBy3Points(-shelfLengthDivided,
                 offsetDistance + hookLength, -(shelfLengthDivided + hookWidth),
                 offsetDistance + hookLength * multiplyAmount, 
-                -(shelfLengthDivided + hookWidth * multiplyAmount + 5),
+                -(shelfLengthDivided + hookWidth * multiplyAmount + addAmount),
                 offsetDistance + hookLength, 1);
         }
+
+        /// <summary>
+        /// Создает ksEntity смешненной от плоскости.
+        /// </summary>
+        /// <param name="offsetDistance"></param>
+        /// <param name="tempEntity"></param>
+        /// <returns></returns>
+        private ksEntity CreateEntity(double offsetDistance, ksEntity tempEntity)
+        {
+            ksEntity mainEntity =
+                (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
+            PlaneOffsetParamsSet(offsetDistance, tempEntity, mainEntity);
+            mainEntity.Create();
+            return mainEntity;
+        }
+
+        /// <summary>
+        /// Создает ksSketchDefinition смешенной от плоскости.
+        /// </summary>
+        /// <param name="sketch"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        private ksSketchDefinition CreateSketchDef(ksEntity sketch,ksEntity entity)
+        {
+            ksSketchDefinition sketchDef = sketch.GetDefinition();
+            sketchDef.SetPlane(entity);
+            sketch.Create();
+            return sketchDef;
+        }
+
     }
 }
