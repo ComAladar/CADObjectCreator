@@ -33,6 +33,7 @@ namespace CADObjectCreatorUI
         /// </summary>
         private readonly Dictionary<TextBox, Action<Parameters, string>> _textBoxDictionary;
 
+        //TODO: XML комментарии?
         private readonly Dictionary<TextBox, ParametersName> _textBoxDictionaryValues;
 
 
@@ -47,7 +48,6 @@ namespace CADObjectCreatorUI
         /// </summary>
         private void TextBoxFillUp()
         {
-            //TODO: Duplication
             foreach (var parametersName in _textBoxDictionaryValues)
             {
                 parametersName.Key.Text = 
@@ -182,7 +182,6 @@ namespace CADObjectCreatorUI
         /// <param name="e"></param>
         private void SetMinButton_Click(object sender, EventArgs e)
         {
-            //TODO: Duplication
             foreach (var parametersName in _textBoxDictionaryValues)
             {
                 parametersName.Key.Text = _parameters[parametersName.Value].Min.ToString();
@@ -198,7 +197,6 @@ namespace CADObjectCreatorUI
         /// <param name="e"></param>
         private void SetMaxButton_Click(object sender, EventArgs e)
         {
-            //TODO: Duplication
             foreach (var parametersName in _textBoxDictionaryValues)
             {
                 parametersName.Key.Text = _parameters[parametersName.Value].Max.ToString();

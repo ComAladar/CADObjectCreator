@@ -13,7 +13,6 @@ namespace CADObjectCreatorUnitTests
     {
         private Parameter<double> CreateParameter()
         {
-             //TODO: RSDN
             var parameter = new Parameter<double>("Parameter", 100, 250, 160);
             return parameter;
         }

@@ -78,10 +78,9 @@ namespace CADObjectCreatorBuilder
                 (ksEntity) _ksPart.NewEntity((short) Obj3dType.o3d_sketch);
             BuildLegsModel(sketch1,currentEntity, buildParameters);
 
-            //TODO: Дубли
             double offsetDistance= -buildParameters[ParametersName.ShelfLegsHeight].Value;
             ksEntity newEntity = CreateEntity(offsetDistance, currentEntity);
-            //TODO: RSDN
+
             ksEntity sketch2 = 
                 (ksEntity)_ksPart.NewEntity((short)Obj3dType.o3d_sketch); 
             BuildShelfModel(sketch2,newEntity, buildParameters);
@@ -182,7 +181,6 @@ namespace CADObjectCreatorBuilder
         /// <param name="document"></param>
         private void BuildLegsSketch(Parameters buildParameters, ksSketchDefinition sketchDef)
         {
-            //TODO: Duplication
             ksDocument2D document = (ksDocument2D)sketchDef.BeginEdit();
             var shelfLengthDivided =
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount - Parameters.RadiusMargin;
@@ -211,10 +209,9 @@ namespace CADObjectCreatorBuilder
         /// Метод построения эскиза креплений этажерки.
         /// </summary>
         /// <param name="buildParameters"></param>
-        /// <param name="document"></param>
+        /// <param name="sketchDef"></param>
         private void BuildBindingSketch(Parameters buildParameters, ksSketchDefinition sketchDef)
         {
-            //TODO: Duplication
             ksDocument2D document = (ksDocument2D)sketchDef.BeginEdit();
             var shelfLengthDivided =
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount - Parameters.RadiusMargin;
@@ -411,7 +408,6 @@ namespace CADObjectCreatorBuilder
         private void BuildLegsModel(ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
             ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
-            //TODO:
             BuildLegsSketch(buildParameters, sketchDef);
             sketchDef.EndEdit();
             ExctrusionSketchNormal(buildParameters[ParametersName.ShelfLegsHeight].Value, sketch);
@@ -505,7 +501,7 @@ namespace CADObjectCreatorBuilder
         private void BuildAllFillets(Parameters buildParameters)
         {
             const int subAmount = 2;
-            //TODO: Duplication
+
             var shelfLengthDivided = 
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount - Parameters.RadiusMargin;
             var shelfWidthDivided = 
@@ -607,7 +603,6 @@ namespace CADObjectCreatorBuilder
         /// </summary>
         /// <param name="buildParameters"></param>
         /// <param name="document"></param>
-        /// <param name="sketchDef"></param>
         private void BuildHookSketchLeft(Parameters buildParameters, ksDocument2D document)
         {
             double offsetDistance = buildParameters[ParametersName.ShelfLegsHeight].Value
@@ -638,7 +633,6 @@ namespace CADObjectCreatorBuilder
                 shelfLengthDivided + hookWidth,
                 -offsetDistance - hookLength, 1);
 
-            //TODO: magic...
             document.ksArcBy3Points(shelfLengthDivided + hookWidth * multiplyAmount,
                 -offsetDistance + hookLength, shelfLengthDivided + hookWidth * multiplyPoint2xAmount,
                 -offsetDistance + hookLength * multiplyPoint2yAmount, shelfLengthDivided + hookWidth,
@@ -662,7 +656,6 @@ namespace CADObjectCreatorBuilder
         /// </summary>
         /// <param name="buildParameters"></param>
         /// <param name="document"></param>
-        /// <param name="sketchDef"></param>
         private void BuildHookSketchRight(Parameters buildParameters, ksDocument2D document)
         {
             double offsetDistance = -(buildParameters[ParametersName.ShelfLegsHeight].Value
@@ -693,7 +686,6 @@ namespace CADObjectCreatorBuilder
                 offsetDistance - hookLength,
                 -(shelfLengthDivided + hookWidth),
                 offsetDistance - hookLength, 1);
-            //TODO: magic...
 
             document.ksArcBy3Points(-(shelfLengthDivided + hookWidth * multiplyAmount),
                 offsetDistance + hookLength, -(shelfLengthDivided + hookWidth * multiplyPoint2xAmount),
