@@ -55,9 +55,9 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод запускающий компас и строящий деталь.
         /// </summary>
-        /// <param name="buildParameters"></param>
-        /// <param name="leftHook"></param>
-        /// <param name="rightHook"></param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
+        /// <param name="leftHook">Параметр построения левого крючка.</param>
+        /// <param name="rightHook">Параметр построения правого крючка.</param>
         public void BuildObject(Parameters buildParameters,bool leftHook,bool rightHook)
         {
             Kompas3DConnector kompasConnector = new Kompas3DConnector(ref _kompas, out _ksPart);
@@ -67,9 +67,9 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод построения этажерки.
         /// </summary>
-        /// <param name="buildParameters"></param>
-        /// <param name="leftHook"></param>
-        /// <param name="rightHook"></param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
+        /// <param name="leftHook">Параметр построения левого крючка.</param>
+        /// <param name="rightHook">Параметр построения правого крючка.</param>
         private void BuildMainBody(Parameters buildParameters,bool leftHook, bool rightHook)
         {
             ksEntity currentEntity = 
@@ -143,8 +143,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод построения эскиза прямоугольника по координатам.
         /// </summary>
-        /// <param name="buildParameters"></param>
-        /// <param name="sketchDef"></param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
+        /// <param name="sketchDef">Интерфейс параметров эскиза.</param>
         private void BuildRectangleSketch(Parameters buildParameters,ksSketchDefinition sketchDef)
         {
             ksDocument2D document = (ksDocument2D)sketchDef.BeginEdit();
@@ -177,8 +177,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод построения эскиза ножек этажерки.
         /// </summary>
-        /// <param name="buildParameters"></param>
-        /// <param name="document"></param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
+        /// <param name="sketchDef">Интерфейс параметров эскиза.</param>
         private void BuildLegsSketch(Parameters buildParameters, ksSketchDefinition sketchDef)
         {
             ksDocument2D document = (ksDocument2D)sketchDef.BeginEdit();
@@ -208,8 +208,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод построения эскиза креплений этажерки.
         /// </summary>
-        /// <param name="buildParameters"></param>
-        /// <param name="sketchDef"></param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
+        /// <param name="sketchDef">Интерфейс параметров эскиза.</param>
         private void BuildBindingSketch(Parameters buildParameters, ksSketchDefinition sketchDef)
         {
             ksDocument2D document = (ksDocument2D)sketchDef.BeginEdit();
@@ -239,8 +239,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод построения эскиза отделения для обуви этажерки.
         /// </summary>
-        /// <param name="buildParameters"></param>
-        /// <param name="document"></param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
+        /// <param name="sketchDef">Интерфейс параметров эскиза.</param>
         private void BuildInnerParts(Parameters buildParameters, ksSketchDefinition sketchDef)
         {
             ksDocument2D document = (ksDocument2D)sketchDef.BeginEdit();
@@ -274,8 +274,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод осуществляющий выдавливание эскиза.
         /// </summary>
-        /// <param name="depth"></param>
-        /// <param name="sketch"></param>
+        /// <param name="depth">Показатель глубины выдавливания.</param>
+        /// <param name="sketch">Интерфейс элемента модели- эскиза.</param>
         private void ExctrusionSketchNormal(double depth, ksEntity sketch)
         {
             ksEntity entityExtr = 
@@ -294,8 +294,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод осуществляющий выдавливание эскиза в обратную сторону.
         /// </summary>
-        /// <param name="depth"></param>
-        /// <param name="sketch"></param>
+        /// <param name="depth">Показатель глубины выдавливания.</param>
+        /// <param name="sketch">Интерфейс элемента модели- эскиза.</param>
         private void ExctrusionSketchReverse(double depth, ksEntity sketch)
         {
             ksEntity entityExtr = 
@@ -314,8 +314,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод осуществляющий выдавливание эскиза вырезанием.
         /// </summary>
-        /// <param name="depth"></param>
-        /// <param name="sketch"></param>
+        /// <param name="depth">Показатель глубины выдавливания.</param>
+        /// <param name="sketch">Интерфейс элемента модели- эскиза.</param>
         private void CutSketch(double depth, ksEntity sketch)
         {
             ksEntity entityExtr = 
@@ -334,7 +334,7 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод для создании уклона отделения для обуви этажерки.
         /// </summary>
-        /// <param name="height"></param>
+        /// <param name="height">Параметр высоты уклона.</param>
         private void CreateIncline(double height)
         {
             ksEntity entInc = 
@@ -361,9 +361,9 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Методя для выполнения скруглений сторон этажерки.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
+        /// <param name="x">X координата для создания скругления.</param>
+        /// <param name="y">Y координата для создания скругления.</param>
+        /// <param name="z">Z координата для создания скругления.</param>
         private void CreateFillet(double x,double y,double z)
         {
             ksEntity entityFillet = 
@@ -385,9 +385,9 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод возвращающий расположение смещенной плоскости при выполнении выдавливания вырезанием.
         /// </summary>
-        /// <param name="offset"></param>
-        /// <param name="tempEntity"></param>
-        /// <param name="entityDef"></param>
+        /// <param name="offset">Величина сдвига плоскости.</param>
+        /// <param name="tempEntity">Интерфейс элемента модели для сдвига.</param>
+        /// <param name="mainEntity">Основной интерфейс элемента модели для построения.</param>
         /// <returns></returns>
         private ksPlaneOffsetDefinition PlaneOffsetParamsSet(double offset, ksEntity tempEntity,
             ksEntity mainEntity)
@@ -402,9 +402,9 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод создающий эскиз ножек и выдавливающий его.
         /// </summary>
-        /// <param name="sketch"></param>
-        /// <param name="entity"></param>
-        /// <param name="buildParameters"></param>
+        /// <param name="sketch">Интерфейс элемента модели- эскиза.</param>
+        /// <param name="entity">Интерфейс элемента модели для построения на плоскости.</param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
         private void BuildLegsModel(ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
             ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
@@ -416,9 +416,9 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод создающий эскиз полки и выдавлиющий его.
         /// </summary>
-        /// <param name="sketch"></param>
-        /// <param name="entity"></param>
-        /// <param name="buildParameters"></param>
+        /// <param name="sketch">Интерфейс элемента модели- эскиза.</param>
+        /// <param name="entity">Интерфейс элемента модели для построения на плоскости.</param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
         private void BuildShelfModel(ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
             ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
@@ -431,9 +431,9 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод создающий эскиз места для обуви и выдавливающий его.
         /// </summary>
-        /// <param name="sketch"></param>
-        /// <param name="entity"></param>
-        /// <param name="buildParameters"></param>
+        /// <param name="sketch">Интерфейс элемента модели- эскиза.</param>
+        /// <param name="entity">Интерфейс элемента модели для построения на плоскости.</param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
         private void BuildInnerPartsModel(ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
             ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
@@ -446,9 +446,9 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод создающий эскиз креплений и выдавливающий его в обратном направлении.
         /// </summary>
-        /// <param name="sketch"></param>
-        /// <param name="entity"></param>
-        /// <param name="buildParameters"></param>
+        /// <param name="sketch">Интерфейс элемента модели- эскиза.</param>
+        /// <param name="entity">Интерфейс элемента модели для построения на плоскости.</param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
         private void BuildBindingModelReverse(ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
             ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
@@ -461,9 +461,9 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод создающий эскиз верхних креплений и выдавливающий.
         /// </summary>
-        /// <param name="sketch"></param>
-        /// <param name="entity"></param>
-        /// <param name="buildParameters"></param>
+        /// <param name="sketch">Интерфейс элемента модели- эскиза.</param>
+        /// <param name="entity">Интерфейс элемента модели для построения на плоскости.</param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
         private void BuildBindingModelNormal( ksEntity sketch, ksEntity entity, Parameters buildParameters)
         {
             ksSketchDefinition sketchDef = CreateSketchDef(sketch, entity);
@@ -476,7 +476,7 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод создающий уклоны у всех мест для хранения обуви.
         /// </summary>
-        /// <param name="buildParameters"></param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
         private void BuildAllInclines(Parameters buildParameters)
         {
             var shelfLegsHeight = 
@@ -497,7 +497,7 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод создающий скругления на всей этажерке.
         /// </summary>
-        /// <param name="buildParameters"></param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
         private void BuildAllFillets(Parameters buildParameters)
         {
             const int subAmount = 2;
@@ -512,6 +512,9 @@ namespace CADObjectCreatorBuilder
                 buildParameters[ParametersName.ShelfLegsHeight].Value;
             var shelfHeight = 
                 buildParameters[ParametersName.ShelfHeight].Value;
+            const int addAmount = 10;
+            var zCoordinate = legsHeight + shelfHeight + bindingHeight +
+                              shelfHeight + bindingHeight + shelfHeight + addAmount;
 
             CreateFillet(shelfLengthDivided, shelfWidthDivided, 0);
             CreateFillet(-shelfLengthDivided, shelfWidthDivided, 0);
@@ -519,27 +522,22 @@ namespace CADObjectCreatorBuilder
             CreateFillet(-shelfLengthDivided,
                 -shelfWidthDivided, 0);
 
-            const int addAmount = 10;
             CreateFillet(
                 (shelfLengthDivided),
                 (shelfWidthDivided),
-                legsHeight + shelfHeight + bindingHeight +
-                shelfHeight + bindingHeight + shelfHeight + addAmount);
+                zCoordinate);
             CreateFillet(
                 -((shelfLengthDivided)),
                 ((shelfWidthDivided)),
-                legsHeight + shelfHeight + bindingHeight +
-                shelfHeight + bindingHeight + shelfHeight + addAmount);
+                zCoordinate);
             CreateFillet(
                 ((shelfLengthDivided)),
                 -((shelfWidthDivided)),
-                legsHeight + shelfHeight + bindingHeight +
-                shelfHeight + bindingHeight + shelfHeight + addAmount);
+                zCoordinate);
             CreateFillet(
                 -((shelfLengthDivided)),
                 -((shelfWidthDivided)),
-                legsHeight + shelfHeight + bindingHeight +
-                shelfHeight + bindingHeight + shelfHeight + addAmount);
+                zCoordinate);
 
              shelfLengthDivided =
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount;
@@ -574,11 +572,11 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Выполняет построение крючка.
         /// </summary>
-        /// <param name="sketch"></param>
-        /// <param name="entity"></param>
-        /// <param name="buildParameters"></param>
-        /// <param name="leftHook"></param>
-        /// <param name="rightHook"></param>
+        /// <param name="sketch">Интерфейс элемента модели- эскиза.</param>
+        /// <param name="entity">Интерфейс элемента модели для построения на плоскости.</param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
+        /// <param name="leftHook">Параметр построения левого крючка.</param>
+        /// <param name="rightHook">Параметр построения правого крючка.</param>
         private void BuildHookModel(ksEntity sketch,ksEntity entity,
             Parameters buildParameters,bool leftHook,bool rightHook)
         {
@@ -601,8 +599,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Выполняет построение левого эскиза крючка.
         /// </summary>
-        /// <param name="buildParameters"></param>
-        /// <param name="document"></param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
+        /// <param name="document">Интерфейс событий документа - чертежа.</param>
         private void BuildHookSketchLeft(Parameters buildParameters, ksDocument2D document)
         {
             double offsetDistance = buildParameters[ParametersName.ShelfLegsHeight].Value
@@ -615,47 +613,50 @@ namespace CADObjectCreatorBuilder
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount;
             double hookLength = buildParameters[ParametersName.ShelfHeight].Value / DivideAmount;
             const double hookWidth = 5;
-            document.ksLineSeg(
-                shelfLengthDivided,
-                -offsetDistance + hookLength,
-                shelfLengthDivided,
-                -offsetDistance - hookLength, 1);
-
-            document.ksLineSeg(
-                shelfLengthDivided + hookWidth,
-                -offsetDistance + hookLength,
-                shelfLengthDivided + hookWidth,
-                -offsetDistance - hookLength, 1);
+            var offsetPositive = -offsetDistance + hookLength;
+            var offsetNegative = -offsetDistance - hookLength;
 
             document.ksLineSeg(
                 shelfLengthDivided,
-                -offsetDistance - hookLength,
+                offsetPositive,
+                shelfLengthDivided,
+                offsetNegative, 1);
+
+            document.ksLineSeg(
                 shelfLengthDivided + hookWidth,
-                -offsetDistance - hookLength, 1);
+                offsetPositive,
+                shelfLengthDivided + hookWidth,
+                offsetNegative, 1);
+
+            document.ksLineSeg(
+                shelfLengthDivided,
+                offsetNegative,
+                shelfLengthDivided + hookWidth,
+                offsetNegative, 1);
 
             document.ksArcBy3Points(shelfLengthDivided + hookWidth * multiplyAmount,
-                -offsetDistance + hookLength, shelfLengthDivided + hookWidth * multiplyPoint2xAmount,
+                offsetPositive, shelfLengthDivided + hookWidth * multiplyPoint2xAmount,
                 -offsetDistance + hookLength * multiplyPoint2yAmount, shelfLengthDivided + hookWidth,
-                -offsetDistance + hookLength, 1);
+                offsetPositive, 1);
   
             document.ksLineSeg(
                 shelfLengthDivided + hookWidth * multiplyAmount,
-                -offsetDistance + hookLength,
+                offsetPositive,
                 shelfLengthDivided + hookWidth * multiplyAmount + addAmount,
-                -offsetDistance + hookLength, 1);
+                offsetPositive, 1);
 
             document.ksArcBy3Points(shelfLengthDivided,
-                -offsetDistance + hookLength, shelfLengthDivided + hookWidth,
+                offsetPositive, shelfLengthDivided + hookWidth,
                 -offsetDistance + hookLength * multiplyAmount, 
                 shelfLengthDivided + hookWidth * multiplyAmount + addAmount,
-                -offsetDistance + hookLength, 1);
+                offsetPositive, 1);
         }
 
         /// <summary>
         /// Выполняет построение правого эскиза крючка.
         /// </summary>
-        /// <param name="buildParameters"></param>
-        /// <param name="document"></param>
+        /// <param name="buildParameters">Параметры построения этажерки.</param>
+        /// <param name="document">Интерфейс событий документа- чертежа.</param>
         private void BuildHookSketchRight(Parameters buildParameters, ksDocument2D document)
         {
             double offsetDistance = -(buildParameters[ParametersName.ShelfLegsHeight].Value
@@ -668,48 +669,50 @@ namespace CADObjectCreatorBuilder
                 buildParameters[ParametersName.ShelfLength].Value / DivideAmount;
             double hookLength = buildParameters[ParametersName.ShelfHeight].Value / DivideAmount;
             const double hookWidth = 5;
+            var offsetPositive = offsetDistance + hookLength;
+            var offsetNegative = offsetDistance - hookLength;
 
             document.ksLineSeg(
                 -shelfLengthDivided,
-                offsetDistance + hookLength,
+                offsetPositive,
                 -shelfLengthDivided,
-                offsetDistance - hookLength, 1);
+                offsetNegative, 1);
 
             document.ksLineSeg(
                 -(shelfLengthDivided + hookWidth),
-                offsetDistance + hookLength,
+                offsetPositive,
                 -(shelfLengthDivided + hookWidth),
-                offsetDistance - hookLength, 1);
+                offsetNegative, 1);
 
             document.ksLineSeg(
                 -shelfLengthDivided,
-                offsetDistance - hookLength,
+                offsetNegative,
                 -(shelfLengthDivided + hookWidth),
-                offsetDistance - hookLength, 1);
+                offsetNegative, 1);
 
             document.ksArcBy3Points(-(shelfLengthDivided + hookWidth * multiplyAmount),
-                offsetDistance + hookLength, -(shelfLengthDivided + hookWidth * multiplyPoint2xAmount),
+                offsetPositive, -(shelfLengthDivided + hookWidth * multiplyPoint2xAmount),
                 offsetDistance + hookLength * multiplyPoint2yAmount, -(shelfLengthDivided + hookWidth),
-                offsetDistance + hookLength, 1);
+                offsetPositive, 1);
 
             document.ksLineSeg(
                 -(shelfLengthDivided + hookWidth * multiplyAmount),
-                offsetDistance + hookLength,
+                offsetPositive,
                 -(shelfLengthDivided + hookWidth * multiplyAmount + addAmount),
-                offsetDistance + hookLength, 1);
+                offsetPositive, 1);
 
             document.ksArcBy3Points(-shelfLengthDivided,
-                offsetDistance + hookLength, -(shelfLengthDivided + hookWidth),
+                offsetPositive, -(shelfLengthDivided + hookWidth),
                 offsetDistance + hookLength * multiplyAmount, 
                 -(shelfLengthDivided + hookWidth * multiplyAmount + addAmount),
-                offsetDistance + hookLength, 1);
+                offsetPositive, 1);
         }
 
         /// <summary>
         /// Создает ksEntity смешненной от плоскости.
         /// </summary>
-        /// <param name="offsetDistance"></param>
-        /// <param name="tempEntity"></param>
+        /// <param name="offsetDistance">Расстояние сдвига плоскости.</param>
+        /// <param name="tempEntity">Интерфейс плоскости от которой происходит сдвиг.</param>
         /// <returns></returns>
         private ksEntity CreateEntity(double offsetDistance, ksEntity tempEntity)
         {
@@ -723,8 +726,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Создает ksSketchDefinition смешенной от плоскости.
         /// </summary>
-        /// <param name="sketch"></param>
-        /// <param name="entity"></param>
+        /// <param name="sketch">Интерфейс элемента модели- эскиза.</param>
+        /// <param name="entity">Интерфейс элемента модели для построения на плоскости.</param>
         /// <returns></returns>
         private ksSketchDefinition CreateSketchDef(ksEntity sketch,ksEntity entity)
         {

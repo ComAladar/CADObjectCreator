@@ -131,10 +131,10 @@ namespace CADObjectCreatorParameters
         /// <summary>
         /// Конструктор класса Parameter с заданием названия, минимума, максимума и значения параметра.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <param name="value"></param>
+        /// <param name="name">Наименование параметра.</param>
+        /// <param name="min">Минимальное значения параметра.</param>
+        /// <param name="max">Максимальное значение параметра.</param>
+        /// <param name="value">Значение параметра.</param>
         public Parameter(string name, T min, T max, T value)
         {
             _min = min;

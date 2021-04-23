@@ -102,7 +102,7 @@ namespace CADObjectCreatorParameters
         /// <summary>
         /// Возвращает и задает значение универсального параметра.
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">Наименование параметры из перечисления.</param>
         /// <returns></returns>
         public Parameter<double> this[ParametersName index]
         {

@@ -34,6 +34,9 @@ namespace CADObjectCreatorUI
         private readonly Dictionary<TextBox, Action<Parameters, string>> _textBoxDictionary;
 
         //TODO: XML комментарии?
+        /// <summary>
+        /// Поле хранит словарь для заполнения значений построения в поля TextBox.
+        /// </summary>
         private readonly Dictionary<TextBox, ParametersName> _textBoxDictionaryValues;
 
 
@@ -101,7 +104,7 @@ namespace CADObjectCreatorUI
         /// <summary>
         /// Метод проверяет правильность ввода данных типа double.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Проверяемые данные.</param>
         /// <returns></returns>
         private string DoubleTypeCheck(string value)
         {
@@ -178,8 +181,8 @@ namespace CADObjectCreatorUI
         /// <summary>
         /// Метод задающий минимальный значения этажерки.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Ссылка на обьект вызвавший событие.</param>
+        /// <param name="e">Обьект относящийся к обрабатываемому событию.</param>
         private void SetMinButton_Click(object sender, EventArgs e)
         {
             foreach (var parametersName in _textBoxDictionaryValues)
@@ -193,8 +196,8 @@ namespace CADObjectCreatorUI
         /// <summary>
         /// Метод задающий максимальный значения этажерки.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Ссылка на обьект вызвавший событие.</param>
+        /// <param name="e">Обьект относящийся к обрабатываемому событию.</param>
         private void SetMaxButton_Click(object sender, EventArgs e)
         {
             foreach (var parametersName in _textBoxDictionaryValues)
@@ -208,8 +211,8 @@ namespace CADObjectCreatorUI
         /// <summary>
         /// Обработчик нажатия кнопки. Отвечает за построение детали.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Ссылка на обьект вызвавший событие.</param>
+        /// <param name="e">Обьект относящийся к обрабатываемому событию.</param>
         private void ConstructButton_Click(object sender, EventArgs e)
         {
             VerifyParameters();
@@ -222,8 +225,8 @@ namespace CADObjectCreatorUI
         /// <summary>
         /// Метод проверки правильности ввода значений в TextBox.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Ссылка на обьект вызвавший событие.</param>
+        /// <param name="e">Обьект относящийся к обрабатываемому событию.</param>
         private void TextBoxLeaveVerify(object sender, EventArgs e)
         {
             var currentTextBox = (TextBox) sender;
@@ -285,8 +288,8 @@ namespace CADObjectCreatorUI
         /// <summary>
         /// Обработчик возможных символов в TextBox.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Ссылка на обьект вызвавший событие.</param>
+        /// <param name="e">Обьект относящийся к обрабатываемому событию.</param>
         private void TextBoxOnlyDouble(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;

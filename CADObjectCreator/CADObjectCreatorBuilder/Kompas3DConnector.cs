@@ -19,13 +19,13 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод запускает и возвращает активный экземпляр Компас3D.
         /// </summary>
-        /// <param name="kompas"></param>
+        /// <param name="kompas">Интерфейс API Компас.</param>
         /// <returns></returns>
         private KompasObject StartKompas(KompasObject kompas)
         {
             if (kompas == null)
             {
-                Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
+                Type t = Type.GetTypeFromProgID("KOMPAS.Application.5"); 
                 kompas = (KompasObject)Activator.CreateInstance(t);
             }
             kompas.Visible = true;
@@ -37,7 +37,7 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод создает и возвращает новый документ детали в Компас3D.
         /// </summary>
-        /// <param name="kompas"></param>
+        /// <param name="kompas">Интерфейс API Компас.</param>
         /// <exception cref="NullReferenceException">
         /// Нет возможности создать документ без экземпляра Компас3D.</exception>
         /// <returns></returns>
@@ -66,8 +66,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Метод запускает Компас3D и создает документ детали. Возвращает ссылку на деталь в документе.
         /// </summary>
-        /// <param name="kompas"></param>
-        /// <param name="ksPart"></param>
+        /// <param name="kompas">Интерфейс API Компас.</param>
+        /// <param name="ksPart">Интерфейс детали.</param>
         private void StartUp(ref KompasObject kompas, out ksPart ksPart)
         {
             kompas = StartKompas(kompas);
@@ -78,8 +78,8 @@ namespace CADObjectCreatorBuilder
         /// <summary>
         /// Конструктор класса Kompas3DConnector.
         /// </summary>
-        /// <param name="tempKompas"></param>
-        /// <param name="tempPart"></param>
+        /// <param name="tempKompas">Интерфейс API Компас.</param>
+        /// <param name="tempPart">Интерфейс детали.</param>
         public Kompas3DConnector(ref KompasObject tempKompas, out ksPart tempPart)
         {
             try
