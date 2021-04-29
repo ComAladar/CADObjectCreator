@@ -29,13 +29,11 @@ namespace CADObjectCreatorUI
         /// </summary>
         private readonly Dictionary<TextBox, Action<Parameters, string>> _textBoxDictionary;
 
-        //TODO: XML комментарии?
         /// <summary>
         /// Поле хранит словарь для заполнения значений построения в поля TextBox.
         /// </summary>
         private readonly Dictionary<TextBox, ParametersName> _textBoxDictionaryValues;
-
-
+        
         /// <summary>
         /// Поле хранит удачность верификации параметров.
         /// </summary>
