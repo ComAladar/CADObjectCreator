@@ -297,43 +297,6 @@ namespace CADObjectCreatorUI
             }
         }
 
-        private void stressTest()
-        {
-            var writer = new StreamWriter($@"{AppDomain.CurrentDomain.BaseDirectory}\StressTest.txt");
-            var count = 200;
-            VerifyParameters();
-            _kompasBuilder.BuildObject(_parameters, checkBoxLeft.Checked, checkBoxRight.Checked);
-            var processes = Process.GetProcessesByName("kStudy");
-            var process = processes.First();
-
-            var ramCounter = new PerformanceCounter("Process", "Working Set - Private", process.ProcessName);
-            var cpuCounter = new PerformanceCounter("Process", "% Processor Time", process.ProcessName);
-            Stopwatch stopwatch = new Stopwatch();
-
-            for (int i = 0; i < count; i++)
-            {
-                stopwatch.Start();
-
-                cpuCounter.NextValue();
-                VerifyParameters();
-                _kompasBuilder.BuildObject(_parameters, true, true);
-
-
-                stopwatch.Stop();
-
-                var ram = ramCounter.NextValue();
-                var cpu = cpuCounter.NextValue();
-
-                writer.Write($"{i}. ");
-                writer.Write($"RAM: {Math.Round(ram / 1024 / 1024)} MB");
-                writer.Write($"\tCPU: {cpu} %");
-                writer.Write($"\ttime: {stopwatch.Elapsed}");
-                writer.Write(Environment.NewLine);
-                writer.Flush();
-
-                stopwatch.Reset();
-            }
-        }
 
     }
 }
