@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using NUnit.Framework;
 using CADObjectCreatorParameters;
-using NUnit.Framework.Constraints;
-using NUnit.Framework.Internal;
 
 namespace CADObjectCreatorUnitTests
 {

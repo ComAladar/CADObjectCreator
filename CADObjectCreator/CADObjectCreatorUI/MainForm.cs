@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CADObjectCreatorParameters;
 using CADObjectCreatorBuilder;
+
 
 namespace CADObjectCreatorUI
 {
@@ -90,6 +86,7 @@ namespace CADObjectCreatorUI
         /// </summary>
         private void TextBoxSetColor()
         {
+
             var groupBoxes = Controls.OfType<GroupBox>();
             for (int i = 0; i < groupBoxes.Count(); i++)
             {
@@ -297,6 +294,44 @@ namespace CADObjectCreatorUI
                 && number != 8 && number != ',') // цифры и клавиша BackSpace
             {
                 e.Handled = true;
+            }
+        }
+
+        private void stressTest()
+        {
+            var writer = new StreamWriter($@"{AppDomain.CurrentDomain.BaseDirectory}\StressTest.txt");
+            var count = 200;
+            VerifyParameters();
+            _kompasBuilder.BuildObject(_parameters, checkBoxLeft.Checked, checkBoxRight.Checked);
+            var processes = Process.GetProcessesByName("kStudy");
+            var process = processes.First();
+
+            var ramCounter = new PerformanceCounter("Process", "Working Set - Private", process.ProcessName);
+            var cpuCounter = new PerformanceCounter("Process", "% Processor Time", process.ProcessName);
+            Stopwatch stopwatch = new Stopwatch();
+
+            for (int i = 0; i < count; i++)
+            {
+                stopwatch.Start();
+
+                cpuCounter.NextValue();
+                VerifyParameters();
+                _kompasBuilder.BuildObject(_parameters, true, true);
+
+
+                stopwatch.Stop();
+
+                var ram = ramCounter.NextValue();
+                var cpu = cpuCounter.NextValue();
+
+                writer.Write($"{i}. ");
+                writer.Write($"RAM: {Math.Round(ram / 1024 / 1024)} MB");
+                writer.Write($"\tCPU: {cpu} %");
+                writer.Write($"\ttime: {stopwatch.Elapsed}");
+                writer.Write(Environment.NewLine);
+                writer.Flush();
+
+                stopwatch.Reset();
             }
         }
 

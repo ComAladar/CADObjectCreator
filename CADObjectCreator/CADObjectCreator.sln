@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADObjectCreatorBuilder", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADObjectCreatorUnitTests", "CADObjectCreatorUnitTests\CADObjectCreatorUnitTests.csproj", "{790AE148-6E7F-4A57-8DAD-1F7367534E98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADObjectCreatorStressTest", "CADObjectCreatorStressTest\CADObjectCreatorStressTest.csproj", "{F21C8947-5EC1-46D2-ACC2-526297574458}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{790AE148-6E7F-4A57-8DAD-1F7367534E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{790AE148-6E7F-4A57-8DAD-1F7367534E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{790AE148-6E7F-4A57-8DAD-1F7367534E98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F21C8947-5EC1-46D2-ACC2-526297574458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F21C8947-5EC1-46D2-ACC2-526297574458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F21C8947-5EC1-46D2-ACC2-526297574458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F21C8947-5EC1-46D2-ACC2-526297574458}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
